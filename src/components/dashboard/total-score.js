@@ -1,24 +1,12 @@
 import { Avatar, Box, Card, CardContent, Grid, Typography } from "@mui/material";
-import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
-import MoneyIcon from "@mui/icons-material/Money";
+import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
+import PeopleIcon from "@mui/icons-material/PeopleOutlined";
 import { useState, useEffect } from "react";
-
-const LastGame = (props) => {
-  const [data, setData] = useState(null);
+const TotalScore = (props) => {
   const [isLoading, setLoading] = useState(true);
   const [jollyData, setJollyData] = useState(null);
   useEffect(() => {
     setLoading(true);
-    try {
-    fetch("https://skittles-server.herokuapp.com/latest-game")
-      .then((res) => res.json())
-      .then((data) => {
-        setData(data);
-        setLoading(false);
-      });
-    } catch (error) {
-      console.log(error);
-    }
     fetch("https://skittles-server.herokuapp.com/jolly-crew ")
       .then((res) => res.json())
       .then((data) => {
@@ -27,55 +15,54 @@ const LastGame = (props) => {
       });
   }, []);
   if (isLoading) return <p>Loading...</p>;
-  if (!data) return <Card><p>No profile data</p></Card>;
   if (!jollyData) return <Card><p>No profile data</p></Card>;
   return (
-    <Card sx={{ height: "100%" }} {...props}>
+    <Card {...props}>
       <CardContent>
         <Grid container spacing={3} sx={{ justifyContent: "space-between" }}>
           <Grid item>
             <Typography color="textSecondary" gutterBottom variant="overline">
-              LAST GAME
+              TOTAL SCORE
             </Typography>
-            <Typography color="textPrimary" variant="h5">
-              {data.ourScore} vs {data.opponentScore}
+            <Typography color="textPrimary" variant="h4">
+              1,1k
             </Typography>
           </Grid>
           <Grid item>
             <Avatar
               sx={{
-                backgroundColor: "error.main",
+                backgroundColor: "success.main",
                 height: 56,
                 width: 56,
               }}
             >
-              <MoneyIcon />
+              <PeopleIcon />
             </Avatar>
           </Grid>
         </Grid>
         <Box
           sx={{
-            pt: 2,
-            display: "flex",
             alignItems: "center",
+            display: "flex",
+            pt: 2,
           }}
         >
-          <ArrowDownwardIcon color="error" />
+          <ArrowUpwardIcon color="success" />
           <Typography
-            color="error"
+            variant="body2"
             sx={{
               mr: 1,
             }}
-            variant="body2"
           >
-            {jollyData.seasons["2223"].games["Game7"].ourScore - jollyData.seasons["2223"].games["Game6"].ourScore}
+            11%
           </Typography>
           <Typography color="textSecondary" variant="caption">
-            Since last game
+            Since last year
           </Typography>
         </Box>
       </CardContent>
     </Card>
   );
 };
-export default LastGame;
+
+export default TotalScore;
