@@ -22,7 +22,7 @@ export const TotalCustomers = (props) => (
             color="textPrimary"
             variant="h4"
           >
-            1,6k
+            1,1k
           </Typography>
         </Grid>
         <Grid item>
@@ -51,13 +51,13 @@ export const TotalCustomers = (props) => (
             mr: 1
           }}
         >
-          16%
+          11%
         </Typography>
         <Typography
           color="textSecondary"
           variant="caption"
         >
-          Since last month
+          Since last year
         </Typography>
       </Box>
     </CardContent>
