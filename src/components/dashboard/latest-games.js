@@ -24,7 +24,7 @@ const LatestGames = (props) => {
   const [isLoading, setLoading] = useState(true);
   useEffect(() => {
     setLoading(true);
-    fetch("https://skittles-server.herokuapp.com/get-last-games/amount/5")
+    fetch("https://skittles-server.herokuapp.com/get-last-games/amount/7")
       .then((res) => res.json())
       .then((data) => {
         setLastGames(data);
