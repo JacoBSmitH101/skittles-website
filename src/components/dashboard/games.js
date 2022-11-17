@@ -9,7 +9,7 @@ const Games = (props) => {
   const [jollyData, setJollyData] = useState(null);
   useEffect(() => {
     setLoading(true);
-    fetch("https://skittles-server.herokuapp.com/jolly-crew")
+    fetch("https://skittles-server.herokuapp.com/get-last-games/amount/5")
       .then((res) => res.json())
       .then((data) => {
         setJollyData(data);
@@ -25,16 +25,13 @@ const Games = (props) => {
     );
   //loop through every game in jollyData.seasons["2223"].games
   //find the highest score
-  let latestSeason =
-    jollyData.seasons[Object.keys(jollyData.seasons)[Object.keys(jollyData.seasons).length - 1]];
-
   let ourScores = [];
   let opponentScores = [];
-  Object.values(latestSeason.games).forEach((game) => {
-    if (game.ourScore) {
-      ourScores.push(game.ourScore);
-      opponentScores.push(game.opponentScore);
-    }
+  let labels = [];
+  jollyData.games.forEach(game => {
+    ourScores.push(game.ourScore);
+    opponentScores.push(game.opponentScore);
+    labels.push("Game " + game.gameNumber);
   });
   const data = {
     datasets: [
@@ -49,7 +46,7 @@ const Games = (props) => {
         maxBarThickness: 10,
       },
       {
-        backgroundColor: "#EEEEEE",
+        backgroundColor: "#BBBBBB",
         barPercentage: 0.5,
         barThickness: 12,
         borderRadius: 4,
@@ -59,7 +56,7 @@ const Games = (props) => {
         maxBarThickness: 10,
       },
     ],
-    labels: ["1 Aug", "2 Aug", "3 Aug", "4 Aug", "5 Aug", "6 Aug", "7 aug"],
+    labels: labels,
   };
 
   const options = {
@@ -121,6 +118,7 @@ const Games = (props) => {
               labelId="demo-simple-select-label"
               id="demo-simple-select"
               label="Time Period"
+              defaultValue={30}
             >
               <MenuItem value={10}>Season</MenuItem>
               <MenuItem value={20}>All Time</MenuItem>
