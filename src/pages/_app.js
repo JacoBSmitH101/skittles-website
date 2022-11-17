@@ -16,7 +16,7 @@ const clientSideEmotionCache = createEmotionCache();
 
 const App = (props) => {
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
-
+  
   const getLayout = Component.getLayout ?? ((page) => page);
 
   return (

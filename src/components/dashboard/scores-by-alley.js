@@ -4,13 +4,15 @@ import LaptopMacIcon from "@mui/icons-material/LaptopMac";
 import PhoneIcon from "@mui/icons-material/Phone";
 import TabletIcon from "@mui/icons-material/Tablet";
 import { useState, useEffect } from "react";
+import HomeIcon from '@mui/icons-material/Home';
+import LocalAirportIcon from '@mui/icons-material/LocalAirport';
 export const ScoresByAlley = (props) => {
   const theme = useTheme();
   const [isLoading, setLoading] = useState(true);
   const [jollyData, setJollyData] = useState(null);
   useEffect(() => {
     setLoading(true);
-    fetch("https://skittles-server.herokuapp.com/jolly-crew")
+    fetch("https://skittles-server.herokuapp.com/all-season-games")
       .then((res) => res.json())
       .then((data) => {
         setJollyData(data);
@@ -26,18 +28,13 @@ export const ScoresByAlley = (props) => {
     );
   //loop through every game in jollyData.seasons["2223"].games
   //find the highest score
-  let latestSeason =
-    jollyData.seasons[Object.keys(jollyData.seasons)[Object.keys(jollyData.seasons).length - 1]];
-  console.log("TEST TEST" + jollyData.seasons[Object.keys(jollyData.seasons)[Object.keys(jollyData.seasons).length - 1]]);
   let homeScores = 0;
   let awayScores = 0;
-  Object.values(latestSeason.games).forEach((game) => {
-    if (game.isHome || game.isAway) {
-      if (game.isHome) {
-        homeScores += game.ourScore;
-      } else {
-        awayScores += game.ourScore;
-      }
+  jollyData.games.forEach((game) => {
+    if (game.isHome) {
+      homeScores += game.ourScore;
+    } else {
+      awayScores += game.ourScore;
     }
   });
   const data = {
@@ -78,14 +75,14 @@ export const ScoresByAlley = (props) => {
   const devices = [
     {
       title: "Home",
-      value: Math.floor((homeScores / (homeScores + awayScores)) * 100 * 100) / 100,
-      icon: LaptopMacIcon,
+      value: Math.floor((homeScores / (homeScores + awayScores)) * 100),
+      icon: HomeIcon,
       color: "#3F51B5",
     },
     {
       title: "Away",
-      value: Math.floor((awayScores / (homeScores + awayScores)) * 100 * 10) / 10,
-      icon: TabletIcon,
+      value: Math.ceil((awayScores / (homeScores + awayScores)) * 100),
+      icon: LocalAirportIcon,
       color: "#E53935",
     },
   ];
