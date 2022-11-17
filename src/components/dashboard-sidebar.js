@@ -48,9 +48,9 @@ const items = [
     title: "Login",
   },
   {
-    href: "/register",
+    href: "/newgame",
     icon: <UserAddIcon fontSize="small" />,
-    title: "Register",
+    title: "Add New Game",
   },
   {
     href: "/404",
