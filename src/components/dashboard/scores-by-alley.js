@@ -92,7 +92,7 @@ export const ScoresByAlley = (props) => {
 
   return (
     <Card {...props}>
-      <CardHeader title="Traffic by Device" />
+      <CardHeader title="Scores by alley" />
       <Divider />
       <CardContent>
         <Box

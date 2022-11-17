@@ -1,5 +1,5 @@
 import { Bar } from "react-chartjs-2";
-import { Box, Button, Card, CardContent, CardHeader, Divider, useTheme } from "@mui/material";
+import { Box, Button, Card, CardContent, CardHeader, Divider, FormControl, InputLabel, MenuItem, Select, useTheme } from "@mui/material";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 import { useState, useEffect } from "react";
@@ -115,9 +115,18 @@ const Games = (props) => {
     <Card {...props}>
       <CardHeader
         action={
-          <Button endIcon={<ArrowDropDownIcon fontSize="small" />} size="small">
-            All season
-          </Button>
+          <FormControl fullWidth>
+            <InputLabel id="demo-simple-select-label">Period</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              label="Time Period"
+            >
+              <MenuItem value={10}>Season</MenuItem>
+              <MenuItem value={20}>All Time</MenuItem>
+              <MenuItem value={30}>Last 5</MenuItem>
+            </Select>
+          </FormControl>
         }
         title="Latest Games"
       />
