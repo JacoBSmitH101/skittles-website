@@ -6,7 +6,7 @@ const SeasonProgress = (props) => {
   const [jollyData, setJollyData] = useState(null);
   useEffect(() => {
     setLoading(true);
-    fetch("https://skittles-server.herokuapp.com/jolly-crew ")
+    fetch("https://skittles-server.herokuapp.com/latest-game ")
       .then((res) => res.json())
       .then((data) => {
         setJollyData(data);
@@ -15,6 +15,7 @@ const SeasonProgress = (props) => {
   }, []);
   if (isLoading) return <p>Loading...</p>;
   if (!jollyData) return <Card><p>No profile data</p></Card>;
+  console.log(jollyData);
   return (
     <Card sx={{ height: "100%" }} {...props}>
       <CardContent>

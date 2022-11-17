@@ -1,5 +1,7 @@
 import { Avatar, Card, CardContent, Grid, Typography } from "@mui/material";
-import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
+import AddRoundedIcon from "@mui/icons-material/AddRounded";
+import AddCircleOutlineRoundedIcon from "@mui/icons-material/AddCircleOutlineRounded";
+import RemoveRoundedIcon from '@mui/icons-material/RemoveRounded';
 import { useState, useEffect } from "react";
 const SeasonDifference = (props) => {
   const [isLoading, setLoading] = useState(true);
@@ -14,7 +16,12 @@ const SeasonDifference = (props) => {
       });
   }, []);
   if (isLoading) return <p>Loading...</p>;
-  if (!jollyData) return <Card><p>No profile data</p></Card>;
+  if (!jollyData)
+    return (
+      <Card>
+        <p>No profile data</p>
+      </Card>
+    );
   return (
     <Card {...props}>
       <CardContent>
@@ -35,7 +42,7 @@ const SeasonDifference = (props) => {
                 width: 56,
               }}
             >
-              <AttachMoneyIcon />
+              {jollyData.seasons["2223"].games["Game7"].seasonDifference > 0 ? <AddRoundedIcon /> : <RemoveRoundedIcon />}
             </Avatar>
           </Grid>
         </Grid>
