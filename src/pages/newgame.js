@@ -31,10 +31,10 @@ const AddNewGame = () => {
       >
         <Container maxWidth={false}>
           <Grid container spacing={3}>
-            <Grid item spacing={3} lg={12} sm={6} xl={3} xs={12}>
+            <Grid item spacing={3} lg={12} sm={12} xl={3} xs={12}>
               <GameInfo />
             </Grid>
-            <Grid item spacing={3} lg={12} sm={6} xl={3} xs={12}>
+            <Grid item spacing={3} lg={12} sm={12} xl={3} xs={12}>
               <PlayerList />
             </Grid>
             {/* <Grid item spacing={3} lg={12} sm={6} xl={3} xs={12}>

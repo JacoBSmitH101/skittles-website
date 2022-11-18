@@ -30,48 +30,39 @@ function isNumeric(str) {
 function PlayerList() {
   const [playerList, setPlayerList] = React.useState({ players: {} });
   const [playerInput, setPlayerInput] = React.useState("");
-  const checkforTotal = (name) => { //FIXME: doesnt work as expected
-    let isAllFilled = true;
+  let fileInput = React.createRef();
+  const checkforTotal = (event) => {
+    //FIXME: doesnt work as expected
+    let data = playerList
+    let player = playerList.players[event.target.name.slice(0, -2)];
+    let totalScore = 0;
     for (let i = 1; i <= 6; i++) {
-      if (
-        playerList.players[event.target.name.slice(0, -2)][`h${i}`] === "" ||
-        playerList.players[event.target.name.slice(0, -2)][`h${i}`] === null
-      ) {
-        isAllFilled = false;
-        break;
+      if (data.players[event.target.name.slice(0, -2)][`h${i}`] != "") {
+        totalScore += parseInt(data.players[event.target.name.slice(0, -2)][`h${i}`]);
       }
     }
-    if (isAllFilled) {
-      let total = 0;
-      for (let i = 1; i <= 6; i++) {
-        total += parseInt(playerList.players[event.target.name.slice(0, -2)][`h${i}`]);
-      }
-      setPlayerList({
-        players: {
-          ...playerList.players,
-          [event.target.name.slice(0, -2)]: {
-            ...playerList.players[event.target.name.slice(0, -2)],
-            total: total,
-          },
-        },
-      });
-    }
+    data.players[event.target.name.slice(0, -2)].total = totalScore;
+    console.log(playerList)
+
+      let totalName = "total"
+    setPlayerList(
+      data
+    );
   };
   const updateScore = (event) => {
     if (isNumeric(event.target.name.slice(-1))) {
-      setPlayerList({
-        players: {
-          ...playerList.players,
-          [event.target.name.slice(0, -2)]: {
-            ...playerList.players[event.target.name.slice(0, -2)],
-            [event.target.name.slice(-2)]: event.target.value,
+      setPlayerList(
+        {
+          players: {
+            ...playerList.players,
+            [event.target.name.slice(0, -2)]: {
+              ...playerList.players[event.target.name.slice(0, -2)],
+              [event.target.name.slice(-2)]: event.target.value,
+            },
           },
         },
-      });
-      //check if h1 - h6 are filled
-      //if yes, set total to addition
-
-      checkforTotal(event);
+        checkforTotal(event)
+      );
     } else if (event.target.name.slice(-5) === "TOTAL") {
       setPlayerList({
         players: {
@@ -103,14 +94,14 @@ function PlayerList() {
           ...playerList.players,
           [playerInput]: {
             name: playerInput,
-            h1: null,
-            h2: null,
-            h3: null,
-            h4: null,
-            h5: null,
-            h6: null,
-            total: null,
-            opponent: null,
+            h1: "",
+            h2: "",
+            h3: "",
+            h4: "",
+            h5: "",
+            h6: "",
+            total: 0,
+            opponent: "",
           },
         },
       });
@@ -128,12 +119,12 @@ function PlayerList() {
         <Grid marginBottom="5%" container spacing={3} alignItems="center">
           <Grid item>
             <form onSubmit={handleNewName}>
-            <TextField
-              label="Name"
-              value={playerInput}
-              onChange={handleNameInput}
-              onSubmit={handleNewName}
-            ></TextField>
+              <TextField
+                label="Name"
+                value={playerInput}
+                onChange={handleNameInput}
+                onSubmit={handleNewName}
+              ></TextField>
             </form>
           </Grid>
           <Grid item>
@@ -224,14 +215,7 @@ function PlayerList() {
                     />
                   </TableCell>
                   <TableCell align="right">
-                    <TextField
-                      id="standard-basic"
-                      label=""
-                      variant="standard"
-                      value={player.total}
-                      name={player.name + "TOTAL"}
-                      onChange={updateScore}
-                    />
+                    {parseInt(player.h1) + parseInt(player.h2) + parseInt(player.h3) + parseInt(player.h4) + parseInt(player.h5) + parseInt(player.h6)}
                   </TableCell>
                   <TableCell align="right">
                     <TextField
