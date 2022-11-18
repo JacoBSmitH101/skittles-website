@@ -46,7 +46,7 @@ const LatestGames = (props) => {
     lastGames.games = lastGames.games.reverse();
   return (
     <Card {...props}>
-      <CardHeader title="Latest Orders" />
+      <CardHeader title="Latest Games" />
       <PerfectScrollbar>
         <Box sx={{ minWidth: 800 }}>
           <Table>
