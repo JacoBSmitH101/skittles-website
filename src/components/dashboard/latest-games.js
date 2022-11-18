@@ -53,6 +53,7 @@ const LatestGames = (props) => {
             <TableHead>
               <TableRow>
                 <TableCell>Game Number</TableCell>
+                <TableCell>Home/Away</TableCell>
                 <TableCell>Opponent</TableCell>
                 <TableCell>Score</TableCell>
                 <TableCell>Result</TableCell>
@@ -62,6 +63,7 @@ const LatestGames = (props) => {
               {lastGames.games.map((game) => (
                 <TableRow key={game.ourScore}>
                   <TableCell>{game.gameNumber}</TableCell>
+                  <TableCell><SeverityPill color={(game.isHome && "secondary") || "primary"}>{game.isHome ? "Home" : "Away"}</SeverityPill></TableCell>
                   <TableCell>{game.opponent}</TableCell>
                   <TableCell>
                     {game.ourScore} vs {game.opponentScore}
