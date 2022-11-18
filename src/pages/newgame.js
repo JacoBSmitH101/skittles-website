@@ -15,6 +15,7 @@ import { ScoresByAlley } from "../components/dashboard/scores-by-alley";
 import { DashboardLayout } from "../components/dashboard-layout";
 import GameInfo from "../components/newgame/game-info";
 import PlayerList from "../components/newgame/player-list";
+import ListMenu from "../components/newgame/list-menu";
 const AddNewGame = () => {
   return (
     <>
@@ -36,6 +37,9 @@ const AddNewGame = () => {
             <Grid item spacing={3} lg={12} sm={6} xl={3} xs={12}>
               <PlayerList />
             </Grid>
+            {/* <Grid item spacing={3} lg={12} sm={6} xl={3} xs={12}>
+              <ListMenu />
+            </Grid> */}
           </Grid>
         </Container>
       </Box>

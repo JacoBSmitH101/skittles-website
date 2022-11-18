@@ -12,7 +12,7 @@ import {
   Select,
   useTheme,
 } from "@mui/material";
-import { auth } from '../../lib/auth';
+import { auth } from "../../lib/auth";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 import { useState, useEffect } from "react";
@@ -36,6 +36,11 @@ const Games = (props) => {
       .then((res) => res.json())
       .then((data) => {
         setLastSeasonData(data);
+      });
+    fetch("https://skittles-server.herokuapp.com/jolly-crew")
+      .then((res) => res.json())
+      .then((data) => {
+        setJollyData(data);
         setLoading(false);
       });
   }, []);
@@ -77,6 +82,22 @@ const Games = (props) => {
   const graphSelectionHandler = (event) => {
     setGraphSelected(event.target.value);
   };
+  let allGamesScores = [];
+  let allGamesOpponentScores = [];
+  let allGamesLabels = [];
+  Object.keys(jollyData.seasons).forEach((season) => {
+    Object.keys(jollyData.seasons[season].games).forEach((game) => {
+      if (jollyData.seasons[season].games[game].didPlay) {
+        console.log("DIDPLATY")
+        allGamesScores.push(jollyData.seasons[season].games[game].ourScore);
+        allGamesOpponentScores.push(jollyData.seasons[season].games[game].opponentScore);
+        allGamesLabels.push(
+          "Game " + jollyData.seasons[season].games[game].gameNumber + "  " + season
+        );
+      }
+    });
+  });
+
   const lastFiveGamesGraphData = {
     datasets: [
       {
@@ -112,7 +133,7 @@ const Games = (props) => {
         categoryPercentage: 0.5,
         data: seasonScores,
         label: "Jolly Crew",
-        maxBarThickness: 10,
+        maxBarThickness: 15,
       },
       {
         backgroundColor: "#BBBBBB",
@@ -122,19 +143,40 @@ const Games = (props) => {
         categoryPercentage: 0.5,
         data: seasonOpponentScores,
         label: "Opponents",
-        maxBarThickness: 10,
+        maxBarThickness: 15,
       },
     ],
     labels: seasonLabels,
   };
+  const allGamesGraphData = {
+    datasets: [
+      {
+        backgroundColor: "#3F51B5",
+        borderColor: "#3F51B5",
+        barPercentage: 0.5,
+        barThickness: 12,
+        borderRadius: 4,
+        categoryPercentage: 0.5,
+        data: allGamesScores,
+        label: "Jolly Crew",
+        maxBarThickness: 10,
+      },
+    ],
+    labels: allGamesLabels,
+  };
 
   const options = {
-    animation: false,
+    animation: true,
     cornerRadius: 20,
     layout: { padding: 0 },
     legend: { display: false },
     maintainAspectRatio: false,
     responsive: true,
+    elements: {
+      point: {
+        radius: 0,
+      },
+    },
     xAxes: [
       {
         ticks: {
@@ -208,6 +250,7 @@ const Games = (props) => {
         >
           {graphSelected == 2 ? <Bar data={lastFiveGamesGraphData} options={options} /> : <></>}
           {graphSelected == 1 ? <Bar data={seasonGraphData} options={options} /> : <></>}
+          {graphSelected == 0 ? <Line data={allGamesGraphData} options={options} /> : <></>}
         </Box>
       </CardContent>
       <Divider />
@@ -218,7 +261,12 @@ const Games = (props) => {
           p: 2,
         }}
       >
-        <Button color="primary" endIcon={<ArrowRightIcon fontSize="small" />} size="small"  onClick={async () => {}}>
+        <Button
+          color="primary"
+          endIcon={<ArrowRightIcon fontSize="small" />}
+          size="small"
+          onClick={async () => {}}
+        >
           Overview
         </Button>
       </Box>

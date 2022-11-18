@@ -19,6 +19,7 @@ import {
 } from "@mui/material";
 import React from "react";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
+import ListMenu from "./list-menu";
 function isNumeric(str) {
   if (typeof str != "string") return false; // we only process strings!
   return (
@@ -94,6 +95,7 @@ function PlayerList() {
     }
   };
   const handleNewName = (event) => {
+    event.preventDefault();
     if (playerInput !== "") {
       setPlayerList({
         ...playerList,
@@ -125,12 +127,14 @@ function PlayerList() {
       <CardContent>
         <Grid marginBottom="5%" container spacing={3} alignItems="center">
           <Grid item>
+            <form onSubmit={handleNewName}>
             <TextField
               label="Name"
               value={playerInput}
               onChange={handleNameInput}
               onSubmit={handleNewName}
             ></TextField>
+            </form>
           </Grid>
           <Grid item>
             <Button variant="contained" onClick={handleNewName}>
@@ -245,6 +249,7 @@ function PlayerList() {
           </Table>
         </TableContainer>
       </CardContent>
+      <ListMenu />
     </Card>
   );
 }
