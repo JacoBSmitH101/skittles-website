@@ -16,7 +16,19 @@ import { DashboardLayout } from "../components/dashboard-layout";
 import GameInfo from "../components/newgame/game-info";
 import PlayerList from "../components/newgame/player-list";
 import ListMenu from "../components/newgame/list-menu";
+import React from "react";
 const AddNewGame = () => {
+  const [newGameInfo, setNewGameInfo] = React.useState({
+    date: "",
+    alley: "",
+    opponent: "",
+    players: {},
+    ourTotal: 0,
+    opponentTotal: 0,
+    isHome: false,
+    isAway: false,
+    difference: 0,
+  });
   return (
     <>
       <Head>
@@ -32,9 +44,9 @@ const AddNewGame = () => {
         <Container maxWidth={false}>
           <Grid container spacing={3}>
             <Grid item spacing={3} lg={12} sm={12} xl={3} xs={12}>
-              <GameInfo />
+              <GameInfo setNewGameInfo={setNewGameInfo} newGameInfo={newGameInfo} />
             </Grid>
-            <Grid item spacing={3} lg={12} sm={12} xl={3} xs={12}>
+            <Grid setNewGameInfo={setNewGameInfo} newGameInfo={newGameInfo} item spacing={3} lg={12} sm={12} xl={3} xs={12}>
               <PlayerList />
             </Grid>
             {/* <Grid item spacing={3} lg={12} sm={6} xl={3} xs={12}>

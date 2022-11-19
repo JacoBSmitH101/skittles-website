@@ -22,6 +22,10 @@ const orders = [];
 const LatestGames = (props) => {
   const [lastGames, setLastGames] = useState(null);
   const [isLoading, setLoading] = useState(true);
+  const [selectedGame, setSelectedGame] = useState(null);
+  const gameSelectedHandler = (game) => {
+    console.log(game);
+  };
   useEffect(() => {
     setLoading(true);
     fetch("https://skittles-server.herokuapp.com/get-last-games/amount/7")
@@ -43,7 +47,7 @@ const LatestGames = (props) => {
         <p>No profile data</p>
       </Card>
     );
-    lastGames.games = lastGames.games.reverse();
+  lastGames.games = lastGames.games.reverse();
   return (
     <Card {...props}>
       <CardHeader title="Latest Games" />
@@ -61,9 +65,13 @@ const LatestGames = (props) => {
             </TableHead>
             <TableBody>
               {lastGames.games.map((game) => (
-                <TableRow key={game.ourScore}>
+                <TableRow key={game.ourScore} onClick={() => gameSelectedHandler(game)} hover>
                   <TableCell>{game.gameNumber}</TableCell>
-                  <TableCell><SeverityPill color={(game.isHome && "secondary") || "primary"}>{game.isHome ? "Home" : "Away"}</SeverityPill></TableCell>
+                  <TableCell>
+                    <SeverityPill color={(game.isHome && "secondary") || "primary"}>
+                      {game.isHome ? "Home" : "Away"}
+                    </SeverityPill>
+                  </TableCell>
                   <TableCell>{game.opponent}</TableCell>
                   <TableCell>
                     {game.ourScore} vs {game.opponentScore}

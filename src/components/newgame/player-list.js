@@ -33,7 +33,7 @@ function PlayerList() {
   let fileInput = React.createRef();
   const checkforTotal = (event) => {
     //FIXME: doesnt work as expected
-    let data = playerList
+    let data = playerList;
     let player = playerList.players[event.target.name.slice(0, -2)];
     let totalScore = 0;
     for (let i = 1; i <= 6; i++) {
@@ -42,12 +42,10 @@ function PlayerList() {
       }
     }
     data.players[event.target.name.slice(0, -2)].total = totalScore;
-    console.log(playerList)
+    console.log(playerList);
 
-      let totalName = "total"
-    setPlayerList(
-      data
-    );
+    let totalName = "total";
+    setPlayerList(data);
   };
   const updateScore = (event) => {
     if (isNumeric(event.target.name.slice(-1))) {
@@ -215,7 +213,17 @@ function PlayerList() {
                     />
                   </TableCell>
                   <TableCell align="right">
-                    {parseInt(player.h1) + parseInt(player.h2) + parseInt(player.h3) + parseInt(player.h4) + parseInt(player.h5) + parseInt(player.h6)}
+                    {parseInt(player.h1) +
+                      parseInt(player.h2) +
+                      parseInt(player.h3) +
+                      parseInt(player.h4) +
+                      parseInt(player.h5) +
+                      parseInt(player.h6) ? parseInt(player.h1) +
+                      parseInt(player.h2) +
+                      parseInt(player.h3) +
+                      parseInt(player.h4) +
+                      parseInt(player.h5) +
+                      parseInt(player.h6) : ""}
                   </TableCell>
                   <TableCell align="right">
                     <TextField
