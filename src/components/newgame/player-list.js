@@ -27,7 +27,7 @@ function isNumeric(str) {
     !isNaN(parseFloat(str))
   ); // ...and ensure strings of whitespace fail
 }
-function PlayerList() {
+function PlayerList({ newGameInfo, setNewGameInfo }) {
   const [playerList, setPlayerList] = React.useState({ players: {} });
   const [playerInput, setPlayerInput] = React.useState("");
   let fileInput = React.createRef();
@@ -46,7 +46,18 @@ function PlayerList() {
 
     let totalName = "total";
     setPlayerList(data);
+    
   };
+  React.useEffect(() => {
+    let newInfo = { ...newGameInfo };
+    newInfo.ourTotal = 0
+    //loop through all players and add their totals to the newGameInfo.total
+    for (let player in playerList.players) {
+      newInfo.ourTotal += playerList.players[player].total;
+      newInfo.players = playerList.players;
+    }
+    setNewGameInfo(newInfo);
+  }, [playerList]);
   const updateScore = (event) => {
     if (isNumeric(event.target.name.slice(-1))) {
       setPlayerList(
@@ -214,16 +225,18 @@ function PlayerList() {
                   </TableCell>
                   <TableCell align="right">
                     {parseInt(player.h1) +
-                      parseInt(player.h2) +
-                      parseInt(player.h3) +
-                      parseInt(player.h4) +
-                      parseInt(player.h5) +
-                      parseInt(player.h6) ? parseInt(player.h1) +
-                      parseInt(player.h2) +
-                      parseInt(player.h3) +
-                      parseInt(player.h4) +
-                      parseInt(player.h5) +
-                      parseInt(player.h6) : ""}
+                    parseInt(player.h2) +
+                    parseInt(player.h3) +
+                    parseInt(player.h4) +
+                    parseInt(player.h5) +
+                    parseInt(player.h6)
+                      ? parseInt(player.h1) +
+                        parseInt(player.h2) +
+                        parseInt(player.h3) +
+                        parseInt(player.h4) +
+                        parseInt(player.h5) +
+                        parseInt(player.h6)
+                      : ""}
                   </TableCell>
                   <TableCell align="right">
                     <TextField
@@ -241,7 +254,7 @@ function PlayerList() {
           </Table>
         </TableContainer>
       </CardContent>
-      <ListMenu />
+      <ListMenu setNewGameInfo={setNewGameInfo} newGameInfo={newGameInfo}/>
     </Card>
   );
 }

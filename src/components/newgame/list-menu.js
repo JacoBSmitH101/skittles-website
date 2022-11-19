@@ -2,7 +2,7 @@ import { Button, Card, CardContent, CardHeader, Divider, Grid, TextField } from 
 import React from "react";
 import { SeverityPill } from "../severity-pill";
 
-function ListMenu() {
+function ListMenu( {newGameInfo, setNewGameInfo} ) {
   const [jollyCrewTotal, setJollyCrewTotal] = React.useState(0);
   const [opponentTotal, setOpponentTotal] = React.useState(0);
 
@@ -13,6 +13,9 @@ function ListMenu() {
       setOpponentTotal(event.target.value);
     }
   };
+  const testFunc = () => {
+    console.log(newGameInfo);
+  }
   //TODO: link to newgame.js
   return (
     <Card>
@@ -49,7 +52,7 @@ function ListMenu() {
         </Grid>
       </CardContent>
       <Divider />
-      <Button>Calculate Totals</Button>
+      <Button onClick={testFunc}>Calculate Totals</Button>
     </Card>
   );
 }

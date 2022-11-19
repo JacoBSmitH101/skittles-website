@@ -46,8 +46,8 @@ const AddNewGame = () => {
             <Grid item spacing={3} lg={12} sm={12} xl={3} xs={12}>
               <GameInfo setNewGameInfo={setNewGameInfo} newGameInfo={newGameInfo} />
             </Grid>
-            <Grid setNewGameInfo={setNewGameInfo} newGameInfo={newGameInfo} item spacing={3} lg={12} sm={12} xl={3} xs={12}>
-              <PlayerList />
+            <Grid item spacing={3} lg={12} sm={12} xl={3} xs={12}>
+              <PlayerList setNewGameInfo={setNewGameInfo} newGameInfo={newGameInfo} />
             </Grid>
             {/* <Grid item spacing={3} lg={12} sm={6} xl={3} xs={12}>
               <ListMenu />
