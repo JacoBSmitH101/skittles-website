@@ -33,7 +33,7 @@ function PlayerList({ newGameInfo, setNewGameInfo }) {
   let fileInput = React.createRef();
   const checkforTotal = (event) => {
     //FIXME: doesnt work as expected
-    let data = playerList;
+    let data = { ...playerList };
     let player = playerList.players[event.target.name.slice(0, -2)];
     let totalScore = 0;
     for (let i = 1; i <= 6; i++) {
@@ -42,23 +42,36 @@ function PlayerList({ newGameInfo, setNewGameInfo }) {
       }
     }
     data.players[event.target.name.slice(0, -2)].total = totalScore;
-    console.log(playerList);
-
-    let totalName = "total";
+    console.log(data);
     setPlayerList(data);
-    
   };
   React.useEffect(() => {
     let newInfo = { ...newGameInfo };
-    newInfo.ourTotal = 0
+    newInfo.ourTotal = 0;
     //loop through all players and add their totals to the newGameInfo.total
+    newInfo.players = playerList.players;
+    newInfo.opponentTotal = 0;
     for (let player in playerList.players) {
-      newInfo.ourTotal += playerList.players[player].total;
-      newInfo.players = playerList.players;
+      newInfo.ourTotal +=
+        parseInt(newInfo.players[player].h1) +
+        parseInt(newInfo.players[player].h2) +
+        parseInt(newInfo.players[player].h3) +
+        parseInt(newInfo.players[player].h4) +
+        parseInt(newInfo.players[player].h5) +
+        parseInt(newInfo.players[player].h6);
+      newInfo.players[player].total =
+        parseInt(newInfo.players[player].h1) +
+        parseInt(newInfo.players[player].h2) +
+        parseInt(newInfo.players[player].h3) +
+        parseInt(newInfo.players[player].h4) +
+        parseInt(newInfo.players[player].h5) +
+        parseInt(newInfo.players[player].h6);
+      newInfo.opponentTotal += parseInt(newInfo.players[player].opponent);
     }
     setNewGameInfo(newInfo);
   }, [playerList]);
   const updateScore = (event) => {
+    event.preventDefault();
     if (isNumeric(event.target.name.slice(-1))) {
       setPlayerList(
         {
@@ -159,7 +172,10 @@ function PlayerList({ newGameInfo, setNewGameInfo }) {
             </TableHead>
             <TableBody>
               {Object.values(playerList.players).map((player) => (
-                <TableRow key={player} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
+                <TableRow
+                  key={player.name}
+                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                >
                   <TableCell component="th" scope="row">
                     {player.name}
                   </TableCell>
@@ -254,7 +270,7 @@ function PlayerList({ newGameInfo, setNewGameInfo }) {
           </Table>
         </TableContainer>
       </CardContent>
-      <ListMenu setNewGameInfo={setNewGameInfo} newGameInfo={newGameInfo}/>
+      <ListMenu setNewGameInfo={setNewGameInfo} newGameInfo={newGameInfo} />
     </Card>
   );
 }

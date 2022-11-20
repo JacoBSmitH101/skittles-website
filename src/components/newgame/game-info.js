@@ -15,14 +15,14 @@ import {
 } from "@mui/material";
 import React from "react";
 import InfoIcon from "@mui/icons-material/Info";
-function GameInfo({newGameInfo, setNewGameInfo}) {
+function GameInfo({ newGameInfo, setNewGameInfo }) {
   const [gameInfo, setGameInfo] = React.useState({
     opponentTeamName: "",
     alley: "",
     where: "",
   });
   const updateGameInfo = () => {
-    let game = {...newGameInfo};
+    let game = { ...newGameInfo };
     game.opponent = gameInfo.opponentTeamName;
     game.alley = gameInfo.alley;
     game.isHome = gameInfo.where == "home" ? true : false;
@@ -30,11 +30,28 @@ function GameInfo({newGameInfo, setNewGameInfo}) {
     setNewGameInfo(game);
   };
   const handleGameInfoInput = (event) => {
-    setGameInfo({
-      ...gameInfo,
-      [event.target.name]: event.target.value,
-    }),
-      updateGameInfo();
+    if (event.target.name == "where") {
+      gameInfo.where = event.target.value;
+      if (event.target.value == "away") {
+        setNewGameInfo({
+          ...newGameInfo,
+          isAway: true,
+          isHome: false,
+        });
+      } else {
+        setNewGameInfo({
+          ...newGameInfo,
+          isAway: false,
+          isHome: true,
+        });
+      }
+    } else {
+      setGameInfo({
+        ...gameInfo,
+        [event.target.name]: event.target.value,
+      }),
+        updateGameInfo();
+    }
   };
   return (
     <Card>

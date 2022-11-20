@@ -16,10 +16,9 @@ import { DashboardLayout } from "../components/dashboard-layout";
 import GameInfo from "../components/newgame/game-info";
 import PlayerList from "../components/newgame/player-list";
 import ListMenu from "../components/newgame/list-menu";
-import React from "react";
+import React, { useEffect } from "react";
 const AddNewGame = () => {
   const [newGameInfo, setNewGameInfo] = React.useState({
-    date: "",
     alley: "",
     opponent: "",
     players: {},
@@ -28,6 +27,15 @@ const AddNewGame = () => {
     isHome: false,
     isAway: false,
     difference: 0,
+  });
+  useEffect(() => {
+    setNewGameInfo(
+      {
+        ...newGameInfo,
+        difference: newGameInfo.ourTotal - newGameInfo.opponentTotal,
+      },
+      [newGameInfo]
+    );
   });
   return (
     <>
