@@ -13,7 +13,7 @@ import React from "react";
 import { SeverityPill } from "../severity-pill";
 import ClearIcon from "@mui/icons-material/Clear";
 import DoneIcon from "@mui/icons-material/Done";
-function ListMenu({ newGameInfo, setNewGameInfo }) {
+function ListMenu({ newGameInfo, setNewGameInfo, submitGame }) {
   const [jollyCrewTotal, setJollyCrewTotal] = React.useState(0);
   const [opponentTotal, setOpponentTotal] = React.useState(0);
 
@@ -112,7 +112,7 @@ function ListMenu({ newGameInfo, setNewGameInfo }) {
         </Grid>
       </CardContent>
       <Divider />
-      <Button onClick={testFunc}>Calculate Totals</Button>
+      <Button onClick={submitGame} type="outlined">SUBMIT</Button>
     </Card>
   );
 }

@@ -4,7 +4,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import Head from "next/head";
-import { Box, Card, CardContent, Container, Grid } from "@mui/material";
+import { Box, Button, Card, CardContent, Container, Grid } from "@mui/material";
 import LastGame from "../components/dashboard/LastGame";
 import LatestGames from "../components/dashboard/latest-games";
 import Games from "../components/dashboard/games";
@@ -37,6 +37,17 @@ const AddNewGame = () => {
       [newGameInfo]
     );
   });
+  const submitNewGameInfo = () => {
+    fetch("https://skittles-server.herokuapp.com/input-next-game", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newGameInfo),
+    }).then((res) => {
+      console.log(res);
+    });
+  };
   return (
     <>
       <Head>
@@ -55,7 +66,7 @@ const AddNewGame = () => {
               <GameInfo setNewGameInfo={setNewGameInfo} newGameInfo={newGameInfo} />
             </Grid>
             <Grid item spacing={3} lg={12} sm={12} xl={3} xs={12}>
-              <PlayerList setNewGameInfo={setNewGameInfo} newGameInfo={newGameInfo} />
+              <PlayerList setNewGameInfo={setNewGameInfo} newGameInfo={newGameInfo} submitGame={submitNewGameInfo} />
             </Grid>
             {/* <Grid item spacing={3} lg={12} sm={6} xl={3} xs={12}>
               <ListMenu />

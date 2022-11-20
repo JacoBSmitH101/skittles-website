@@ -27,7 +27,7 @@ function isNumeric(str) {
     !isNaN(parseFloat(str))
   ); // ...and ensure strings of whitespace fail
 }
-function PlayerList({ newGameInfo, setNewGameInfo }) {
+function PlayerList({ newGameInfo, setNewGameInfo, submitGame }) {
   const [playerList, setPlayerList] = React.useState({ players: {} });
   const [playerInput, setPlayerInput] = React.useState("");
   let fileInput = React.createRef();
@@ -270,7 +270,7 @@ function PlayerList({ newGameInfo, setNewGameInfo }) {
           </Table>
         </TableContainer>
       </CardContent>
-      <ListMenu setNewGameInfo={setNewGameInfo} newGameInfo={newGameInfo} />
+      <ListMenu setNewGameInfo={setNewGameInfo} newGameInfo={newGameInfo} submitGame={submitGame} />
     </Card>
   );
 }
