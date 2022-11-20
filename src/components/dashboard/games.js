@@ -88,7 +88,6 @@ const Games = (props) => {
   Object.keys(jollyData.seasons).forEach((season) => {
     Object.keys(jollyData.seasons[season].games).forEach((game) => {
       if (jollyData.seasons[season].games[game].didPlay) {
-        console.log("DIDPLATY")
         allGamesScores.push(jollyData.seasons[season].games[game].ourScore);
         allGamesOpponentScores.push(jollyData.seasons[season].games[game].opponentScore);
         allGamesLabels.push(
