@@ -8,7 +8,7 @@ const SeasonDifference = (props) => {
   const [jollyData, setJollyData] = useState(null);
   useEffect(() => {
     setLoading(true);
-    fetch("https://skittles-server.herokuapp.com/jolly-crew ")
+    fetch("https://skittles-server.herokuapp.com/latest-game")
       .then((res) => res.json())
       .then((data) => {
         setJollyData(data);
@@ -31,7 +31,7 @@ const SeasonDifference = (props) => {
               SEASON DIFFERENCE
             </Typography>
             <Typography color="textPrimary" variant="h4">
-              {jollyData.seasons["2223"].games["Game7"].seasonDifference}
+              {jollyData.seasonDifference}
             </Typography>
           </Grid>
           <Grid item>
