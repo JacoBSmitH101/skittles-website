@@ -88,8 +88,8 @@ const LastGame = (props) => {
             }}
             variant="body2"
           >
-            {jollyData.seasons["2223"].games["Game7"].ourScore -
-              jollyData.seasons["2223"].games["Game6"].ourScore}
+            {/* {jollyData.seasons["2223"].games["Game7"].ourScore -
+              jollyData.seasons["2223"].games["Game6"].ourScore} */}
           </Typography>
           <Typography color="textSecondary" variant="caption">
             Since last game

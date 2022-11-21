@@ -42,7 +42,7 @@ const SeasonDifference = (props) => {
                 width: 56,
               }}
             >
-              {jollyData.seasons["2223"].games["Game7"].seasonDifference > 0 ? <AddRoundedIcon /> : <RemoveRoundedIcon />}
+              {jollyData.seasonDifference > 0 ? <AddRoundedIcon /> : <RemoveRoundedIcon />}
             </Avatar>
           </Grid>
         </Grid>

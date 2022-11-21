@@ -25,7 +25,7 @@ const SeasonProgress = (props) => {
               SEASON PROGRESS
             </Typography>
             <Typography color="textPrimary" variant="h4">
-              {Math.floor((7/28*100) * 100) / 100}%
+              {Math.floor((jollyData.gameNumber/28*100) * 100) / 100}%
             </Typography>
           </Grid>
           <Grid item>
