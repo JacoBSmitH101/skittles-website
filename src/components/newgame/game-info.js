@@ -46,11 +46,10 @@ function GameInfo({ newGameInfo, setNewGameInfo }) {
         });
       }
     } else {
-      setGameInfo({
-        ...gameInfo,
+      setNewGameInfo({
+        ...newGameInfo,
         [event.target.name]: event.target.value,
-      }),
-        updateGameInfo();
+      })
     }
   };
   return (
@@ -63,9 +62,9 @@ function GameInfo({ newGameInfo, setNewGameInfo }) {
             <TextField
               fullWidth
               label="Opponent team name"
-              name="opponentTeamName"
+              name="opponent"
               required
-              value={gameInfo.opponentTeamName}
+              value={newGameInfo.opponent}
               onChange={handleGameInfoInput}
               variant="outlined"
             />
@@ -77,7 +76,7 @@ function GameInfo({ newGameInfo, setNewGameInfo }) {
               name="alley"
               required
               variant="outlined"
-              value={gameInfo.alley}
+              value={newGameInfo.alley}
               onChange={handleGameInfoInput}
             />
           </Grid>

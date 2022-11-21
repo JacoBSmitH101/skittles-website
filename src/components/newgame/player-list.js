@@ -133,6 +133,11 @@ function PlayerList({ newGameInfo, setNewGameInfo, submitGame }) {
   const handleNameInput = (event) => {
     setPlayerInput(event.target.value);
   };
+  const removePlayer = (event) => {
+    let data = { ...playerList };
+    delete data.players[event.target.name];
+    setPlayerList(data);
+  };
   return (
     <Card>
       <CardHeader subheader="Enter Player names in order" title="Player List" />
@@ -178,6 +183,10 @@ function PlayerList({ newGameInfo, setNewGameInfo, submitGame }) {
                 >
                   <TableCell component="th" scope="row">
                     {player.name}
+                    {/*FIXME: add a remove button */}
+                    <Button name={player.name} onClick={removePlayer}>
+                      Remove
+                    </Button>
                   </TableCell>
                   <TableCell align="right">
                     <TextField
@@ -262,7 +271,7 @@ function PlayerList({ newGameInfo, setNewGameInfo, submitGame }) {
                       value={player.opponent}
                       name={player.name + "OPPONENT"}
                       onChange={updateScore}
-                    />
+                    ></TextField>
                   </TableCell>
                 </TableRow>
               ))}
