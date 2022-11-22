@@ -10,9 +10,10 @@ import {
 } from '@mui/material';
 import { Download as DownloadIcon } from '../../icons/download';
 import { Search as SearchIcon } from '../../icons/search';
+import FileUploadIcon from '@mui/icons-material/FileUpload';
 import { Upload as UploadIcon } from '../../icons/upload';
 
-export const ProductListToolbar = (props) => (
+export const GamesListToolbar = (props) => (
   <Box {...props}>
     <Box
       sx={{
@@ -27,26 +28,24 @@ export const ProductListToolbar = (props) => (
         sx={{ m: 1 }}
         variant="h4"
       >
-        Products
+        All Games
       </Typography>
       <Box sx={{ m: 1 }}>
+
         <Button
-          startIcon={(<UploadIcon fontSize="small" />)}
-          sx={{ mr: 1 }}
-        >
-          Import
-        </Button>
-        <Button
-          startIcon={(<DownloadIcon fontSize="small" />)}
+          startIcon={(<FileUploadIcon  />)}
           sx={{ mr: 1 }}
         >
           Export
         </Button>
+        {/*add a form that redirects to /newgame */}
+        
         <Button
           color="primary"
           variant="contained"
+          href="/newgame"
         >
-          Add products
+          Add Game
         </Button>
       </Box>
     </Box>
@@ -68,7 +67,7 @@ export const ProductListToolbar = (props) => (
                   </InputAdornment>
                 )
               }}
-              placeholder="Search product"
+              placeholder="Search games"
               variant="outlined"
             />
           </Box>

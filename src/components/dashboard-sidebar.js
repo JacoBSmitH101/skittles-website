@@ -28,7 +28,7 @@ const items = [
     title: "Players",
   },
   {
-    href: "/products",
+    href: "/games",
     icon: <ShoppingBagIcon fontSize="small" />,
     title: "Games",
   },
