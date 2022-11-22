@@ -27,8 +27,10 @@ const GraphSection = ({ gameData }) => {
     5: { amount: 0, total: 0 },
     6: { amount: 0, total: 0 },
   };
+  console.log(gameData)
 
   Object.keys(gameData.players).forEach((player) => {
+    if (gameData.players[player].h1) {
     averagePerTurn[1].amount += 1;
     averagePerTurn[1].total += parseInt(gameData.players[player].h1);
     averagePerTurn[2].amount += 1;
@@ -41,6 +43,20 @@ const GraphSection = ({ gameData }) => {
     averagePerTurn[5].total += parseInt(gameData.players[player].h5);
     averagePerTurn[6].amount += 1;
     averagePerTurn[6].total += parseInt(gameData.players[player].h6);
+    } else {
+      averagePerTurn[1].amount += 1;
+      averagePerTurn[1].total += parseInt(gameData.players[player].scores[0]);
+      averagePerTurn[2].amount += 1;
+      averagePerTurn[2].total += parseInt(gameData.players[player].scores[1]);
+      averagePerTurn[3].amount += 1;
+      averagePerTurn[3].total += parseInt(gameData.players[player].scores[2]);
+      averagePerTurn[4].amount += 1;
+      averagePerTurn[4].total += parseInt(gameData.players[player].scores[3]);
+      averagePerTurn[5].amount += 1;
+      averagePerTurn[5].total += parseInt(gameData.players[player].scores[4]);
+      averagePerTurn[6].amount += 1;
+      averagePerTurn[6].total += parseInt(gameData.players[player].scores[5]);
+    }
   });
   console.log(averagePerTurn);
   const data = {
