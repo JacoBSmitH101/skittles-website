@@ -51,4 +51,3 @@ const SeasonDifference = (props) => {
   );
 };
 export default SeasonDifference;
-//TODO: CHANGE NAME

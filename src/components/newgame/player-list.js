@@ -32,7 +32,6 @@ function PlayerList({ newGameInfo, setNewGameInfo, submitGame }) {
   const [playerInput, setPlayerInput] = React.useState("");
   let fileInput = React.createRef();
   const checkforTotal = (event) => {
-    //FIXME: doesnt work as expected
     let data = { ...playerList };
     let player = playerList.players[event.target.name.slice(0, -2)];
     let totalScore = 0;
@@ -183,7 +182,7 @@ function PlayerList({ newGameInfo, setNewGameInfo, submitGame }) {
                 >
                   <TableCell component="th" scope="row">
                     {player.name}
-                    {/*FIXME: add a remove button */}
+                    {/*TODO: IMPORVE REMOVE BUTTON*/}
                     <Button name={player.name} onClick={removePlayer}>
                       Remove
                     </Button>

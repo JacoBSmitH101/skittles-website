@@ -27,7 +27,6 @@ function ListMenu({ newGameInfo, setNewGameInfo, submitGame }) {
   const testFunc = () => {
     console.log(newGameInfo);
   };
-  //TODO: link to newgame.js
   return (
     <Card>
       <CardHeader subheader="Nearly there..." title="Final Info" />
