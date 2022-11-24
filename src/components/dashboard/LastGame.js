@@ -31,13 +31,13 @@ const LastGame = (props) => {
   if (!data)
     return (
       <Card>
-        <p>No profile data</p>
+        <p>No data</p>
       </Card>
     );
   if (!jollyData)
     return (
       <Card>
-        <p>No profile data</p>
+        <p>No data</p>
       </Card>
     );
   return (
