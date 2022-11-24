@@ -31,13 +31,13 @@ const LastGame = (props) => {
   if (!data)
     return (
       <Card>
-        <p>No profile data</p>
+        <p>No data</p>
       </Card>
     );
   if (!jollyData)
     return (
       <Card>
-        <p>No profile data</p>
+        <p>No data</p>
       </Card>
     );
   return (
@@ -46,7 +46,7 @@ const LastGame = (props) => {
         <Grid container spacing={3} sx={{ justifyContent: "space-between" }}>
           <Grid item>
             <Typography color="textSecondary" gutterBottom variant="overline">
-              LAST GAME DEV
+              LAST GAME
             </Typography>
             {data.ourScore < data.opponentScore ? (
               <Typography color="error" gutterBottom variant="overline">
