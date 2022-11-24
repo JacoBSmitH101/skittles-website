@@ -46,7 +46,7 @@ const LastGame = (props) => {
         <Grid container spacing={3} sx={{ justifyContent: "space-between" }}>
           <Grid item>
             <Typography color="textSecondary" gutterBottom variant="overline">
-              LAST GAME
+              LAST GAME DEV
             </Typography>
             {data.ourScore < data.opponentScore ? (
               <Typography color="error" gutterBottom variant="overline">
