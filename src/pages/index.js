@@ -8,19 +8,22 @@ import HighestScore from "../components/dashboard/highest-score";
 import SeasonDifference from "../components/dashboard/season-difference";
 import { ScoresByAlley } from "../components/dashboard/scores-by-alley";
 import { DashboardLayout } from "../components/dashboard-layout";
+import { auth } from "../lib/auth";
+console.log( Object.keys(await auth.getCurrentUser()))
 
-const Page = () => (
-  <>
-    <Head>
-      <title>Jolly Crew Dashboard</title>
-    </Head>
-    <Box
-      component="main"
-      sx={{
-        flexGrow: 1,
-        py: 8,
-      }}
-    >
+const Page = () => {
+  return (
+    <>
+      <Head>
+        <title>Jolly Crew Dashboard</title>
+      </Head>
+      <Box
+        component="main"
+        sx={{
+          flexGrow: 1,
+          py: 8,
+        }}
+      >
         <Container maxWidth={false}>
           <Grid container spacing={3}>
             <Grid item lg={3} sm={6} xl={3} xs={12}>
@@ -48,9 +51,10 @@ const Page = () => (
             </Grid>
           </Grid>
         </Container>
-    </Box>
-  </>
-);
+      </Box>
+    </>
+  );
+};
 
 Page.getLayout = (page) => <DashboardLayout>{page}</DashboardLayout>;
 
