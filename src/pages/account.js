@@ -6,7 +6,7 @@ import { DashboardLayout } from '../components/dashboard-layout';
 
 const Page = () => (
   <>
-    <Head>
+    {/* <Head>
       <title>
         Account | Material Kit
       </title>
@@ -47,7 +47,8 @@ const Page = () => (
           </Grid>
         </Grid>
       </Container>
-    </Box>
+    </Box> */}
+    <h1>NOT IMPLEMENTED</h1>
   </>
 );
 
