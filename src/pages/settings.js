@@ -6,7 +6,7 @@ import { SettingsPassword } from '../components/settings/settings-password';
 
 const Page = () => (
   <>
-    <Head>
+    {/* <Head>
       <title>
         Settings | Material Kit
       </title>
@@ -30,7 +30,8 @@ const Page = () => (
           <SettingsPassword />
         </Box>
       </Container>
-    </Box>
+    </Box> */}
+    <h1>NOT IMPLEMENTED</h1>
   </>
 );
 

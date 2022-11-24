@@ -7,7 +7,7 @@ import { customers } from '../__mocks__/customers';
 
 const Page = () => (
   <>
-    <Head>
+    {/* <Head>
       <title>
         Customers | Material Kit
       </title>
@@ -25,7 +25,8 @@ const Page = () => (
           <CustomerListResults customers={customers} />
         </Box>
       </Container>
-    </Box>
+    </Box> */}
+    <h1>NOT IMPLEMENTED</h1>
   </>
 );
 
