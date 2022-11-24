@@ -5,12 +5,15 @@ import { GamesListToolbar } from "../components/games/product-list-toolbar";
 import { ProductCard } from "../components/games/product-card";
 import { DashboardLayout } from "../components/dashboard-layout";
 import { useEffect, useState } from "react";
-
+import { auth } from "../lib/auth";
+import UserNotAuth from "../components/user-not-auth";
 const Games = () => {
   const [games, setGames] = useState([]);
   const [visibleGames, setVisibleGames] = useState([]);
   const [page, setPage] = useState(1);
   const [isLoading, setLoading] = useState(true);
+  const [isAuthenticated, setAuthenticated] = useState(false);
+  const users = ["8PLYIdDZ0ptb"];
   useEffect(() => {
     setLoading(true);
     fetch("https://skittles-server.herokuapp.com/get-last-games/amount/80")
@@ -21,18 +24,30 @@ const Games = () => {
         setVisibleGames(data.games.slice(0, 6));
         setLoading(false);
       });
+    auth.getCurrentUser().then((res) => {
+      let id = res.subId;
+      if (!users.includes(id.slice(0, -3))) {
+        setAuthenticated(false);
+      } else {
+        setAuthenticated(true);
+      }
+    });
   }, []);
   const handlePageChange = (event, value) => {
     setPage(value);
     setVisibleGames(games.games.slice((value - 1) * 6, value * 6));
   };
-  if (isLoading || games.length < 1)
+  if (isLoading || games.length < 1) {
     return (
       <Card>
         <p>No data</p>
       </Card>
     );
-    console.log(games)
+    console.log(games);
+  }
+  if (!isAuthenticated) {
+    return <UserNotAuth />;
+  }
   return (
     <>
       <Head>
@@ -63,7 +78,13 @@ const Games = () => {
               pt: 3,
             }}
           >
-            <Pagination color="primary" page={page} onChange={handlePageChange} count={10} size="small" />
+            <Pagination
+              color="primary"
+              page={page}
+              onChange={handlePageChange}
+              count={10}
+              size="small"
+            />
           </Box>
         </Container>
       </Box>

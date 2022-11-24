@@ -9,7 +9,6 @@ import SeasonDifference from "../components/dashboard/season-difference";
 import { ScoresByAlley } from "../components/dashboard/scores-by-alley";
 import { DashboardLayout } from "../components/dashboard-layout";
 import { auth } from "../lib/auth";
-console.log( Object.keys(await auth.getCurrentUser()))
 
 const Page = () => {
   return (
