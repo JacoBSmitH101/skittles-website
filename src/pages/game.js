@@ -46,6 +46,7 @@ const Game = () => {
                 <GameScore gameData={gameData}/>
             </Grid>
             <Grid item xl={3} lg={3} sm={6} xs={12}>
+              TEST
             </Grid>
             <Grid item xl={3} lg={3} sm={6} xs={12}>
             </Grid>
