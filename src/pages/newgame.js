@@ -16,7 +16,9 @@ import { DashboardLayout } from "../components/dashboard-layout";
 import GameInfo from "../components/newgame/game-info";
 import PlayerList from "../components/newgame/player-list";
 import ListMenu from "../components/newgame/list-menu";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import { auth } from "../lib/auth";
+import UserNotAuth from "../components/user-not-auth";
 const AddNewGame = () => {
   const [newGameInfo, setNewGameInfo] = React.useState({
     alley: "",
@@ -28,7 +30,25 @@ const AddNewGame = () => {
     isAway: false,
     difference: 0,
   });
+  const [isAuthenticated, setAuthenticated] = useState(false);
+  const [userInfo, setUserInfo] = useState(null);
   useEffect(() => {
+    auth.getCurrentUser().then((res) => {
+      let id = res.subId.slice(0, -3);
+      fetch("https://skittles-server.herokuapp.com/verified-users-list")
+        .then((res) => res.json())
+        .then((data) => {
+          let verified = false;
+          for (let i = 0; i < data.length; i++) {
+            if (data[i].authId === id) {
+              verified = true;
+              setUserInfo(data[i]);
+              setAuthenticated(true);
+              break;
+            }
+          }
+        });
+    });
     setNewGameInfo(
       {
         ...newGameInfo,
@@ -48,6 +68,9 @@ const AddNewGame = () => {
       console.log(res);
     });
   };
+  if (!isAuthenticated) {
+    return (<UserNotAuth />)
+  }
   return (
     <>
       <Head>
@@ -66,7 +89,11 @@ const AddNewGame = () => {
               <GameInfo setNewGameInfo={setNewGameInfo} newGameInfo={newGameInfo} />
             </Grid>
             <Grid item spacing={3} lg={12} sm={12} xl={3} xs={12}>
-              <PlayerList setNewGameInfo={setNewGameInfo} newGameInfo={newGameInfo} submitGame={submitNewGameInfo} />
+              <PlayerList
+                setNewGameInfo={setNewGameInfo}
+                newGameInfo={newGameInfo}
+                submitGame={submitNewGameInfo}
+              />
             </Grid>
             {/* <Grid item spacing={3} lg={12} sm={6} xl={3} xs={12}>
               <ListMenu />
