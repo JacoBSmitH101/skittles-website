@@ -69,7 +69,7 @@ export const DashboardNavbar = (props) => {
               </Badge>
             </IconButton>
           </Tooltip>
-          <Tooltip title="Notifications" ref={settingsRef}>
+          <Tooltip title="Account" ref={settingsRef}>
             <IconButton sx={{ ml: 1 }}>
                 <AccountCircleRoundedIcon fontSize="large" onClick={() => {setOpenAccountPopover(true)}}/>
             </IconButton>
