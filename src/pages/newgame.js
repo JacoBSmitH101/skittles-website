@@ -58,18 +58,32 @@ const AddNewGame = () => {
     );
   });
   const submitNewGameInfo = () => {
-    fetch("https://skittles-server.herokuapp.com/input-next-game", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(newGameInfo),
-    }).then((res) => {
-      console.log(res);
-    });
+    //if all of new game info is filled out, submit to database else return error
+    if (
+      newGameInfo.alley !== "" &&
+      newGameInfo.opponent !== "" &&
+      newGameInfo.players.length > 0 &&
+      newGameInfo.ourTotal !== 0 &&
+      newGameInfo.opponentTotal !== 0 &&
+      newGameInfo.isHome !== false &&
+      newGameInfo.isAway !== false
+    ) {
+      fetch("https://skittles-server.herokuapp.com/input-next-game", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newGameInfo),
+      }).then((res) => {
+        console.log(res);
+      });
+    } else {
+      console.log("error");
+      alert("Please fill out all fields");
+    }
   };
   if (!isAuthenticated) {
-    return (<UserNotAuth />)
+    return <UserNotAuth />;
   }
   return (
     <>
