@@ -67,7 +67,7 @@ export const GamesListToolbar = (props) => (
                   </InputAdornment>
                 )
               }}
-              placeholder="Search games"
+              placeholder="NOT IMPLEMENTED: Search game"
               variant="outlined"
             />
           </Box>
