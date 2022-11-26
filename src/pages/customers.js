@@ -26,7 +26,7 @@ const Page = () => (
         </Box>
       </Container>
     </Box> */}
-    <h1>NOT IMPLEMENTED</h1>
+    <h1>NOT IMPLEMENTED YET</h1>
   </>
 );
 
