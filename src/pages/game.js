@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { DashboardLayout } from "../components/dashboard-layout";
 import GameScore from "../components/game/gamescore";
 import GraphSection from "../components/game/graphsection";
-import HighestScore from "../components/game/highScorer";
+import HighestScore from "../components/game/highscorer";
 import HistoryVSOpponent from "../components/game/history";
 import TeamAverage from "../components/game/teamaverage";
 const Game = () => {
