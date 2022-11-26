@@ -59,7 +59,7 @@ function HistoryVSOpponent({ gameData }) {
           <Grid item>
             <Avatar
               sx={{
-                backgroundColor: "error.main",
+                backgroundColor: totalWins < totalLosses ? "error.main" : "success.main",
                 height: 56,
                 width: 56,
               }}
