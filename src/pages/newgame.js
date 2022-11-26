@@ -40,8 +40,8 @@ const AddNewGame = () => {
         .then((data) => {
           let verified = false;
           for (let i = 0; i < data.length; i++) {
-            if (data[i].authId === id) {
-              verified = true;
+            console.log(data[i])
+            if (data[i].authId === id && data[i].name == "Jacob Smith" || data[i].name == "Roger Smith") {
               setUserInfo(data[i]);
               setAuthenticated(true);
               break;
@@ -56,7 +56,7 @@ const AddNewGame = () => {
       },
       [newGameInfo]
     );
-  });
+  }, []);
   const submitNewGameInfo = () => {
     //if all of new game info is filled out, submit to database else return error
     if (

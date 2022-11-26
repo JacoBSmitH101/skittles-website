@@ -31,6 +31,8 @@ export const AccountPopover = (props) => {
 
       // Redirect to sign-in page
       Router.push("/sign-in").catch(console.error);
+      window.location.reload();
+
       return;
     }
 
@@ -43,8 +45,11 @@ export const AccountPopover = (props) => {
 
       // Redirect to sign-in page
       Router.push("/sign-in").catch(console.error);
+      window.location.reload();
     } catch (err) {
       console.error(err);
+      window.location.reload();
+
     }
   };
   useEffect(() => {

@@ -115,7 +115,7 @@ const GraphSection = ({ gameData }) => {
           color="primary"
           endIcon={<ArrowRightIcon fontSize="small" />}
           size="small"
-          onClick={async () => {}}
+          href="/games"
         >
           Overview
         </Button>
