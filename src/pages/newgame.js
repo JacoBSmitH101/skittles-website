@@ -40,8 +40,11 @@ const AddNewGame = () => {
         .then((data) => {
           let verified = false;
           for (let i = 0; i < data.length; i++) {
-            console.log(data[i])
-            if (data[i].authId === id && data[i].name == "Jacob Smith" || data[i].name == "Roger Smith") {
+            console.log(data[i]);
+            if (
+              (data[i].authId === id && data[i].name == "Jacob Smith") ||
+              data[i].name == "Roger Smith"
+            ) {
               setUserInfo(data[i]);
               setAuthenticated(true);
               break;
@@ -60,11 +63,11 @@ const AddNewGame = () => {
   const submitNewGameInfo = () => {
     //if all of new game info is filled out, submit to database else return error
     if (
-      newGameInfo.alley !== "" &&
-      newGameInfo.opponent !== "" &&
-      newGameInfo.players.length > 0 &&
-      newGameInfo.ourTotal !== 0 &&
-      newGameInfo.opponentTotal !== 0 
+      newGameInfo.alley != "" &&
+      newGameInfo.opponent != "" &&
+      Object.keys(newGameInfo.players).length > 0 &&
+      newGameInfo.ourTotal != 0 &&
+      newGameInfo.opponentTotal != 0
     ) {
       fetch("https://skittles-server.herokuapp.com/input-next-game", {
         method: "POST",
@@ -76,7 +79,8 @@ const AddNewGame = () => {
         console.log(res);
       });
     } else {
-      console.log("error : " + newGameInfo);
+      console.log("error : ");
+      console.log(newGameInfo);
       alert("Please fill out all fields");
     }
   };
