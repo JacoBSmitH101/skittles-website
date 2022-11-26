@@ -76,7 +76,7 @@ const AddNewGame = () => {
         console.log(res);
       });
     } else {
-      console.log("error");
+      console.log("error : " + newGameInfo);
       alert("Please fill out all fields");
     }
   };
