@@ -65,7 +65,7 @@ const AddNewGame = () => {
       newGameInfo.players.length > 0 &&
       newGameInfo.ourTotal !== 0 &&
       newGameInfo.opponentTotal !== 0 &&
-      newGameInfo.isHome !== false &&
+      newGameInfo.isHome !== false ||
       newGameInfo.isAway !== false
     ) {
       fetch("https://skittles-server.herokuapp.com/input-next-game", {
