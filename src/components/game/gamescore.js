@@ -19,7 +19,7 @@ const GameScore = ({gameData}) => {
                 {"  "}(LOST)
               </Typography>
             ) : (
-              <Typography color="green" gutterBottom variant="overline">
+              <Typography color="secondary.main" gutterBottom variant="overline">
                 {"  "}(WON)
               </Typography>
             )}

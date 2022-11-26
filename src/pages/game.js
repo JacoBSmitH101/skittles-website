@@ -6,7 +6,9 @@ import { useEffect, useState } from "react";
 import { DashboardLayout } from "../components/dashboard-layout";
 import GameScore from "../components/game/gamescore";
 import GraphSection from "../components/game/graphsection";
+import HighestScore from "../components/game/highScorer";
 import HistoryVSOpponent from "../components/game/history";
+import TeamAverage from "../components/game/teamaverage";
 const Game = () => {
   const Router = useRouter();
   const { gameNumber, seasonNumber } = Router.query;
@@ -46,12 +48,14 @@ const Game = () => {
             <Grid item lg={3} sm={6} xl={3} xs={12}>
               <GameScore gameData={gameData} />
             </Grid>
-            <Grid item xl={4} lg={4} sm={6} xs={12}>
+            <Grid item xl={3} lg={4} sm={6} xs={12}>
               <HistoryVSOpponent gameData={gameData} />
             </Grid>
-            <Grid item xl={3} lg={3} sm={6} xs={12}></Grid>
+            <Grid item xl={3} lg={3} sm={6} xs={12}>
+              <HighestScore gameData={gameData}/>
+            </Grid>
 
-            <Grid item xl={2} lg={2} sm={6} xs={12}></Grid>
+            <Grid item xl={2} lg={2} sm={6} xs={12}><TeamAverage gameData={gameData}/></Grid>
             <Grid item lg={8} md={12} xl={9} xs={12}>
               <GraphSection gameData={gameData} />
             </Grid>
