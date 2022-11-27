@@ -19,36 +19,10 @@ import { SeverityPill } from "../severity-pill";
 import { useEffect, useState } from "react";
 const orders = [];
 
-const PlayerList = (props) => {
-  const [allPlayers, setAllPlayers] = useState(null);
-  const [isLoading, setLoading] = useState(true);
-  const [selectedGame, setSelectedGame] = useState(null);
-  const gameSelectedHandler = (game) => {
-    console.log(game);
-  };
-  useEffect(() => {
-    setLoading(true);
-    fetch("https://skittles-server.herokuapp.com/players")
-      .then((res) => res.json())
-      .then((data) => {
-        setAllPlayers(data);
-        setLoading(false);
-      });
-  }, []);
-  if (isLoading)
-    return (
-      <Card>
-        <p>No data</p>
-      </Card>
-    );
-  if (!allPlayers)
-    return (
-      <Card>
-        <p>No profile data</p>
-      </Card>
-    );
+const PlayerList = ({allPlayers}) => {
+  
   return (
-    <Card {...props}>
+    <Card>
       <CardHeader title="All Players" />
       <PerfectScrollbar>
         <Box sx={{ minWidth: 800 }}>

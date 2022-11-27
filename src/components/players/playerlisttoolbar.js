@@ -14,12 +14,12 @@ import { Download as DownloadIcon } from "../../icons/download";
 import { useRef, useState } from "react";
 import NotImplementedPopover from "./notimplementedpopover";
 
-export const PlayerListToolbar = (props) => {
+export const PlayerListToolbar = ({searchTerm, textChangeHandler}) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [notImplementedPopover, setNotImplementedPopover] = useState(false);
   const popRef = useRef(null);
   return (
-    <Box {...props}>
+    <Box>
       <Box
         sx={{
           alignItems: "center",
@@ -65,6 +65,8 @@ export const PlayerListToolbar = (props) => {
             <Box sx={{ maxWidth: 500 }}>
               <TextField
                 fullWidth
+                value={searchTerm}
+                onChange={textChangeHandler}
                 InputProps={{
                   startAdornment: (
                     <InputAdornment position="start">
