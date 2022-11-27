@@ -24,7 +24,7 @@ const PlayerList = ({ gameData }) => {
             </Grid>
           </Grid>
           <Divider style={{width:'100%', paddingTop:"6.5%"}}/>
-          <Grid item><h1>test</h1></Grid>
+          <Grid item><h1>TODO</h1></Grid>
         </Grid>
       </CardContent>
     </Card>
