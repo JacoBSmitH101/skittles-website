@@ -113,7 +113,6 @@ function HistoryVSOpponent({ gameData }) {
               <HistoryIcon />
             </Avatar>
           </Grid>
-          {/*works*/}
           <Button
             ref={buttonRef}
             onClick={() => {
