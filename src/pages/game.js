@@ -8,6 +8,7 @@ import GameScore from "../components/game/gamescore";
 import GraphSection from "../components/game/graphsection";
 import HighestScore from "../components/game/highscorer";
 import HistoryVSOpponent from "../components/game/history";
+import PlayerList from "../components/game/playerlist";
 import TeamAverage from "../components/game/teamaverage";
 const Game = () => {
   const Router = useRouter();
@@ -60,8 +61,8 @@ const Game = () => {
               <GraphSection gameData={gameData} />
             </Grid>
 
-            <Grid item lg={4} md={6} xl={3} xs={12}></Grid>
-            <Grid item lg={12} md={12} xl={9} xs={12}></Grid>
+            <Grid item lg={4} md={6} xl={3} xs={12}><PlayerList gameData={gameData} /></Grid>
+            <Grid item lg={12} md={12} xl={9} xs={12}><h1>PLACEHOLDER</h1></Grid>
           </Grid>
         </Container>
       </Box>

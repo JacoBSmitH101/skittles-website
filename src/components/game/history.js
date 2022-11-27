@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React from "react";
 import { Avatar, Box, Button, Card, CardContent, Grid, Typography } from "@mui/material";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import MoneyIcon from "@mui/icons-material/Money";
@@ -10,11 +10,8 @@ function HistoryVSOpponent({ gameData }) {
   const [isLoading, setIsLoading] = useState(true);
   const [previousGames, setPreviousGames] = useState([]);
   const [totalWins, setTotalWins] = useState(0);
-  const [anchorEl, setAnchorEl] = useState(null);
-  const [historyWarningOpen, setHistoryWarningOpen] = useState(false);
   const [totalLosses, setTotalLosses] = useState(0);
   const [stateText, setStateText] = useState(null);
-  const buttonRef = useRef(null);
   const updateHistory = (data) => {
     setTotalWins(0);
     setTotalLosses(0);
@@ -81,16 +78,9 @@ function HistoryVSOpponent({ gameData }) {
   if (isLoading || !previousGames) {
     return <h1>NO DATA FOUND</h1>;
   }
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
   return (
     <Card sx={{ height: "100%" }}>
-      <CardContent sx={{ pb: "3.5%", "&:last-child": { pd: "0%" } }}>
+      <CardContent sx={{ pt:"3.5%", '&:last-child': { pb: 0 }}}>
         <Grid container spacing={3} sx={{ justifyContent: "space-between", paddingBottom: "0" }}>
           <Grid item>
             <Typography color="textSecondary" gutterBottom variant="overline">
@@ -101,7 +91,7 @@ function HistoryVSOpponent({ gameData }) {
               {totalWins} - {totalLosses}
             </Typography>
           </Grid>
-          <Grid item>
+          <Grid item sx={{ display: { xs: "none", sm: "none", lg: "block", xl: "block" } }}>
             {/*FIXME: AVATAR LOOKS FUNKY ON MOBILE*/}
             <Avatar
               sx={{
@@ -113,24 +103,13 @@ function HistoryVSOpponent({ gameData }) {
               <HistoryIcon />
             </Avatar>
           </Grid>
-          <Button
-            ref={buttonRef}
-            onClick={() => {
-              setHistoryWarningOpen(true);
-            }}
-            sx={{ marginLeft: "3%", marginBottom: "0", marginTop: "0" }}
-            enabled={false}
-          >
-            View full history
-          </Button>
+          {/* <Button sx={{ marginLeft: "3%", paddingBottom: "", paddingTop: "" }}>View full history</Button> */}
         </Grid>
+        
       </CardContent>
-      <NotImplementedPopover
-        anchorEl={buttonRef.current}
-        onClose={() => setHistoryWarningOpen(false)}
-        open={historyWarningOpen}
-      />
+      {/*TODO: <NotImplementedPopover /> */}
     </Card>
+    
   );
 }
 
