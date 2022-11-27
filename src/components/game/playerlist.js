@@ -20,11 +20,24 @@ import MoneyIcon from "@mui/icons-material/Money";
 import ScoreboardIcon from "@mui/icons-material/Scoreboard";
 import { useState, useEffect } from "react";
 import Paper from "@mui/material";
+import AssignmentIcon from "@mui/icons-material/Assignment";
 const PlayerList = ({ gameData }) => {
   console.log("gameData", gameData);
   return (
     <Card sx={{ height: "100%" }}>
-      <CardHeader title="Scorecard" />
+      <CardHeader
+      sx={{paddingTop: "4.5%", paddingBottom: "4.5%"}}
+      avatar={<Avatar
+        sx={{
+          backgroundColor: "primary.main",
+          height: 56,
+          width: 56,
+        }}
+      >
+        <AssignmentIcon />
+      </Avatar>}
+        title="Scoreboard"
+      ></CardHeader>
 
       <Divider />
       <Grid item>
