@@ -91,7 +91,7 @@ function HistoryVSOpponent({ gameData }) {
               {totalWins} - {totalLosses}
             </Typography>
           </Grid>
-          <Grid item>
+          <Grid item sx={{ display: { xs: "none", sm: "none", lg: "block", xl: "block" } }}>
             {/*FIXME: AVATAR LOOKS FUNKY ON MOBILE*/}
             <Avatar
               sx={{
