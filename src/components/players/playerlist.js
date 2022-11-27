@@ -20,7 +20,7 @@ import { useEffect, useState } from "react";
 const orders = [];
 
 const PlayerList = (props) => {
-  const [lastGames, setLastGames] = useState(null);
+  const [allPlayers, setAllPlayers] = useState(null);
   const [isLoading, setLoading] = useState(true);
   const [selectedGame, setSelectedGame] = useState(null);
   const gameSelectedHandler = (game) => {
@@ -28,10 +28,10 @@ const PlayerList = (props) => {
   };
   useEffect(() => {
     setLoading(true);
-    fetch("https://skittles-server.herokuapp.com/get-last-games/amount/7")
+    fetch("https://skittles-server.herokuapp.com/players")
       .then((res) => res.json())
       .then((data) => {
-        setLastGames(data);
+        setAllPlayers(data);
         setLoading(false);
       });
   }, []);
@@ -41,47 +41,41 @@ const PlayerList = (props) => {
         <p>No data</p>
       </Card>
     );
-  if (!lastGames)
+  if (!allPlayers)
     return (
       <Card>
         <p>No profile data</p>
       </Card>
     );
-  lastGames.games = lastGames.games.reverse();
   return (
     <Card {...props}>
-      <CardHeader title="Latest Games" />
+      <CardHeader title="All Players" />
       <PerfectScrollbar>
         <Box sx={{ minWidth: 800 }}>
           <Table>
             <TableHead>
               <TableRow>
-                <TableCell>Game Number</TableCell>
-                <TableCell>Home/Away</TableCell>
-                <TableCell>Opponent</TableCell>
-                <TableCell>Score</TableCell>
-                <TableCell>Result</TableCell>
+                <TableCell>Name</TableCell>
+                <TableCell>Seasons Played</TableCell>
+                <TableCell />
               </TableRow>
             </TableHead>
             <TableBody>
-              {lastGames.games.map((game) => (
-                <TableRow key={game.ourScore} onClick={() => gameSelectedHandler(game)} hover>
-                  <TableCell>{game.gameNumber}</TableCell>
+              {Object.keys(allPlayers).map((player) => (
+                <TableRow hover key={player}>
+                  <TableCell>{player}</TableCell>
                   <TableCell>
-                    <SeverityPill color={(game.isHome && "secondary") || "primary"}>
-                      {game.isHome ? "Home" : "Away"}
-                    </SeverityPill>
-                  </TableCell>
-                  <TableCell>{game.opponent}</TableCell>
-                  <TableCell>
-                    {game.ourScore} vs {game.opponentScore}
+                    {Object.keys(allPlayers[player])[0]} - {Object.keys(allPlayers[player]).pop()}
                   </TableCell>
                   <TableCell>
-                    <SeverityPill
-                      color={(game.ourScore > game.opponentScore && "success") || "error"}
+                    <Button
+                      color="primary"
+                      endIcon={<ArrowRightIcon />}
+                      size="small"
+                      variant="text"
                     >
-                      {game.ourScore > game.opponentScore ? "Win" : "Loss"}
-                    </SeverityPill>
+                      View
+                    </Button>
                   </TableCell>
                 </TableRow>
               ))}
