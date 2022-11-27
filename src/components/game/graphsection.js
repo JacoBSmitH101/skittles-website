@@ -61,7 +61,7 @@ const GraphSection = ({ gameData }) => {
   });
   console.log(averagePerTurn);
   const data = {
-    labels: ["1st", "2nd", "3rd", "4th", "5th", "6th"],
+    labels: ["1st Hand", "2nd Hand", "3rd Hand", "4th Hand", "5th Hand", "6th Hand"],
     datasets: [
       {
         label: "Average Pins on turn",
@@ -130,30 +130,12 @@ const GraphSection = ({ gameData }) => {
       <CardContent>
         <Box
           sx={{
-            height: 800,
-            position: "relative",
+            height: "405px",
           }}
         >
           <Line data={data} options={options} />
         </Box>
       </CardContent>
-      <Divider />
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "flex-end",
-          p: 2,
-        }}
-      >
-        <Button
-          color="primary"
-          endIcon={<ArrowRightIcon fontSize="small" />}
-          size="small"
-          href="/games"
-        >
-          Overview
-        </Button>
-      </Box>
     </Card>
   );
 };

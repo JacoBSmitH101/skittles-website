@@ -53,15 +53,19 @@ const Game = () => {
               <HistoryVSOpponent gameData={gameData} />
             </Grid>
             <Grid item xl={3} lg={3} sm={6} xs={12}>
-              <HighestScore gameData={gameData}/>
+              <HighestScore gameData={gameData} />
             </Grid>
 
-            <Grid item xl={2} lg={2} sm={6} xs={12}><TeamAverage gameData={gameData}/></Grid>
+            <Grid item xl={2} lg={2} sm={6} xs={12}>
+              <TeamAverage gameData={gameData} />
+            </Grid>
             <Grid item lg={8} md={12} xl={9} xs={12}>
               <GraphSection gameData={gameData} />
             </Grid>
 
-            <Grid item lg={4} md={6} xl={3} xs={12}><PlayerList gameData={gameData} /></Grid>
+            <Grid item lg={4} md={6} xl={3} xs={12}>
+              <PlayerList gameData={gameData} />
+            </Grid>
             <Grid item lg={12} md={12} xl={9} xs={12}></Grid>
           </Grid>
         </Container>
