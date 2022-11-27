@@ -95,8 +95,7 @@ function HistoryVSOpponent({ gameData }) {
               {totalWins} - {totalLosses}
             </Typography>
           </Grid>
-          <Grid item>
-            {/*FIXME: AVATAR LOOKS FUNKY ON MOBILE*/}
+          <Grid item sx={{ display: { xs: "none", lg: "block", xl: "block" } }}>
             <Avatar
               sx={{
                 backgroundColor: totalWins < totalLosses ? "error.main" : "success.main",
