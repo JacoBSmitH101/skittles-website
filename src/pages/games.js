@@ -59,7 +59,7 @@ const Games = () => {
   return (
     <>
       <Head>
-        <title>Games | Jolly Crew</title>
+        <title>Games {page} | Jolly Crew</title>
       </Head>
       <Box
         component="main"
