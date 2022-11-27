@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import { Box, Container } from '@mui/material';
-import { CustomerListResults } from '../components/customer/customer-list-results';
-import { CustomerListToolbar } from '../components/customer/customer-list-toolbar';
+import PlayerList, { CustomerListResults } from '../components/players/playerlist';
+import { CustomerListToolbar } from '../components/players/customer-list-toolbar';
 import { DashboardLayout } from '../components/dashboard-layout';
 import { customers } from '../__mocks__/customers';
 
@@ -26,7 +26,7 @@ const Players = () => (
         </Box>
       </Container>
     </Box> */}
-    <h1>NOT IMPLEMENTED YET...</h1>
+    <PlayerList />
   </>
 );
 
