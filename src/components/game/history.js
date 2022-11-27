@@ -1,10 +1,11 @@
 import React from "react";
-import { Avatar, Box, Card, CardContent, Grid, Typography } from "@mui/material";
+import { Avatar, Box, Button, Card, CardContent, Grid, Typography } from "@mui/material";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import MoneyIcon from "@mui/icons-material/Money";
 import ScoreboardIcon from "@mui/icons-material/Scoreboard";
-import { useState, useEffect } from "react";
 import HistoryIcon from "@mui/icons-material/History";
+import { useState, useEffect } from "react";
+import NotImplementedPopover from "./notimplementedpopover";
 function HistoryVSOpponent({ gameData }) {
   const [isLoading, setIsLoading] = useState(true);
   const [previousGames, setPreviousGames] = useState([]);
@@ -79,8 +80,8 @@ function HistoryVSOpponent({ gameData }) {
   }
   return (
     <Card sx={{ height: "100%" }}>
-      <CardContent>
-        <Grid container spacing={3} sx={{ justifyContent: "space-between" }}>
+      <CardContent sx={{ pt:"3.5%", '&:last-child': { pb: 0 }}}>
+        <Grid container spacing={3} sx={{ justifyContent: "space-between", paddingBottom: "0" }}>
           <Grid item>
             <Typography color="textSecondary" gutterBottom variant="overline">
               HISTORY VS {gameData.opponent}
@@ -91,6 +92,7 @@ function HistoryVSOpponent({ gameData }) {
             </Typography>
           </Grid>
           <Grid item>
+            {/*FIXME: AVATAR LOOKS FUNKY ON MOBILE*/}
             <Avatar
               sx={{
                 backgroundColor: totalWins < totalLosses ? "error.main" : "success.main",
@@ -101,9 +103,13 @@ function HistoryVSOpponent({ gameData }) {
               <HistoryIcon />
             </Avatar>
           </Grid>
+          <Button sx={{ marginLeft: "3%", paddingBottom: "", paddingTop: "" }}>View full history</Button>
         </Grid>
+        
       </CardContent>
+      {/*TODO: <NotImplementedPopover /> */}
     </Card>
+    
   );
 }
 
