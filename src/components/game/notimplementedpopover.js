@@ -3,36 +3,22 @@ import Popover from '@mui/material/Popover';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 
-export default function NotImplementedPopover() {
-  const [anchorEl, setAnchorEl] = React.useState(null);
-
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
-  const open = Boolean(anchorEl);
-  const id = open ? 'simple-popover' : undefined;
-
+export default function NotImplementedPopover({anchorEl, open, onClose}) {
   return (
     <div>
-      <Button aria-describedby={id} variant="contained" onClick={handleClick}>
-        Open Popover
-      </Button>
       <Popover
-        id={id}
-        open={open}
         anchorEl={anchorEl}
-        onClose={handleClose}
         anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'left',
+          horizontal: "left",
+          vertical: "bottom",
+        }}
+        onClose={onClose}
+        open={open}
+        PaperProps={{
+          sx: { width: "300px" },
         }}
       >
-        <Typography sx={{ p: 2 }}>The content of the Popover.</Typography>
+        <Typography sx={{ p: 2 }}>Not Implemented, yet...</Typography>
       </Popover>
     </div>
   );
