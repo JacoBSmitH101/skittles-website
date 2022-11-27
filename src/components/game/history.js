@@ -103,7 +103,7 @@ function HistoryVSOpponent({ gameData }) {
               <HistoryIcon />
             </Avatar>
           </Grid>
-          <Button sx={{ marginLeft: "3%", paddingBottom: "", paddingTop: "" }}>View full history</Button>
+          {/* <Button sx={{ marginLeft: "3%", paddingBottom: "", paddingTop: "" }}>View full history</Button> */}
         </Grid>
         
       </CardContent>
