@@ -4,7 +4,7 @@ import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import MoneyIcon from "@mui/icons-material/Money";
 import ScoreboardIcon from "@mui/icons-material/Scoreboard";
 import { useState, useEffect } from "react";
-import ScoreIcon from "@mui/icons-material/Score";
+import LeaderboardIcon from '@mui/icons-material/Leaderboard';
 function HighestScore({ gameData }) {
   const [highestScore, setHighestScore] = useState(null);
   const [highestScorePlayer, setHighestScorePlayer] = useState(null);
@@ -56,7 +56,7 @@ function HighestScore({ gameData }) {
                 width: 56,
               }}
             >
-              <ScoreIcon />
+              <LeaderboardIcon />
             </Avatar>
           </Grid>
         </Grid>
