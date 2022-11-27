@@ -60,9 +60,8 @@ const Game = () => {
             <Grid item lg={8} md={12} xl={9} xs={12}>
               <GraphSection gameData={gameData} />
             </Grid>
-
-            <Grid item lg={4} md={6} xl={3} xs={12}><PlayerList gameData={gameData} /></Grid>
-            <Grid item lg={12} md={12} xl={9} xs={12}></Grid>
+            <Grid item lg={4} md={6} xl={3} xs={12}><Playerlist gameData={gameData} /></Grid>
+            <Grid item lg={12} md={12} xl={9} xs={12}><h1>PLACEHOLDER</h1></Grid>
           </Grid>
         </Container>
       </Box>
