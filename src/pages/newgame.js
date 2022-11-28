@@ -42,8 +42,8 @@ const AddNewGame = () => {
           for (let i = 0; i < data.length; i++) {
             console.log(data[i]);
             if (
-              (data[i].authId === id && data[i].name == "Jacob Smith") ||
-              data[i].name == "Roger Smith"
+              (data[i].authId === id) && (data[i].name == "Jacob Smith" ||
+              data[i].name == "Roger Smith")
             ) {
               setUserInfo(data[i]);
               setAuthenticated(true);

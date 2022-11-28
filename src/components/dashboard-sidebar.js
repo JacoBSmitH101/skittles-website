@@ -14,7 +14,10 @@ import { UserAdd as UserAddIcon } from "../icons/user-add";
 import { Users as UsersIcon } from "../icons/users";
 import { XCircle as XCircleIcon } from "../icons/x-circle";
 import { Logo } from "./logo";
+import SportsBarIcon from "@mui/icons-material/SportsBar";
 import { NavItem } from "./nav-item";
+import WindowIcon from "@mui/icons-material/Window";
+import QueryStatsIcon from "@mui/icons-material/QueryStats";
 
 const items = [
   {
@@ -29,12 +32,17 @@ const items = [
   },
   {
     href: "/games",
-    icon: <ShoppingBagIcon fontSize="small" />,
+    icon: <WindowIcon fontSize="small" />,
     title: "Games",
   },
   {
+    href: "/alleys",
+    icon: <SportsBarIcon fontSize="small" />,
+    title: "Alleys",
+  },
+  {
     href: "/account",
-    icon: <UserIcon fontSize="small" />,
+    icon: <QueryStatsIcon fontSize="small" />,
     title: "My Stats",
   },
   {
@@ -43,19 +51,9 @@ const items = [
     title: "Settings",
   },
   {
-    href: "/login",
-    icon: <LockIcon fontSize="small" />,
-    title: "Login",
-  },
-  {
     href: "/newgame",
     icon: <UserAddIcon fontSize="small" />,
     title: "Add New Game",
-  },
-  {
-    href: "/404",
-    icon: <XCircleIcon fontSize="small" />,
-    title: "Error",
   },
 ];
 
@@ -146,7 +144,6 @@ export const DashboardSidebar = (props) => {
           ))}
         </Box>
         <Divider sx={{ borderColor: "#2D3748" }} />
-        
       </Box>
     </>
   );
