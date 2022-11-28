@@ -18,7 +18,8 @@ export default function NotImplementedPopover({anchorEl, open, onClose}) {
           sx: { width: "300px" },
         }}
       >
-        <Typography sx={{ p: 2 }}>Not Implemented, yet...</Typography>
+        <Typography sx={{ p: 2 }}>Not Implemented, yet... {"    "}<Button onClick={onClose}>Close</Button></Typography>
+        
       </Popover>
     </div>
   );
