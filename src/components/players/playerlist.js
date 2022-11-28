@@ -16,11 +16,14 @@ import {
 } from "@mui/material";
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 import { SeverityPill } from "../severity-pill";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import NotImplementedPopover from "./notimplementedpopover";
 const orders = [];
 
-const PlayerList = ({allPlayers}) => {
-  
+const PlayerList = ({ allPlayers }) => {
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [notImplementedPopover, setNotImplementedPopover] = useState(false);
+  const popRef = useRef(null);
   return (
     <Card>
       <CardHeader title="All Players" />
@@ -47,6 +50,8 @@ const PlayerList = ({allPlayers}) => {
                       endIcon={<ArrowRightIcon />}
                       size="small"
                       variant="text"
+                      ref={popRef}
+                      onClick={() => setNotImplementedPopover(true)}
                     >
                       View
                     </Button>
@@ -73,6 +78,11 @@ const PlayerList = ({allPlayers}) => {
           View all
         </Button>
       </Box>
+      <NotImplementedPopover
+        anchorEl={popRef.current}
+        open={notImplementedPopover}
+        onClose={() => setNotImplementedPopover(false)}
+      />
     </Card>
   );
 };
