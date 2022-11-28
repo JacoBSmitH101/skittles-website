@@ -5,6 +5,7 @@ import MoneyIcon from "@mui/icons-material/Money";
 import ScoreboardIcon from "@mui/icons-material/Scoreboard";
 import { useState, useEffect } from "react";
 import LeaderboardIcon from "@mui/icons-material/Leaderboard";
+import TimelineIcon from '@mui/icons-material/Timeline';
 function HighestAverage({ playerData }) {
   const [highestAverage, setHighestAverage] = useState(0);
   const [isLoading, setLoading] = useState(true);
@@ -77,7 +78,7 @@ function HighestAverage({ playerData }) {
                 width: 56,
               }}
             >
-              <LeaderboardIcon />
+              <TimelineIcon />
             </Avatar>
           </Grid>
         </Grid>

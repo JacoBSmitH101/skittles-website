@@ -33,7 +33,9 @@ const PlayerList = ({ allPlayers }) => {
             <TableHead>
               <TableRow>
                 <TableCell>Name</TableCell>
-                <TableCell>Seasons Played</TableCell>
+                <TableCell sx={{ display: { xs: "none", sm: "revert" } }}>
+                  Seasons Played
+                </TableCell>
                 <TableCell />
               </TableRow>
             </TableHead>
@@ -41,7 +43,7 @@ const PlayerList = ({ allPlayers }) => {
               {Object.keys(allPlayers).map((player) => (
                 <TableRow hover key={player}>
                   <TableCell>{player}</TableCell>
-                  <TableCell>
+                  <TableCell sx={{ display: { xs: "none", sm: "revert" } }}>
                     {Object.keys(allPlayers[player])[0]} - {Object.keys(allPlayers[player]).pop()}
                   </TableCell>
                   <TableCell>
