@@ -1,7 +1,7 @@
-import { Avatar, Box, Card, CardContent, Grid, Typography } from "@mui/material";
+import { Avatar, Box, Card, CardContent, Grid, Link, Tooltip, Typography } from "@mui/material";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import PeopleIcon from "@mui/icons-material/PeopleOutlined";
-import GroupsIcon from '@mui/icons-material/Groups';
+import GroupsIcon from "@mui/icons-material/Groups";
 import { useState, useEffect } from "react";
 const HighestScore = (props) => {
   const [isLoading, setLoading] = useState(true);
@@ -27,9 +27,11 @@ const HighestScore = (props) => {
   let latestSeason =
     jollyData.seasons[Object.keys(jollyData.seasons)[Object.keys(jollyData.seasons).length - 1]];
   let highestScore = 0;
+  let gameNumber = 0;
   Object.values(latestSeason.games).forEach((game) => {
     if (game.ourScore > highestScore) {
       highestScore = game.ourScore;
+      gameNumber = game.gameNumber;
     }
   });
 
@@ -38,9 +40,12 @@ const HighestScore = (props) => {
       <CardContent>
         <Grid container spacing={3} sx={{ justifyContent: "space-between" }}>
           <Grid item>
-            <Typography color="textSecondary" gutterBottom variant="overline">
-              HIGHEST TEAM SCORE
-            </Typography>
+            <Tooltip title="Highest Score this season">
+              <Typography color="textSecondary" gutterBottom variant="overline">
+                HIGHEST TEAM SCORE
+              </Typography>
+            </Tooltip>
+
             <Typography color="textPrimary" variant="h4">
               {highestScore}
             </Typography>
@@ -64,17 +69,14 @@ const HighestScore = (props) => {
             pt: 2,
           }}
         >
-          <ArrowUpwardIcon color="success" />
-          <Typography
-            variant="body2"
-            sx={{
-              mr: 1,
-            }}
-          >
-            11%
-          </Typography>
           <Typography color="textSecondary" variant="caption">
-            Since last year
+            <Link
+              href={`game?seasonNumber=${
+                Object.keys(jollyData.seasons)[Object.keys(jollyData.seasons).length - 1]
+              }&gameNumber=${gameNumber}`}
+            >
+              IN GAME {gameNumber}
+            </Link>
           </Typography>
         </Box>
       </CardContent>
