@@ -19,7 +19,7 @@ function PlayerHeader({ name, playerData }) {
     <Card>
       <CardContent>
         <Typography variant="h3" component="h1">
-          {name}'s Stats
+          {name}&apos;s Stats
         </Typography>
         <Typography variant="caption">
           {" "}
