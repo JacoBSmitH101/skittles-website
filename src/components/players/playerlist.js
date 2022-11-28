@@ -51,7 +51,7 @@ const PlayerList = ({ allPlayers }) => {
                       size="small"
                       variant="text"
                       ref={popRef}
-                      onClick={() => setNotImplementedPopover(true)}
+                      href={`/player?name=${player}`}
                     >
                       View
                     </Button>
