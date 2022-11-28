@@ -1,5 +1,5 @@
 import { Chart as ChartJS, RadialLinearScale, ArcElement, Tooltip, Legend } from "chart.js";
-import { PolarArea } from "react-chartjs-2";
+import { Line, PolarArea } from "react-chartjs-2";
 import {
   Box,
   Button,
@@ -17,6 +17,7 @@ import { auth } from "../../lib/auth";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 import { useState, useEffect } from "react";
+
 const GraphSection = ({ gameData }) => {
   const theme = useTheme();
   var averagePerTurn = {
@@ -27,22 +28,22 @@ const GraphSection = ({ gameData }) => {
     5: { amount: 0, total: 0 },
     6: { amount: 0, total: 0 },
   };
-  console.log(gameData)
+  console.log(gameData);
 
   Object.keys(gameData.players).forEach((player) => {
     if (gameData.players[player].h1) {
-    averagePerTurn[1].amount += 1;
-    averagePerTurn[1].total += parseInt(gameData.players[player].h1);
-    averagePerTurn[2].amount += 1;
-    averagePerTurn[2].total += parseInt(gameData.players[player].h2);
-    averagePerTurn[3].amount += 1;
-    averagePerTurn[3].total += parseInt(gameData.players[player].h3);
-    averagePerTurn[4].amount += 1;
-    averagePerTurn[4].total += parseInt(gameData.players[player].h4);
-    averagePerTurn[5].amount += 1;
-    averagePerTurn[5].total += parseInt(gameData.players[player].h5);
-    averagePerTurn[6].amount += 1;
-    averagePerTurn[6].total += parseInt(gameData.players[player].h6);
+      averagePerTurn[1].amount += 1;
+      averagePerTurn[1].total += parseInt(gameData.players[player].h1);
+      averagePerTurn[2].amount += 1;
+      averagePerTurn[2].total += parseInt(gameData.players[player].h2);
+      averagePerTurn[3].amount += 1;
+      averagePerTurn[3].total += parseInt(gameData.players[player].h3);
+      averagePerTurn[4].amount += 1;
+      averagePerTurn[4].total += parseInt(gameData.players[player].h4);
+      averagePerTurn[5].amount += 1;
+      averagePerTurn[5].total += parseInt(gameData.players[player].h5);
+      averagePerTurn[6].amount += 1;
+      averagePerTurn[6].total += parseInt(gameData.players[player].h6);
     } else {
       averagePerTurn[1].amount += 1;
       averagePerTurn[1].total += parseInt(gameData.players[player].scores[0]);
@@ -60,7 +61,7 @@ const GraphSection = ({ gameData }) => {
   });
   console.log(averagePerTurn);
   const data = {
-    labels: ["1st", "2nd", "3rd", "4th", "5th", "6th"],
+    labels: ["1st Hand", "2nd Hand", "3rd Hand", "4th Hand", "5th Hand", "6th Hand"],
     datasets: [
       {
         label: "Average Pins on turn",
@@ -72,54 +73,69 @@ const GraphSection = ({ gameData }) => {
           averagePerTurn[5].total / averagePerTurn[5].amount,
           averagePerTurn[6].total / averagePerTurn[6].amount,
         ],
-        backgroundColor: [
-          "rgba(255, 99, 132, 0.5)",
-          "rgba(54, 162, 235, 0.5)",
-          "rgba(255, 206, 86, 0.5)",
-          "rgba(75, 192, 192, 0.5)",
-          "rgba(153, 102, 255, 0.5)",
-          "rgba(255, 159, 64, 0.5)",
-        ],
+        backgroundColor: "rgba(255, 99, 132, 0.5)",
+        borderColor: "rgb(255, 99, 132)",
+        borderThickness: 5,
+
         borderWidth: 1,
       },
     ],
   };
-
+  const options = {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: "top",
+      },
+      title: {
+        display: true,
+        text: "Average pins per hand",
+      },
+    },
+    scales: {
+      y: {
+        min: 0,
+        max: Math.floor(Math.max(...data.datasets[0].data)) + 3,
+      },
+      x: {},
+    },
+  };
+  const graphSelectionHandler = (event) => {
+    setGraphSelected(event.target.value);
+  };
+  const [graphSelected, setGraphSelected] = useState(0);
   ChartJS.register(RadialLinearScale, ArcElement, Tooltip, Legend);
   return (
-    <Card>
+    <Card sx={{ display: { xs: "none", sm: "block" } }}>
       <CardHeader
-        
         title="Average pins per hand"
+        action={
+          <FormControl style={{ minWidth: 120 }} fullWidth>
+            <InputLabel id="demo-simple-select-label">Graph</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              label="Time Period"
+              defaultValue={graphSelected}
+              onChange={graphSelectionHandler}
+            >
+              <MenuItem value={0}>Avg Pins/Hand</MenuItem>
+              <MenuItem value={1}>Season</MenuItem>
+              <MenuItem value={2}>Last 5</MenuItem>
+            </Select>
+          </FormControl>
+        }
       />
       <Divider />
       <CardContent>
         <Box
           sx={{
-            height: 800,
-            position: "relative",
+            height: "405px",
           }}
         >
-          <PolarArea data={data} />
+          <Line data={data} options={options} />
         </Box>
       </CardContent>
-      <Divider />
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "flex-end",
-          p: 2,
-        }}
-      >
-        <Button
-          color="primary"
-          endIcon={<ArrowRightIcon fontSize="small" />}
-          size="small"
-          href="/games"
-        >
-          Overview
-        </Button>
-      </Box>
     </Card>
   );
 };

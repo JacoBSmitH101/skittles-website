@@ -48,7 +48,7 @@ const PlayerList = ({ gameData }) => {
       <Divider />
       <Grid item>
         <TableContainer component={Paper}>
-          <Table sx={{ minWidth: "100%" }} aria-label="simple table">
+          <Table sx={{ minWidth: "100%" }} size="small" aria-label="Scoreboard">
             <TableHead>
               <TableRow>
                 <Tooltip title="Player Name">
@@ -94,7 +94,7 @@ const PlayerList = ({ gameData }) => {
                 </TableCell>
                 <TableCell align="right">{gameData.ourScore}</TableCell>
                 <TableCell align="right">
-                  {gameData.ourScore - gameData.opponentScore > 0 ? "+" : "-"}
+                  {gameData.ourScore - gameData.opponentScore > 0 ? "+" : ""}
                   {gameData.ourScore - gameData.opponentScore}
                 </TableCell>
               </TableRow>

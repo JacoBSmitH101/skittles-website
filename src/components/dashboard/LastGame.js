@@ -80,19 +80,8 @@ const LastGame = (props) => {
             alignItems: "center",
           }}
         >
-          <ArrowDownwardIcon color="error" />
-          <Typography
-            color="error"
-            sx={{
-              mr: 1,
-            }}
-            variant="body2"
-          >
-            {/* {jollyData.seasons["2223"].games["Game7"].ourScore -
-              jollyData.seasons["2223"].games["Game6"].ourScore} */}
-          </Typography>
           <Typography color="textSecondary" variant="caption">
-            Since last game
+            VS {data.opponent}
           </Typography>
         </Box>
       </CardContent>
