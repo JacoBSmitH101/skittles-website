@@ -106,7 +106,7 @@ const GraphSection = ({ gameData }) => {
   const [graphSelected, setGraphSelected] = useState(0);
   ChartJS.register(RadialLinearScale, ArcElement, Tooltip, Legend);
   return (
-    <Card>
+    <Card sx={{ display: { xs: "none", sm: "block" } }}>
       <CardHeader
         title="Average pins per hand"
         action={

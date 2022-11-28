@@ -4,6 +4,7 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { DashboardLayout } from "../components/dashboard-layout";
+import AlleyHistory from "../components/game/alleyhistory";
 import GameScore from "../components/game/gamescore";
 import GraphSection from "../components/game/graphsection";
 import HighestScore from "../components/game/highscorer";
@@ -66,7 +67,10 @@ const Game = () => {
             <Grid item lg={8} md={12} xl={9} xs={12}>
               <GraphSection gameData={gameData} />
             </Grid>
-            <Grid item lg={12} md={12} xl={9} xs={12}></Grid>
+            <Grid item xl={3} lg={4} sm={6} xs={12}>
+              <AlleyHistory gameData={gameData} />
+            </Grid>
+            
           </Grid>
         </Container>
       </Box>
