@@ -31,6 +31,9 @@ export const ProductCard = ({ game, ...rest }) => (
       <Typography align="center" color="textPrimary" variant="body1">
         {"Jolly Crew vs " + game.opponent}
       </Typography>
+      <Typography align="center" color="textPrimary" variant="body2">
+        {game.alley}
+      </Typography>
       <Typography align="center" color="textSecondary" variant="subtitle2">
         {game.ourScore + "    -    " + game.opponentScore}
       </Typography>
