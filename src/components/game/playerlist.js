@@ -90,7 +90,7 @@ const PlayerList = ({ gameData }) => {
               </TableRow>
               <TableRow sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
                 <TableCell component="th" scope="row">
-                  Totals
+                  Total
                 </TableCell>
                 <TableCell align="right">{gameData.ourScore}</TableCell>
                 <TableCell align="right">
