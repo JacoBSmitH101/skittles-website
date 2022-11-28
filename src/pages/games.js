@@ -10,6 +10,8 @@ import UserNotAuth from "../components/user-not-auth";
 const Games = () => {
   const [games, setGames] = useState([]);
   const [visibleGames, setVisibleGames] = useState([]);
+  const [filteredGames, setFilteredGames] = useState([]);
+  const [filter, setFilter] = useState("");
   const [page, setPage] = useState(1);
   const [isLoading, setLoading] = useState(true);
   const [isAuthenticated, setAuthenticated] = useState(false);
@@ -20,7 +22,12 @@ const Games = () => {
       .then((res) => res.json())
       .then((data) => {
         data.games.reverse();
+        data.games.forEach((game) => {
+          game.name = `${game.season} Game ${game.gameNumber < 10 ? "0" : ""}${game.gameNumber}`;
+        });
         setGames(data);
+        setFilteredGames(data);
+
         setVisibleGames(data.games.slice(0, 6));
         setLoading(false);
       });
@@ -43,7 +50,7 @@ const Games = () => {
   }, []);
   const handlePageChange = (event, value) => {
     setPage(value);
-    setVisibleGames(games.games.slice((value - 1) * 6, value * 6));
+    setVisibleGames(filteredGames.games.slice((value - 1) * 6, value * 6));
   };
   if (isLoading || games.length < 1) {
     return (
@@ -56,6 +63,22 @@ const Games = () => {
   if (!isAuthenticated) {
     return <UserNotAuth />;
   }
+  const filterHandler = (event) => {
+    setFilter(event.target.value);
+    if (event.target.value === "") {
+      setVisibleGames(games.games.slice((page - 1) * 6, page * 6));
+    } else {
+      let filtered = games.games.filter((game) => {
+        return game.name.toLowerCase().includes(event.target.value.toLowerCase());
+      });
+      setFilteredGames({games: filtered});
+      try {
+        setVisibleGames(filtered.slice((page - 1) * 6, page * 6));
+      } catch (e) {
+        setVisibleGames([{name: "No games found"}]);
+      }
+    }
+  };
   return (
     <>
       <Head>
@@ -69,7 +92,7 @@ const Games = () => {
         }}
       >
         <Container maxWidth={false}>
-          <GamesListToolbar />
+          <GamesListToolbar filter={filter} filterHandler={filterHandler} />
           <Box sx={{ pt: 3 }}>
             <Grid container spacing={3}>
               {visibleGames.map((game) => (
@@ -90,7 +113,7 @@ const Games = () => {
               color="primary"
               page={page}
               onChange={handlePageChange}
-              count={10}
+              count={Math.ceil(filteredGames.games.length / 6)}
               size="small"
             />
           </Box>
