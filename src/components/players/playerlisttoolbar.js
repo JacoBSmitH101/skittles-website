@@ -76,7 +76,7 @@ export const PlayerListToolbar = ({searchTerm, textChangeHandler}) => {
                     </InputAdornment>
                   ),
                 }}
-                placeholder="Search customer"
+                placeholder="Search players"
                 variant="outlined"
               />
             </Box>
