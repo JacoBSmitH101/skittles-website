@@ -32,17 +32,17 @@ const PlayerList = ({ allPlayers }) => {
           <Table>
             <TableHead>
               <TableRow>
-                <TableCell>Name</TableCell>
+                <TableCell sx={{maxWidth: "100px "}}>Name</TableCell>
                 <TableCell sx={{ display: { xs: "none", sm: "revert" } }}>
                   Seasons Played
                 </TableCell>
-                <TableCell />
+                <TableCell align="left"/>
               </TableRow>
             </TableHead>
             <TableBody>
               {Object.keys(allPlayers).map((player) => (
                 <TableRow hover key={player}>
-                  <TableCell>{player}</TableCell>
+                  <TableCell sx={{maxWidth: "1rem"}} >{player}</TableCell>
                   <TableCell sx={{ display: { xs: "none", sm: "revert" } }}>
                     {Object.keys(allPlayers[player])[0]} - {Object.keys(allPlayers[player]).pop()}
                   </TableCell>
