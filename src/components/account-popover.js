@@ -10,6 +10,7 @@ export const AccountPopover = (props) => {
   const authContext = useContext(AuthContext);
   const [userInfo, setUserInfo] = useState(null);
   const [authenticated, setAuthenticated] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const handleSignOut = async () => {
     onClose?.();
@@ -64,12 +65,55 @@ export const AccountPopover = (props) => {
               verified = true;
               setUserInfo(data[i]);
               setAuthenticated(true);
+              setLoading(false);
               break;
             }
           }
         });
     });
   }, []);
+  if (loading) {
+    return (<Popover
+      anchorEl={anchorEl}
+      anchorOrigin={{
+        horizontal: "left",
+        vertical: "bottom",
+      }}
+      onClose={onClose}
+      open={open}
+      PaperProps={{
+        sx: { width: "300px" },
+      }}
+      {...other}
+    >
+      <Box
+        sx={{
+          py: 1.5,
+          px: 2,
+        }}
+      >
+        <Typography variant="overline">Loading</Typography>
+        <Typography color="text.secondary" variant="body2">
+          Loading user info
+        </Typography>
+      </Box>
+      <MenuList
+        disablePadding
+        sx={{
+          "& > *": {
+            "&:first-of-type": {
+              borderTopColor: "divider",
+              borderTopStyle: "solid",
+              borderTopWidth: "1px",
+            },
+            padding: "12px 16px",
+          },
+        }}
+      >
+        <MenuItem onClick={handleSignOut}>Sign out</MenuItem>
+      </MenuList>
+    </Popover>);
+  }
   if (!authenticated) {
     return (<Popover
       anchorEl={anchorEl}
@@ -90,9 +134,9 @@ export const AccountPopover = (props) => {
           px: 2,
         }}
       >
-        <Typography variant="overline">NOT AUTHORISED</Typography>
+        <Typography variant="overline">Not verified user</Typography>
         <Typography color="text.secondary" variant="body2">
-          not authorised user
+          Not verified user
         </Typography>
       </Box>
       <MenuList
