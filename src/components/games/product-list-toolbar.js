@@ -6,45 +6,34 @@ import {
   TextField,
   InputAdornment,
   SvgIcon,
-  Typography
-} from '@mui/material';
-import { Download as DownloadIcon } from '../../icons/download';
-import { Search as SearchIcon } from '../../icons/search';
-import FileUploadIcon from '@mui/icons-material/FileUpload';
-import { Upload as UploadIcon } from '../../icons/upload';
+  Typography,
+} from "@mui/material";
+import { Download as DownloadIcon } from "../../icons/download";
+import { Search as SearchIcon } from "../../icons/search";
+import FileUploadIcon from "@mui/icons-material/FileUpload";
+import { Upload as UploadIcon } from "../../icons/upload";
 
-export const GamesListToolbar = (props) => (
-  <Box {...props}>
+export const GamesListToolbar = ({ filter, filterHandler }) => (
+  <Box>
     <Box
       sx={{
-        alignItems: 'center',
-        display: 'flex',
-        justifyContent: 'space-between',
-        flexWrap: 'wrap',
-        m: -1
+        alignItems: "center",
+        display: "flex",
+        justifyContent: "space-between",
+        flexWrap: "wrap",
+        m: -1,
       }}
     >
-      <Typography
-        sx={{ m: 1 }}
-        variant="h4"
-      >
+      <Typography sx={{ m: 1 }} variant="h4">
         All Games
       </Typography>
       <Box sx={{ m: 1 }}>
-
-        <Button
-          startIcon={(<FileUploadIcon  />)}
-          sx={{ mr: 1 }}
-        >
+        <Button startIcon={<FileUploadIcon />} sx={{ mr: 1 }}>
           Export
         </Button>
         {/*add a form that redirects to /newgame */}
-        
-        <Button
-          color="primary"
-          variant="contained"
-          href="/newgame"
-        >
+
+        <Button color="primary" variant="contained" href="/newgame">
           Add Game
         </Button>
       </Box>
@@ -58,17 +47,16 @@ export const GamesListToolbar = (props) => (
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
-                    <SvgIcon
-                      fontSize="small"
-                      color="action"
-                    >
+                    <SvgIcon fontSize="small" color="action">
                       <SearchIcon />
                     </SvgIcon>
                   </InputAdornment>
-                )
+                ),
               }}
-              placeholder="NOT IMPLEMENTED: Search game"
+              placeholder="Search Game"
               variant="outlined"
+              value={filter}
+              onChange={filterHandler}
             />
           </Box>
         </CardContent>
