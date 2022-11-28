@@ -18,12 +18,17 @@ import SportsBarIcon from "@mui/icons-material/SportsBar";
 import { NavItem } from "./nav-item";
 import WindowIcon from "@mui/icons-material/Window";
 import QueryStatsIcon from "@mui/icons-material/QueryStats";
-
+import WorkspacesIcon from '@mui/icons-material/Workspaces';
 const items = [
   {
     href: "/",
     icon: <ChartBarIcon fontSize="small" />,
     title: "Dashboard",
+  },
+  {
+    href: "/team",
+    icon: <WorkspacesIcon fontSize="small" />,
+    title: "Team",
   },
   {
     href: "/players",
