@@ -35,7 +35,6 @@ const Players = () => {
             for (let i = 0; i < data.length; i++) {
               if (data[i].authId === id) {
                 verified = true;
-                setUserInfo(data[i]);
                 setAuthenticated(true);
                 break;
               }
