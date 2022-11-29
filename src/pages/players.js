@@ -5,7 +5,8 @@ import { CustomerListToolbar, PlayerListToolbar } from "../components/players/pl
 import { DashboardLayout } from "../components/dashboard-layout";
 import { customers } from "../__mocks__/customers";
 import { useEffect, useState } from "react";
-
+import { auth } from "../lib/auth";
+import UserNotAuth from "../components/user-not-auth";
 const Players = () => {
   const [allPlayers, setAllPlayers] = useState(null);
   const [isLoading, setLoading] = useState(true);
@@ -15,6 +16,7 @@ const Players = () => {
   const textChangeHandler = (event) => {
     setSearchTerm(event.target.value);
   };
+  const [isAuthenticated, setAuthenticated] = useState(false);
   useEffect(() => {
     setLoading(true);
     fetch("https://skittles-server.herokuapp.com/players")
@@ -23,6 +25,22 @@ const Players = () => {
         setAllPlayers(data);
         setFilteredPlayers(data);
         setLoading(false);
+      });
+      auth.getCurrentUser().then((res) => {
+        let id = res.subId.slice(0, -3);
+        fetch("https://skittles-server.herokuapp.com/verified-users-list")
+          .then((res) => res.json())
+          .then((data) => {
+            let verified = false;
+            for (let i = 0; i < data.length; i++) {
+              if (data[i].authId === id) {
+                verified = true;
+                setUserInfo(data[i]);
+                setAuthenticated(true);
+                break;
+              }
+            }
+          });
       });
   }, []);
   useEffect(() => {
@@ -38,6 +56,9 @@ const Players = () => {
       setFilteredPlayers(allPlayers);
     }
   }, [searchTerm]);
+  if (!isAuthenticated) {
+    return <UserNotAuth />;
+  }
   if (isLoading)
     return (
       <Card>
