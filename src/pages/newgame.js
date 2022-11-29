@@ -76,11 +76,8 @@ const AddNewGame = () => {
         },
         body: JSON.stringify(newGameInfo),
       }).then((res) => {
-        console.log(res);
       });
     } else {
-      console.log("error : ");
-      console.log(newGameInfo);
       alert("Please fill out all fields");
     }
   };
