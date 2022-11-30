@@ -103,7 +103,6 @@ const AverageTimeGraph = ({ playerData }) => {
       x: {},
     },
   };
-  console.log("PLAYERDATA", playerData);
 
   ChartJS.register(RadialLinearScale, ArcElement, Tooltip, Legend);
   return (

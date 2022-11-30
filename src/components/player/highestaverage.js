@@ -21,7 +21,6 @@ function HighestAverage({ playerData }) {
     });
     setHighestAverage(highestAverage);
     setHighestAverageSeason(highestAverageSeason.toString());
-    console.log(highestAverageSeason);
     setLoading(false);
   }, [playerData]);
 
