@@ -18,8 +18,8 @@ import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 import { useState, useEffect } from "react";
 const toEvenBelow = (num) => {
-    return Math.floor(num / 2) * 2;
-}
+  return Math.floor(num / 2) * 2;
+};
 const AverageTimeGraph = ({ playerData }) => {
   const theme = useTheme();
   //foreach season in playerData, get .average from season
@@ -28,23 +28,28 @@ const AverageTimeGraph = ({ playerData }) => {
   let seasonLabels = [];
   let highestScoreperSeason = [];
   let wholeAverage = 0;
-    let averageCareer = []
+  let averageCareer = [];
   Object.keys(playerData).forEach((season) => {
-    averageSeasonData.push(playerData[season].average);
-    seasonLabels.push(season);
-    //get highest score
-    let highestScore = 0;
-    for (let i = 1; i < 50; i++) {
-      if (playerData[season][`Game${i}`]) {
-        if (
-          playerData[season][`Game${i}`].total > highestScore &&
-          playerData[season][`Game${i}`].didPlay
-        ) {
-          highestScore = playerData[season][`Game${i}`].total;
+    if (playerData[season].gamesPlayed != 0) {
+      if (playerData[season].average) {
+        //FIXME:
+        averageSeasonData.push(playerData[season].average);
+      }
+      seasonLabels.push(season);
+      //get highest score
+      let highestScore = 0;
+      for (let i = 1; i < 50; i++) {
+        if (playerData[season][`Game${i}`]) {
+          if (
+            playerData[season][`Game${i}`].total > highestScore &&
+            playerData[season][`Game${i}`].didPlay
+          ) {
+            highestScore = playerData[season][`Game${i}`].total;
+          }
         }
       }
+      highestScoreperSeason.push(highestScore);
     }
-    highestScoreperSeason.push(highestScore);
   });
   wholeAverage = averageSeasonData.reduce((a, b) => a + b, 0) / averageSeasonData.length;
   for (let i = 0; i < averageSeasonData.length; i++) {
@@ -75,7 +80,7 @@ const AverageTimeGraph = ({ playerData }) => {
         backgroundColor: "rgba(255, 206, 86, 0.5)",
         borderColor: "rgb(255, 206, 86)",
         borderThickness: 5,
-      }
+      },
     ],
   };
 
@@ -98,6 +103,7 @@ const AverageTimeGraph = ({ playerData }) => {
       x: {},
     },
   };
+  console.log("PLAYERDATA", playerData);
 
   ChartJS.register(RadialLinearScale, ArcElement, Tooltip, Legend);
   return (
