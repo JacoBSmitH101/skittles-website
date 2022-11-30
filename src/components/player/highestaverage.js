@@ -38,10 +38,9 @@ function HighestAverage({ playerData }) {
                 Loading...
               </Typography>
             </Grid>
-            <Grid item>
+            <Grid item sx={{ display: { xs: "none", sm: "none", lg: "block", xl: "block" } }}>
               <Avatar
                 sx={{
-                  display: { xs: "none", sm: "none", md: "block" },
                   backgroundColor: "primary.main",
                   height: 56,
                   width: 56,
