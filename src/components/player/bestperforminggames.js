@@ -19,23 +19,43 @@ import { SeverityPill } from "../severity-pill";
 import { useEffect, useState } from "react";
 const orders = [];
 
-const BestPerformances = (props) => {
-  
+const BestPerformances = ({ playerData }) => {
+  let top5Games = [];
+  // get top 5 scoring games
+  Object.keys(playerData).forEach((season) => {
+    for (let i = 1; i < 50; i++) {
+      if (playerData[season][`Game${i}`]) {
+        if (playerData[season][`Game${i}`].didPlay) {
+          top5Games.push(playerData[season][`Game${i}`]);
+        }
+      }
+    }
+  });
+  top5Games.sort((a, b) => b.total - a.total);
+  top5Games = top5Games.slice(0, 5);
+  console.log(top5Games);
+
   return (
-    <Card {...props}>
+    <Card>
       <CardHeader title="Best Performances" />
       <PerfectScrollbar>
         <Box sx={{ minWidth: 250 }}>
           <Table>
             <TableHead>
               <TableRow>
-                <TableCell>Opponent</TableCell>
+                <TableCell>Score</TableCell>
                 <TableCell>Alley</TableCell>
                 <TableCell>Game</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              
+              {top5Games.map((game) => (
+                <TableRow hover key={uuid()}>
+                  <TableCell>{game.total}</TableCell>
+                  <TableCell>{game.alley}</TableCell>
+                  <TableCell>{game.gameNumber}</TableCell>
+                </TableRow>
+              ))}
             </TableBody>
           </Table>
         </Box>
