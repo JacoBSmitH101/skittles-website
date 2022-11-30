@@ -25,19 +25,22 @@ const AverageTimeGraph = ({ playerData }) => {
   let averageSeasonData = [];
   let seasonLabels = [];
   let highestScoreperSeason = [];
-  
+
   Object.keys(playerData).forEach((season) => {
     averageSeasonData.push(playerData[season].average);
     seasonLabels.push(season);
     //get highest score
     let highestScore = 0;
     for (let i = 1; i < 50; i++) {
-        console.log(playerData[season][`Game${i}`]);
+      console.log(playerData[season][`Game${i}`]);
       if (playerData[season][`Game${i}`]) {
-        if (playerData[season][`Game${i}`].total > highestScore && playerData[season][`Game${i}`].didPlay) {
+        if (
+          playerData[season][`Game${i}`].total > highestScore &&
+          playerData[season][`Game${i}`].didPlay
+        ) {
           highestScore = playerData[season][`Game${i}`].total;
         }
-      } 
+      }
     }
     highestScoreperSeason.push(highestScore);
   });
@@ -87,23 +90,23 @@ const AverageTimeGraph = ({ playerData }) => {
   ChartJS.register(RadialLinearScale, ArcElement, Tooltip, Legend);
   return (
     <>
-    <Card sx={{ display: { xs: "block", sm: "block" } }}>
-      <CardHeader title="Average Per Season" />
-      <Divider />
-      <CardContent>
-        <Box
-          sx={{
-            height: "405px",
-          }}
-        >
-          <Line data={data} options={options} />
-        </Box>
-      </CardContent>
-    </Card>
-    <Card sx={{ display: { xs: "block", sm: "none" } }}>
+      <Card sx={{ display: { xs: "none", sm: "block" } }}>
+        <CardHeader title="Average Per Season" />
+        <Divider />
+        <CardContent>
+          <Box
+            sx={{
+              height: "405px",
+            }}
+          >
+            <Line data={data} options={options} />
+          </Box>
+        </CardContent>
+      </Card>
+      <Card sx={{ display: { xs: "block", sm: "none" } }}>
         <CardHeader title="Please Rotate Phone" />
-        </Card>
-        </>
+      </Card>
+    </>
   );
 };
 export default AverageTimeGraph;
