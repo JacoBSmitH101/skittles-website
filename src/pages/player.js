@@ -7,6 +7,8 @@ import { DashboardLayout } from "../components/dashboard-layout";
 import HighestScore from "../components/player/highestscore";
 import PlayerHeader from "../components/player/header";
 import HighestAverage from "../components/player/highestaverage";
+import AverageTimeGraph from "../components/player/averagetimegraph";
+import BestPerformances from "../components/player/bestperforminggames";
 const Game = () => {
   const Router = useRouter();
   const { name } = Router.query;
@@ -50,10 +52,12 @@ const Game = () => {
             <Grid item xl={4.5} lg={3.5} sm={3} xs={12}>
                 <HighestScore playerData={playerData} />
             </Grid>
-            <Grid item xl={3} lg={3} sm={6} xs={12}>
+            <Grid item xl={6} lg={8} sm={12} xs={12}>
+              <AverageTimeGraph playerData={playerData}/>
             </Grid>
 
-            <Grid item xl={2} lg={2} sm={6} xs={12}>
+            <Grid item xl={6} lg={4} sm={12} xs={12}>
+              <BestPerformances />
             </Grid>
 
             <Grid item lg={4} md={6} xl={3} xs={12}>

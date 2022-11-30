@@ -1,5 +1,5 @@
 import React from "react";
-import { Avatar, Box, Card, CardContent, Grid, Typography } from "@mui/material";
+import { Avatar, Box, Card, CardContent, Grid, Link, Typography } from "@mui/material";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import MoneyIcon from "@mui/icons-material/Money";
 import ScoreboardIcon from "@mui/icons-material/Scoreboard";
@@ -22,7 +22,7 @@ function HighestScore({ playerData }) {
             if (playerData[season][`Game${i}`].total > highestScore) {
               highestScore = playerData[season][`Game${i}`].total;
               highestScoreSeason = season;
-                highestScoreGame = i;
+              highestScoreGame = i;
             }
           }
         }
@@ -72,11 +72,16 @@ function HighestScore({ playerData }) {
               HIGHEST SCORE
             </Typography>
             <Typography color="textPrimary" variant="h5">
-              {highestScore}
-              <Typography color="textSecondary" variant="caption">
-                &nbsp;&nbsp;&nbsp;&nbsp;(
-                {`20${highestScoreSeason.slice(0, 2)} - 20${highestScoreSeason.slice(2, 4)}`} Game {highestScoreGame})
-              </Typography>
+              {highestScore}&nbsp;&nbsp;&nbsp;&nbsp;
+              <Link underline="hover" href={`/game?seasonNumber=${highestScoreSeason}&gameNumber=${highestScoreGame}`}>
+                <Typography color="textSecondary" variant="caption">
+                  (
+                  {`20${highestScoreSeason.slice(0, 2)} - 20${highestScoreSeason.slice(
+                    2,
+                    4
+                  )}`} Game {highestScoreGame})
+                </Typography>
+              </Link>
             </Typography>
           </Grid>
           <Grid item>
