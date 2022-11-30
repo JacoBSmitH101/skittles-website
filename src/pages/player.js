@@ -43,13 +43,13 @@ const Game = () => {
         
         <Container maxWidth={false}>
           <Grid container spacing={3}>
-            <Grid item lg={5} sm={6} xl={3} xs={12}>
+            <Grid item lg={5} sm={4} md={4} xl={3} xs={12}>
                 <PlayerHeader name={name} playerData={playerData} />
             </Grid>
-            <Grid item xl={4.5} lg={3.5} sm={3} xs={12}>
+            <Grid item xl={4.5} lg={3.5} md={4} sm={4} xs={12}>
                 <HighestAverage playerData={playerData}/>
             </Grid>
-            <Grid item xl={4.5} lg={3.5} sm={3} xs={12}>
+            <Grid item xl={4.5} lg={3.5} md={4} sm={4} xs={12}>
                 <HighestScore playerData={playerData} />
             </Grid>
             <Grid item xl={6} lg={8} sm={12} xs={12}>

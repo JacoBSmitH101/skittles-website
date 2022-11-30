@@ -122,7 +122,7 @@ const AverageTimeGraph = ({ playerData }) => {
         </CardContent>
       </Card>
       <Card sx={{ display: { xs: "block", sm: "none" } }}>
-        <CardHeader title="Please rotate phone to see graph" />
+        <CardHeader title="Rotate phone to see graph" />
       </Card>
     </>
   );

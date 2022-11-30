@@ -38,7 +38,7 @@ function HighestAverage({ playerData }) {
                 Loading...
               </Typography>
             </Grid>
-            <Grid item sx={{ display: { xs: "none", sm: "none", lg: "block", xl: "block" } }}>
+            <Grid item>
               <Avatar
                 sx={{
                   backgroundColor: "primary.main",
@@ -70,12 +70,13 @@ function HighestAverage({ playerData }) {
               </Typography>
             </Typography>
           </Grid>
-          <Grid item>
+          <Grid item sx={{display: { xs: "block", sm:"none", md: "none", lg: "block", xl: "block" }}}>
             <Avatar
               sx={{
                 backgroundColor: "primary.main",
                 height: 56,
                 width: 56,
+                
               }}
             >
               <TimelineIcon />
