@@ -11,11 +11,15 @@ import HighestScore from "../components/game/highscorer";
 import HistoryVSOpponent from "../components/game/history";
 import PlayerList from "../components/game/playerlist";
 import TeamAverage from "../components/game/teamaverage";
+import UserNotAuth from "../components/user-not-auth";
+import { auth } from "../lib/auth";
+
 const Game = () => {
   const Router = useRouter();
   const { gameNumber, seasonNumber } = Router.query;
   const [gameData, setGameData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [authenticated, setAuthenticated] = useState(false);
   useEffect(() => {
     fetch(
       "https://skittles-server.herokuapp.com/get-game/season/" +
@@ -28,9 +32,31 @@ const Game = () => {
         setGameData(data);
         setIsLoading(false);
       });
+      auth.getCurrentUser().then((res) => {
+        if (!res) {
+          setAuthenticated(false);
+          return
+        }
+        let id = res.subId.slice(0, -3);
+        fetch("https://skittles-server.herokuapp.com/verified-users-list")
+          .then((res) => res.json())
+          .then((data) => {
+            let verified = false;
+            for (let i = 0; i < data.length; i++) {
+              if (data[i].authId === id) {
+                verified = true;
+                setAuthenticated(true);
+                break;
+              }
+            }
+          });
+      });
   }, []);
   if (isLoading || !gameData) {
     return <h1>NO DATA FOUND</h1>;
+  }
+  if (!authenticated) {
+    return <UserNotAuth />;
   }
 
   return (

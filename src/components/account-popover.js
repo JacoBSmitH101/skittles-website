@@ -50,111 +50,118 @@ export const AccountPopover = (props) => {
     } catch (err) {
       console.error(err);
       window.location.reload();
-
     }
   };
   useEffect(() => {
-    auth.getCurrentUser().then((res) => {
-      let id = res.subId.slice(0, -3);
-      fetch("https://skittles-server.herokuapp.com/verified-users-list")
-        .then((res) => res.json())
-        .then((data) => {
-          let verified = false;
-          for (let i = 0; i < data.length; i++) {
-            if (data[i].authId === id) {
-              verified = true;
-              setUserInfo(data[i]);
-              setAuthenticated(true);
-              setLoading(false);
-              break;
+      auth.getCurrentUser().then((res) => {
+        if (!res) {
+          setLoading(false);
+          return;
+        }
+        let id = res.subId.slice(0, -3);
+        fetch("https://skittles-server.herokuapp.com/verified-users-list")
+          .then((res) => res.json())
+          .then((data) => {
+            let verified = false;
+            for (let i = 0; i < data.length; i++) {
+              if (data[i].authId === id) {
+                verified = true;
+                setUserInfo(data[i]);
+                setAuthenticated(true);
+                setLoading(false);
+                break;
+              }
             }
-          }
-        });
-    });
+          });
+      });
   }, []);
   if (loading) {
-    return (<Popover
-      anchorEl={anchorEl}
-      anchorOrigin={{
-        horizontal: "left",
-        vertical: "bottom",
-      }}
-      onClose={onClose}
-      open={open}
-      PaperProps={{
-        sx: { width: "300px" },
-      }}
-      {...other}
-    >
-      <Box
-        sx={{
-          py: 1.5,
-          px: 2,
+    return (
+      <Popover
+        anchorEl={anchorEl}
+        anchorOrigin={{
+          horizontal: "left",
+          vertical: "bottom",
         }}
+        onClose={onClose}
+        open={open}
+        PaperProps={{
+          sx: { width: "300px" },
+        }}
+        {...other}
       >
-        <Typography variant="overline">Loading</Typography>
-        <Typography color="text.secondary" variant="body2">
-          Loading user info
-        </Typography>
-      </Box>
-      <MenuList
-        disablePadding
-        sx={{
-          "& > *": {
-            "&:first-of-type": {
-              borderTopColor: "divider",
-              borderTopStyle: "solid",
-              borderTopWidth: "1px",
+        <Box
+          sx={{
+            py: 1.5,
+            px: 2,
+          }}
+        >
+          <Typography variant="overline">Loading</Typography>
+          <Typography color="text.secondary" variant="body2">
+            Loading user info
+          </Typography>
+        </Box>
+        <MenuList
+          disablePadding
+          sx={{
+            "& > *": {
+              "&:first-of-type": {
+                borderTopColor: "divider",
+                borderTopStyle: "solid",
+                borderTopWidth: "1px",
+              },
+              padding: "12px 16px",
             },
-            padding: "12px 16px",
-          },
-        }}
-      >
-        <MenuItem onClick={handleSignOut}>Sign out</MenuItem>
-      </MenuList>
-    </Popover>);
+          }}
+        >
+          <MenuItem onClick={handleSignOut}>Sign out</MenuItem>
+        </MenuList>
+      </Popover>
+    );
   }
   if (!authenticated) {
-    return (<Popover
-      anchorEl={anchorEl}
-      anchorOrigin={{
-        horizontal: "left",
-        vertical: "bottom",
-      }}
-      onClose={onClose}
-      open={open}
-      PaperProps={{
-        sx: { width: "300px" },
-      }}
-      {...other}
-    >
-      <Box
-        sx={{
-          py: 1.5,
-          px: 2,
+    return (
+      <Popover
+        anchorEl={anchorEl}
+        anchorOrigin={{
+          horizontal: "left",
+          vertical: "bottom",
         }}
+        onClose={onClose}
+        open={open}
+        PaperProps={{
+          sx: { width: "300px" },
+        }}
+        {...other}
       >
-        <Typography variant="overline">Not verified user</Typography>
-        <Typography color="text.secondary" variant="body2">
-          Not verified user
-        </Typography>
-      </Box>
-      <MenuList
-        disablePadding
-        sx={{
-          "& > *": {
-            "&:first-of-type": {
-              borderTopColor: "divider",
-              borderTopStyle: "solid",
-              borderTopWidth: "1px",
+        <Box
+          sx={{
+            py: 1.5,
+            px: 2,
+          }}
+        >
+          <Typography variant="overline">Not verified user</Typography>
+          <Typography color="text.secondary" variant="body2">
+            Not verified user
+          </Typography>
+        </Box>
+        <MenuList
+          disablePadding
+          sx={{
+            "& > *": {
+              "&:first-of-type": {
+                borderTopColor: "divider",
+                borderTopStyle: "solid",
+                borderTopWidth: "1px",
+              },
+              padding: "12px 16px",
             },
-            padding: "12px 16px",
-          },
-        }}
-      >
-        <MenuItem onClick={handleSignOut}>Sign out</MenuItem>
-      </MenuList>
-    </Popover>);
+          }}
+        >
+          <MenuItem onClick={handleSignOut}>Sign out</MenuItem>
+        </MenuList>
+      </Popover>
+    );
   }
   return (
     <Popover
