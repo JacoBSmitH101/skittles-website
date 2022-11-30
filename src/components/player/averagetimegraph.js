@@ -32,7 +32,6 @@ const AverageTimeGraph = ({ playerData }) => {
     //get highest score
     let highestScore = 0;
     for (let i = 1; i < 50; i++) {
-      console.log(playerData[season][`Game${i}`]);
       if (playerData[season][`Game${i}`]) {
         if (
           playerData[season][`Game${i}`].total > highestScore &&
@@ -44,7 +43,6 @@ const AverageTimeGraph = ({ playerData }) => {
     }
     highestScoreperSeason.push(highestScore);
   });
-  console.log(highestScoreperSeason);
   const data = {
     labels: seasonLabels,
     datasets: [
@@ -104,7 +102,7 @@ const AverageTimeGraph = ({ playerData }) => {
         </CardContent>
       </Card>
       <Card sx={{ display: { xs: "block", sm: "none" } }}>
-        <CardHeader title="Please Rotate Phone" />
+        <CardHeader title="Please rotate phone to see graph" />
       </Card>
     </>
   );

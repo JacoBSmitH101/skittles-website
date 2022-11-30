@@ -57,7 +57,7 @@ const Game = () => {
             </Grid>
 
             <Grid item xl={6} lg={4} sm={12} xs={12}>
-              <BestPerformances />
+              <BestPerformances playerData={playerData}/>
             </Grid>
 
             <Grid item lg={4} md={6} xl={3} xs={12}>
