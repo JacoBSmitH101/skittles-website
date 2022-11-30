@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Box, Button, ListItem } from '@mui/material';
 
 export const NavItem = (props) => {
-  const { href, icon, title, ...others } = props;
+  const { href, icon, title, enabled, ...others } = props;
   const router = useRouter();
   const active = href ? (router.pathname === href) : false;
 
@@ -27,6 +27,7 @@ export const NavItem = (props) => {
           component="a"
           startIcon={icon}
           disableRipple
+          disabled={!enabled} 
           sx={{
             backgroundColor: active && 'rgba(255,255,255, 0.08)',
             borderRadius: 1,
