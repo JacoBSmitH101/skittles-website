@@ -14,6 +14,7 @@ import {
   TableRow,
   TableSortLabel,
   Tooltip,
+  Typography,
 } from "@mui/material";
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 import { SeverityPill } from "../severity-pill";
@@ -59,7 +60,9 @@ const BestPerformances = ({ playerData }) => {
                       underline="hover"
                       href={`/game?seasonNumber=${game.season}&gameNumber=${game.gameNumber}`}
                     >
-                      {game.season} Game {game.gameNumber}
+                      <Typography color="textSecondary" variant="caption">
+                        {game.season} Game {game.gameNumber}
+                      </Typography>
                     </Link>
                   </TableCell>
                 </TableRow>
