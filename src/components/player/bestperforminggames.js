@@ -35,7 +35,6 @@ const BestPerformances = ({ playerData }) => {
   });
   top5Games.sort((a, b) => b.total - a.total);
   top5Games = top5Games.slice(0, 6);
-  console.log(top5Games);
 
   return (
     <Card>
