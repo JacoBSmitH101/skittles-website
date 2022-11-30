@@ -108,7 +108,7 @@ const GraphSection = ({ gameData }) => {
       <CardHeader
         title="Average pins per hand"
         action={
-          <FormControl style={{ minWidth: 120 }} fullWidth>
+          <FormControl style={{ minWidth: 120 }} fullWidth disabled>
             <InputLabel id="demo-simple-select-label">Graph</InputLabel>
             <Select
               labelId="demo-simple-select-label"

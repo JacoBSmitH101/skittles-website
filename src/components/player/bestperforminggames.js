@@ -82,6 +82,7 @@ const BestPerformances = ({ playerData }) => {
           endIcon={<ArrowRightIcon fontSize="small" />}
           size="small"
           variant="text"
+          disabled
         >
           View all
         </Button>

@@ -264,6 +264,7 @@ const Games = (props) => {
           color="primary"
           endIcon={<ArrowRightIcon fontSize="small" />}
           size="small"
+          disabled
           onClick={async () => {}}
         >
           Overview

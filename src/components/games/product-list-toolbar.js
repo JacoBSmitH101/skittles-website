@@ -28,7 +28,7 @@ export const GamesListToolbar = ({ filter, filterHandler }) => (
         All Games
       </Typography>
       <Box sx={{ m: 1 }}>
-        <Button startIcon={<FileUploadIcon />} sx={{ mr: 1 }}>
+        <Button startIcon={<FileUploadIcon />} sx={{ mr: 1 }} disabled>
           Export
         </Button>
         {/*add a form that redirects to /newgame */}
