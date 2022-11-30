@@ -25,7 +25,8 @@ const AverageTimeGraph = ({ playerData }) => {
   let averageSeasonData = [];
   let seasonLabels = [];
   let highestScoreperSeason = [];
-
+  let wholeAverage = 0;
+    let averageCareer = []
   Object.keys(playerData).forEach((season) => {
     averageSeasonData.push(playerData[season].average);
     seasonLabels.push(season);
@@ -43,6 +44,10 @@ const AverageTimeGraph = ({ playerData }) => {
     }
     highestScoreperSeason.push(highestScore);
   });
+  wholeAverage = averageSeasonData.reduce((a, b) => a + b, 0) / averageSeasonData.length;
+  for (let i = 0; i < averageSeasonData.length; i++) {
+    averageCareer[i] = wholeAverage;
+  }
   const data = {
     labels: seasonLabels,
     datasets: [
@@ -60,8 +65,15 @@ const AverageTimeGraph = ({ playerData }) => {
         data: highestScoreperSeason,
         backgroundColor: "rgba(54, 162, 235, 0.5)",
         borderColor: "rgb(54, 162, 235)",
-        borderThickness: 5,
+        borderThickness: 10,
       },
+      {
+        label: "Career Average",
+        data: averageCareer,
+        backgroundColor: "rgba(255, 206, 86, 0.5)",
+        borderColor: "rgb(255, 206, 86)",
+        borderThickness: 5,
+      }
     ],
   };
 
