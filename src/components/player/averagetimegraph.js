@@ -86,7 +86,8 @@ const AverageTimeGraph = ({ playerData }) => {
 
   ChartJS.register(RadialLinearScale, ArcElement, Tooltip, Legend);
   return (
-    <Card sx={{ display: { xs: "none", sm: "block" } }}>
+    <>
+    <Card sx={{ display: { xs: "block", sm: "block" } }}>
       <CardHeader title="Average Per Season" />
       <Divider />
       <CardContent>
@@ -99,6 +100,10 @@ const AverageTimeGraph = ({ playerData }) => {
         </Box>
       </CardContent>
     </Card>
+    <Card sx={{ display: { xs: "block", sm: "none" } }}>
+        <CardHeader title="Please Rotate Phone" />
+        </Card>
+        </>
   );
 };
 export default AverageTimeGraph;
