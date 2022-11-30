@@ -6,6 +6,7 @@ import {
   Button,
   Card,
   CardHeader,
+  Link,
   Table,
   TableBody,
   TableCell,
@@ -32,7 +33,7 @@ const BestPerformances = ({ playerData }) => {
     }
   });
   top5Games.sort((a, b) => b.total - a.total);
-  top5Games = top5Games.slice(0, 5);
+  top5Games = top5Games.slice(0, 6);
   console.log(top5Games);
 
   return (
@@ -53,7 +54,14 @@ const BestPerformances = ({ playerData }) => {
                 <TableRow hover key={uuid()}>
                   <TableCell>{game.total}</TableCell>
                   <TableCell>{game.alley}</TableCell>
-                  <TableCell>{game.gameNumber}</TableCell>
+                  <TableCell>
+                    <Link
+                      underline="hover"
+                      href={`/game?seasonNumber=${game.season}&gameNumber=${game.gameNumber}`}
+                    >
+                      {game.season} Game {game.gameNumber}
+                    </Link>
+                  </TableCell>
                 </TableRow>
               ))}
             </TableBody>
