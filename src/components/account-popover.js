@@ -53,27 +53,28 @@ export const AccountPopover = (props) => {
     }
   };
   useEffect(() => {
-      auth.getCurrentUser().then((res) => {
-        if (!res) {
-          setLoading(false);
-          return;
-        }
-        let id = res.subId.slice(0, -3);
-        fetch("https://skittles-server.herokuapp.com/verified-users-list")
-          .then((res) => res.json())
-          .then((data) => {
-            let verified = false;
-            for (let i = 0; i < data.length; i++) {
-              if (data[i].authId === id) {
-                verified = true;
-                setUserInfo(data[i]);
-                setAuthenticated(true);
-                setLoading(false);
-                break;
-              }
+    auth.getCurrentUser().then((res) => {
+      if (!res) {
+        setLoading(false);
+        setAuthenticated(false);
+        return;
+      }
+      let id = res.subId.slice(0, -3);
+      fetch("https://skittles-server.herokuapp.com/verified-users-list")
+        .then((res) => res.json())
+        .then((data) => {
+          let verified = false;
+          for (let i = 0; i < data.length; i++) {
+            if (data[i].authId === id) {
+              verified = true;
+              setUserInfo(data[i]);
+              setAuthenticated(true);
+              setLoading(false);
+              break;
             }
-          });
-      });
+          }
+        });
+    });
   }, []);
   if (loading) {
     return (
@@ -114,7 +115,11 @@ export const AccountPopover = (props) => {
             },
           }}
         >
-          <MenuItem onClick={handleSignOut}>Sign out</MenuItem>
+          {authenticated ? (
+            <MenuItem onClick={handleSignOut}>Sign out</MenuItem>
+          ) : (
+            <MenuItem href="/sign-in">Sign in</MenuItem>
+          )}
         </MenuList>
       </Popover>
     );
