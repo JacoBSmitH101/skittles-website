@@ -17,7 +17,9 @@ import { auth } from "../../lib/auth";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 import { useState, useEffect } from "react";
-
+const toEvenBelow = (num) => {
+    return Math.floor(num / 2) * 2;
+}
 const AverageTimeGraph = ({ playerData }) => {
   const theme = useTheme();
   //foreach season in playerData, get .average from season
@@ -90,7 +92,7 @@ const AverageTimeGraph = ({ playerData }) => {
     },
     scales: {
       y: {
-        min: Math.floor(Math.min(...data.datasets[0].data)) - 4,
+        min: toEvenBelow(Math.floor(Math.min(...data.datasets[0].data)) - 4),
         max: Math.floor(Math.max(...data.datasets[1].data)) + 5,
       },
       x: {},
