@@ -32,7 +32,12 @@ const Games = () => {
         setLoading(false);
       });
     auth.getCurrentUser().then((res) => {
+      if (!res) {
+        setAuthenticated(false);
+        return;
+      }
       let id = res.subId.slice(0, -3);
+
       fetch("https://skittles-server.herokuapp.com/verified-users-list")
         .then((res) => res.json())
         .then((data) => {
@@ -71,11 +76,11 @@ const Games = () => {
       let filtered = games.games.filter((game) => {
         return game.name.toLowerCase().includes(event.target.value.toLowerCase());
       });
-      setFilteredGames({games: filtered});
+      setFilteredGames({ games: filtered });
       try {
         setVisibleGames(filtered.slice((page - 1) * 6, page * 6));
       } catch (e) {
-        setVisibleGames([{name: "No games found"}]);
+        setVisibleGames([{ name: "No games found" }]);
       }
     }
   };
