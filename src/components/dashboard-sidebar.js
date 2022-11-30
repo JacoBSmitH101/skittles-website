@@ -24,21 +24,25 @@ const items = [
     href: "/",
     icon: <ChartBarIcon fontSize="small" />,
     title: "Dashboard",
+    enabled: true,
   },
   {
     href: "/team",
     icon: <WorkspacesIcon fontSize="small" />,
     title: "Team",
+    enabled: false,
   },
   {
     href: "/players",
     icon: <UsersIcon fontSize="small" />,
     title: "Players",
+    enabled: true,
   },
   {
     href: "/games",
     icon: <WindowIcon fontSize="small" />,
     title: "Games",
+    enabled: true,
   },
   {
     href: "/alleys",
@@ -49,16 +53,19 @@ const items = [
     href: "/account",
     icon: <QueryStatsIcon fontSize="small" />,
     title: "My Stats",
+    enabled: false,
   },
   {
     href: "/settings",
     icon: <CogIcon fontSize="small" />,
     title: "Settings",
+    enabled: false,
   },
   {
     href: "/newgame",
     icon: <UserAddIcon fontSize="small" />,
     title: "Add New Game",
+    enabled: true,
   },
 ];
 
@@ -145,7 +152,7 @@ export const DashboardSidebar = (props) => {
         />
         <Box sx={{ flexGrow: 1 }}>
           {items.map((item) => (
-            <NavItem key={item.title} icon={item.icon} href={item.href} title={item.title} />
+            <NavItem key={item.title} icon={item.icon} href={item.href} title={item.title} enabled={item.enabled} />
           ))}
         </Box>
         <Divider sx={{ borderColor: "#2D3748" }} />

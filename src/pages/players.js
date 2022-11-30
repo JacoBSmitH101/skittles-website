@@ -26,21 +26,25 @@ const Players = () => {
         setFilteredPlayers(data);
         setLoading(false);
       });
-      auth.getCurrentUser().then((res) => {
-        let id = res.subId.slice(0, -3);
-        fetch("https://skittles-server.herokuapp.com/verified-users-list")
-          .then((res) => res.json())
-          .then((data) => {
-            let verified = false;
-            for (let i = 0; i < data.length; i++) {
-              if (data[i].authId === id) {
-                verified = true;
-                setAuthenticated(true);
-                break;
-              }
+    auth.getCurrentUser().then((res) => {
+      if (!res) {
+        setAuthenticated(false);
+        return;
+      }
+      let id = res.subId.slice(0, -3);
+      fetch("https://skittles-server.herokuapp.com/verified-users-list")
+        .then((res) => res.json())
+        .then((data) => {
+          let verified = false;
+          for (let i = 0; i < data.length; i++) {
+            if (data[i].authId === id) {
+              verified = true;
+              setAuthenticated(true);
+              break;
             }
-          });
-      });
+          }
+        });
+    });
   }, []);
   useEffect(() => {
     if (allPlayers && searchTerm != "") {

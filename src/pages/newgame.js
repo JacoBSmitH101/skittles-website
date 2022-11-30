@@ -34,6 +34,10 @@ const AddNewGame = () => {
   const [userInfo, setUserInfo] = useState(null);
   useEffect(() => {
     auth.getCurrentUser().then((res) => {
+      if (!res) {
+        setAuthenticated(false);
+        return;
+      }
       let id = res.subId.slice(0, -3);
       fetch("https://skittles-server.herokuapp.com/verified-users-list")
         .then((res) => res.json())
@@ -42,8 +46,8 @@ const AddNewGame = () => {
           for (let i = 0; i < data.length; i++) {
             console.log(data[i]);
             if (
-              (data[i].authId === id) && (data[i].name == "Jacob Smith" ||
-              data[i].name == "Roger Smith")
+              data[i].authId === id &&
+              (data[i].name == "Jacob Smith" || data[i].name == "Roger Smith")
             ) {
               setUserInfo(data[i]);
               setAuthenticated(true);
@@ -75,8 +79,7 @@ const AddNewGame = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(newGameInfo),
-      }).then((res) => {
-      });
+      }).then((res) => {});
     } else {
       alert("Please fill out all fields");
     }

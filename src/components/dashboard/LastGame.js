@@ -19,6 +19,7 @@ const LastGame = (props) => {
         });
     } catch (error) {
       console.log(error);
+      
     }
     fetch("https://skittles-server.herokuapp.com/jolly-crew")
       .then((res) => res.json())

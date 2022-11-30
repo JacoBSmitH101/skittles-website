@@ -28,7 +28,6 @@ const GraphSection = ({ gameData }) => {
     5: { amount: 0, total: 0 },
     6: { amount: 0, total: 0 },
   };
-  console.log(gameData);
 
   Object.keys(gameData.players).forEach((player) => {
     if (gameData.players[player].h1) {
@@ -59,7 +58,6 @@ const GraphSection = ({ gameData }) => {
       averagePerTurn[6].total += parseInt(gameData.players[player].scores[5]);
     }
   });
-  console.log(averagePerTurn);
   const data = {
     labels: ["1st Hand", "2nd Hand", "3rd Hand", "4th Hand", "5th Hand", "6th Hand"],
     datasets: [
@@ -110,7 +108,7 @@ const GraphSection = ({ gameData }) => {
       <CardHeader
         title="Average pins per hand"
         action={
-          <FormControl style={{ minWidth: 120 }} fullWidth>
+          <FormControl style={{ minWidth: 120 }} fullWidth disabled>
             <InputLabel id="demo-simple-select-label">Graph</InputLabel>
             <Select
               labelId="demo-simple-select-label"

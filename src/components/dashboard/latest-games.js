@@ -24,7 +24,8 @@ const LatestGames = (props) => {
   const [isLoading, setLoading] = useState(true);
   const [selectedGame, setSelectedGame] = useState(null);
   const gameSelectedHandler = (game) => {
-    console.log(game);
+    //redirect to /game?gameNumber=game.gameNumber&seasonNumber=game.seasonNumber
+    window.location.replace("/game?gameNumber=" + game.gameNumber + "&seasonNumber=" + game.season);
   };
   useEffect(() => {
     setLoading(true);
@@ -101,6 +102,7 @@ const LatestGames = (props) => {
           endIcon={<ArrowRightIcon fontSize="small" />}
           size="small"
           variant="text"
+          disabled
         >
           View all
         </Button>
