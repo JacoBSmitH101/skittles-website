@@ -15,7 +15,6 @@ const SeasonProgress = (props) => {
   }, []);
   if (isLoading) return <p>Loading...</p>;
   if (!jollyData) return <Card><p>No profile data</p></Card>;
-  console.log(jollyData);
   return (
     <Card sx={{ height: "100%" }} {...props}>
       <CardContent>
