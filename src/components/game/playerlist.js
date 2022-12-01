@@ -22,26 +22,27 @@ import { useState, useEffect } from "react";
 import Paper from "@mui/material";
 import AssignmentIcon from "@mui/icons-material/Assignment";
 const PlayerList = ({ gameData }) => {
-  console.log("gameData", gameData);
   let opponentTotalKey = "opponent";
   Object.keys(gameData.players).forEach((player) => {
     if (gameData.players[player].opponentTotal) {
       opponentTotalKey = "opponentTotal";
-    } 
+    }
   });
   return (
     <Card sx={{ height: "100%" }}>
       <CardHeader
-      sx={{paddingTop: "4.5%", paddingBottom: "4.5%"}}
-      avatar={<Avatar
-        sx={{
-          backgroundColor: "primary.main",
-          height: 56,
-          width: 56,
-        }}
-      >
-        <AssignmentIcon />
-      </Avatar>}
+        sx={{ paddingTop: "4.5%", paddingBottom: "4.5%" }}
+        avatar={
+          <Avatar
+            sx={{
+              backgroundColor: "primary.main",
+              height: 56,
+              width: 56,
+            }}
+          >
+            <AssignmentIcon />
+          </Avatar>
+        }
         title="Scoreboard"
       ></CardHeader>
 
@@ -70,10 +71,13 @@ const PlayerList = ({ gameData }) => {
                   </TableCell>
                   <TableCell align="right">{gameData.players[player].total}</TableCell>
                   <TableCell align="right">
-                    {gameData.players[player].total - gameData.players[player][opponentTotalKey] > 0
+                    {gameData.players[player].total - gameData.players[player].opponent > 0
                       ? "+"
                       : ""}
-                    {gameData.players[player].total - gameData.players[player][opponentTotalKey]}
+                    {gameData.players[player].total -
+                      (gameData.players[player].opponent
+                        ? gameData.players[player].opponent
+                        : gameData.players[player].opponentTotal)}
                   </TableCell>
                 </TableRow>
               ))}
