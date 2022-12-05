@@ -35,7 +35,9 @@ const Games = (props) => {
       .then((res) => res.json())
       .then((data) => {
         setJollyData(data);
-        setLastSeasonData(data.seasons[Object.keys(data.seasons)[Object.keys(data.seasons).length - 1]]);
+        setLastSeasonData(
+          data.seasons[Object.keys(data.seasons)[Object.keys(data.seasons).length - 1]]
+        );
         setLoading(false);
       });
   }, []);
@@ -70,9 +72,11 @@ const Games = (props) => {
   let seasonOpponentScores = [];
   let seasonLabels = [];
   Object.keys(lastSeasonData.games).forEach((game) => {
-    seasonScores.push(lastSeasonData.games[game].ourScore);
-    seasonOpponentScores.push(lastSeasonData.games[game].opponentScore);
-    seasonLabels.push("Game " + lastSeasonData.games[game].gameNumber);
+    if (lastSeasonData.games[game].didPlay) {
+      seasonScores.push(lastSeasonData.games[game].ourScore);
+      seasonOpponentScores.push(lastSeasonData.games[game].opponentScore);
+      seasonLabels.push("Game " + lastSeasonData.games[game].gameNumber);
+    }
   });
   const graphSelectionHandler = (event) => {
     setGraphSelected(event.target.value);
