@@ -44,7 +44,7 @@ const PlayerList = ({ allPlayers }) => {
                 <TableRow hover key={player}>
                   <TableCell sx={{maxWidth: "1rem"}} >{player}</TableCell>
                   <TableCell sx={{ display: { xs: "none", sm: "revert" } }}>
-                    {Object.keys(allPlayers[player])[0]} - {Object.keys(allPlayers[player]).pop()}
+                    {Object.keys(allPlayers[player].seasons)[0]} - {Object.keys(allPlayers[player].seasons).pop()}
                   </TableCell>
                   <TableCell>
                     <Button

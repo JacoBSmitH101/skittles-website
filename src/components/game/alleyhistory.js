@@ -21,58 +21,56 @@ function AlleyHistory({ gameData }) {
     setTotalLosses(0);
     let totalWins2 = 0;
     let totalLosses2 = 0;
-    Object.values(data).forEach((season) => {
-      Object.values(season).forEach((game) => {
-        if (game.ourScore > game.opponentScore) {
-          totalWins2++;
-          setTotalWins((prev) => prev + 1);
-          if (totalWins2 > totalLosses2) {
-            setStateText(
-              <Typography color="secondary.main" gutterBottom variant="overline">
-                {"  "}(WINNING)
-              </Typography>
-            );
-          } else if (totalWins2 < totalLosses2) {
-            setStateText(
-              <Typography color="error.main" gutterBottom variant="overline">
-                {"  "}(LOSING)
-              </Typography>
-            );
-          } else {
-            setStateText(
-              <Typography color="warning.light" gutterBottom variant="overline">
-                {"  "}(MEH)
-              </Typography>
-            );
-          }
+    data.forEach((game) => {
+      if (game.ourScore > game.opponentScore) {
+        totalWins2++;
+        setTotalWins((prev) => prev + 1);
+        if (totalWins2 > totalLosses2) {
+          setStateText(
+            <Typography color="secondary.main" gutterBottom variant="overline">
+              {"  "}(WINNING)
+            </Typography>
+          );
+        } else if (totalWins2 < totalLosses2) {
+          setStateText(
+            <Typography color="error.main" gutterBottom variant="overline">
+              {"  "}(LOSING)
+            </Typography>
+          );
         } else {
-          totalLosses2++;
-          setTotalLosses((prev) => prev + 1);
-          if (totalWins2 > totalLosses2) {
-            setStateText(
-              <Typography color="secondary.main" gutterBottom variant="overline">
-                {"  "}(WINNING)
-              </Typography>
-            );
-          } else if (totalWins2 < totalLosses2) {
-            setStateText(
-              <Typography color="error.main" gutterBottom variant="overline">
-                {"  "}(LOSING)
-              </Typography>
-            );
-          } else {
-            setStateText(
-              <Typography color="warning.light" gutterBottom variant="overline">
-                {"  "}(MEH)
-              </Typography>
-            );
-          }
+          setStateText(
+            <Typography color="warning.light" gutterBottom variant="overline">
+              {"  "}(MEH)
+            </Typography>
+          );
         }
-      });
+      } else {
+        totalLosses2++;
+        setTotalLosses((prev) => prev + 1);
+        if (totalWins2 > totalLosses2) {
+          setStateText(
+            <Typography color="secondary.main" gutterBottom variant="overline">
+              {"  "}(WINNING)
+            </Typography>
+          );
+        } else if (totalWins2 < totalLosses2) {
+          setStateText(
+            <Typography color="error.main" gutterBottom variant="overline">
+              {"  "}(LOSING)
+            </Typography>
+          );
+        } else {
+          setStateText(
+            <Typography color="warning.light" gutterBottom variant="overline">
+              {"  "}(MEH)
+            </Typography>
+          );
+        }
+      }
     });
   };
   useEffect(() => {
-    fetch(`https://skittles-server.herokuapp.com/games-at-alley/${gameData.alley}`)
+    fetch(`https://skittles-server.herokuapp.com/gamesat/${gameData.alley}`)
       .then((res) => res.json())
       .then((data) => {
         setPreviousGames(data, updateHistory(data));

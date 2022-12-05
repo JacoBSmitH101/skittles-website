@@ -20,6 +20,8 @@ import React, { useEffect, useState } from "react";
 import { auth } from "../lib/auth";
 import UserNotAuth from "../components/user-not-auth";
 const AddNewGame = () => {
+  const [season, setSeason] = React.useState("");
+  const [game, setGame] = React.useState("");
   const [newGameInfo, setNewGameInfo] = React.useState({
     alley: "",
     opponent: "",
@@ -73,7 +75,10 @@ const AddNewGame = () => {
       newGameInfo.ourTotal != 0 &&
       newGameInfo.opponentTotal != 0
     ) {
-      fetch("https://skittles-server.herokuapp.com/input-next-game", {
+      setNewGameInfo({ ...newGameInfo, difference: newGameInfo.ourTotal - newGameInfo.opponentTotal });
+      console.log(newGameInfo);
+      //fetch(`https://skittles-server.herokuapp.com/addnewgame/Jolly Crew/${season}/${game}`, {
+        fetch(`http://localhost:4000/addnewgame/Jolly%20Crew/${season}/${game}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -109,6 +114,10 @@ const AddNewGame = () => {
                 setNewGameInfo={setNewGameInfo}
                 newGameInfo={newGameInfo}
                 submitGame={submitNewGameInfo}
+                game={game}
+                setGame={setGame}
+                season={season}
+                setSeason={setSeason}
               />
             </Grid>
             {/* <Grid item spacing={3} lg={12} sm={6} xl={3} xs={12}>

@@ -13,9 +13,9 @@ function HighestAverage({ playerData }) {
   useEffect(() => {
     var highestAverage = 0;
     var highestAverageSeason = 0;
-    Object.keys(playerData).forEach((season) => {
-      if (playerData[season].average > highestAverage) {
-        highestAverage = playerData[season].average;
+    Object.keys(playerData.seasons).forEach((season) => {
+      if (playerData.seasons[season].average > highestAverage) {
+        highestAverage = playerData.seasons[season].average;
         highestAverageSeason = season;
       }
     });

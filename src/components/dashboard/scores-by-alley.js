@@ -4,18 +4,18 @@ import LaptopMacIcon from "@mui/icons-material/LaptopMac";
 import PhoneIcon from "@mui/icons-material/Phone";
 import TabletIcon from "@mui/icons-material/Tablet";
 import { useState, useEffect } from "react";
-import HomeIcon from '@mui/icons-material/Home';
-import LocalAirportIcon from '@mui/icons-material/LocalAirport';
+import HomeIcon from "@mui/icons-material/Home";
+import LocalAirportIcon from "@mui/icons-material/LocalAirport";
 export const ScoresByAlley = (props) => {
   const theme = useTheme();
   const [isLoading, setLoading] = useState(true);
   const [jollyData, setJollyData] = useState(null);
   useEffect(() => {
     setLoading(true);
-    fetch("https://skittles-server.herokuapp.com/all-season-games")
+    fetch("https://skittles-server.herokuapp.com/team/Jolly Crew")
       .then((res) => res.json())
       .then((data) => {
-        setJollyData(data);
+        setJollyData(data.seasons[Object.keys(data.seasons)[Object.keys(data.seasons).length - 1]]);
         setLoading(false);
       });
   }, []);
@@ -30,11 +30,13 @@ export const ScoresByAlley = (props) => {
   //find the highest score
   let homeScores = 0;
   let awayScores = 0;
-  jollyData.games.forEach((game) => {
-    if (game.isHome) {
-      homeScores += game.ourScore;
-    } else {
-      awayScores += game.ourScore;
+  Object.keys(jollyData.games).forEach((game) => {
+    if (jollyData.games[game].didPlay) {
+      if (jollyData.games[game].isHome) {
+        homeScores += jollyData.games[game].ourScore;
+      } else {
+        awayScores += jollyData.games[game].ourScore;
+      }
     }
   });
   const data = {

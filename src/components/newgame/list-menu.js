@@ -13,14 +13,20 @@ import React from "react";
 import { SeverityPill } from "../severity-pill";
 import ClearIcon from "@mui/icons-material/Clear";
 import DoneIcon from "@mui/icons-material/Done";
-function ListMenu({ newGameInfo, setNewGameInfo, submitGame }) {
+function ListMenu({ newGameInfo, setNewGameInfo, submitGame, game, setGame, season, setSeason }) {
   const [jollyCrewTotal, setJollyCrewTotal] = React.useState(0);
   const [opponentTotal, setOpponentTotal] = React.useState(0);
+  
 
   const handleTotalInput = (event) => {
     if (event.target.name == "jollyCrewTotal") {
       setJollyCrewTotal(event.target.value);
-    } else {
+    } else if (event.target.name == "season") {
+      setSeason(event.target.value)
+    }
+    else if (event.target.name == "game") {
+      setGame(event.target.value)
+    }else {
       setOpponentTotal(event.target.value);
     }
   };
@@ -38,10 +44,29 @@ function ListMenu({ newGameInfo, setNewGameInfo, submitGame }) {
               label="Jolly Crew Total"
               name="jollyCrewTotal"
               required
-              value={jollyCrewTotal}
+              value={newGameInfo.ourTotal}
+              onChange={(event) => {setNewGameInfo({...newGameInfo, ourTotal: event.target.value})}}
+              variant="outlined"
+            />
+            <TextField
+              fullWidth
+              label="Season"
+              name="season"
+              required
+              value={season}
               onChange={handleTotalInput}
               variant="outlined"
             />
+            <TextField
+              fullWidth
+              label="Game"
+              name="game"
+              required
+              value={game}
+              onChange={handleTotalInput}
+              variant="outlined"
+            />
+
           </Grid>
           <Grid item md={1} xs={1}>
             <Avatar

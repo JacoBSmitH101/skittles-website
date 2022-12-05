@@ -29,22 +29,22 @@ const AverageTimeGraph = ({ playerData }) => {
   let highestScoreperSeason = [];
   let wholeAverage = 0;
   let averageCareer = [];
-  Object.keys(playerData).forEach((season) => {
-    if (playerData[season].gamesPlayed != 0) {
-      if (playerData[season].average) {
+  Object.keys(playerData.seasons).forEach((season) => {
+    if (playerData.seasons[season].gamesPlayed != 0) {
+      if (playerData.seasons[season].average) {
         //FIXME:
-        averageSeasonData.push(playerData[season].average);
+        averageSeasonData.push(playerData.seasons[season].average);
       }
       seasonLabels.push(season);
       //get highest score
       let highestScore = 0;
       for (let i = 1; i < 50; i++) {
-        if (playerData[season][`Game${i}`]) {
+        if (playerData.seasons[season].games[`Game${i}`]) {
           if (
-            playerData[season][`Game${i}`].total > highestScore &&
-            playerData[season][`Game${i}`].didPlay
+            playerData.seasons[season].games[`Game${i}`].total > highestScore &&
+            playerData.seasons[season].games[`Game${i}`].didPlay
           ) {
-            highestScore = playerData[season][`Game${i}`].total;
+            highestScore = playerData.seasons[season].games[`Game${i}`].total;
           }
         }
       }

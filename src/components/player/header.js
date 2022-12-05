@@ -2,18 +2,19 @@ import { Card, CardContent, CardHeader, Typography } from "@mui/material";
 import React from "react";
 
 function PlayerHeader({ name, playerData }) {
+  console.log(playerData);
   var gamesPlayed = 0;
-  Object.keys(playerData).forEach((season) => {
-    gamesPlayed += playerData[season].gamesPlayed;
+  Object.keys(playerData.seasons).forEach((season) => {
+    gamesPlayed += playerData.seasons[season].gamesPlayed;
   });
   var isStillOnTeam = false;
-  var firstSeason = Object.keys(playerData)[0];
+  var firstSeason = Object.keys(playerData.seasons)[0];
   var latestSeason = null
-  if (Object.keys(playerData)[Object.keys(playerData).length - 1] == "2223") {
+  if (Object.keys(playerData.seasons)[Object.keys(playerData.seasons).length - 1] == "2223") {
     isStillOnTeam = true;
   } else {
     //get latest season
-    latestSeason = Object.keys(playerData).pop();
+    latestSeason = Object.keys(playerData.seasons).pop();
   }
   return (
     <Card>

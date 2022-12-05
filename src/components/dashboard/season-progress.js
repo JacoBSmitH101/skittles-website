@@ -6,7 +6,7 @@ const SeasonProgress = (props) => {
   const [jollyData, setJollyData] = useState(null);
   useEffect(() => {
     setLoading(true);
-    fetch("https://skittles-server.herokuapp.com/latest-game ")
+    fetch("https://skittles-server.herokuapp.com/lastgame")
       .then((res) => res.json())
       .then((data) => {
         setJollyData(data);

@@ -8,7 +8,7 @@ const HighestScore = (props) => {
   const [jollyData, setJollyData] = useState(null);
   useEffect(() => {
     setLoading(true);
-    fetch("https://skittles-server.herokuapp.com/jolly-crew")
+    fetch("https://skittles-server.herokuapp.com/team/Jolly Crew")
       .then((res) => res.json())
       .then((data) => {
         setJollyData(data);

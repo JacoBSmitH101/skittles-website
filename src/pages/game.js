@@ -22,10 +22,7 @@ const Game = () => {
   const [authenticated, setAuthenticated] = useState(false);
   useEffect(() => {
     fetch(
-      "https://skittles-server.herokuapp.com/get-game/season/" +
-        seasonNumber +
-        "/game/" +
-        gameNumber
+      `https://skittles-server.herokuapp.com/game/${seasonNumber}/${gameNumber}`
     )
       .then((res) => res.json())
       .then((data) => {
