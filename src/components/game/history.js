@@ -21,58 +21,56 @@ function HistoryVSOpponent({ gameData }) {
     setTotalLosses(0);
     let totalWins2 = 0;
     let totalLosses2 = 0;
-    Object.values(data).forEach((season) => {
-      Object.values(season).forEach((game) => {
-        if (game.ourScore > game.opponentScore) {
-          totalWins2++;
-          setTotalWins((prev) => prev + 1);
-          if (totalWins2 > totalLosses2) {
-            setStateText(
-              <Typography color="secondary.main" gutterBottom variant="overline">
-                {"  "}(WINNING)
-              </Typography>
-            );
-          } else if (totalWins2 < totalLosses2) {
-            setStateText(
-              <Typography color="error.main" gutterBottom variant="overline">
-                {"  "}(LOSING)
-              </Typography>
-            );
-          } else {
-            setStateText(
-              <Typography color="warning.light" gutterBottom variant="overline">
-                {"  "}(TIED)
-              </Typography>
-            );
-          }
+    data.forEach((game) => {
+      if (game.ourScore > game.opponentScore) {
+        totalWins2++;
+        setTotalWins((prev) => prev + 1);
+        if (totalWins2 > totalLosses2) {
+          setStateText(
+            <Typography color="secondary.main" gutterBottom variant="overline">
+              {"  "}(WINNING)
+            </Typography>
+          );
+        } else if (totalWins2 < totalLosses2) {
+          setStateText(
+            <Typography color="error.main" gutterBottom variant="overline">
+              {"  "}(LOSING)
+            </Typography>
+          );
         } else {
-          totalLosses2++;
-          setTotalLosses((prev) => prev + 1);
-          if (totalWins2 > totalLosses2) {
-            setStateText(
-              <Typography color="secondary.main" gutterBottom variant="overline">
-                {"  "}(WINNING)
-              </Typography>
-            );
-          } else if (totalWins2 < totalLosses2) {
-            setStateText(
-              <Typography color="error.main" gutterBottom variant="overline">
-                {"  "}(LOSING)
-              </Typography>
-            );
-          } else {
-            setStateText(
-              <Typography color="warning.light" gutterBottom variant="overline">
-                {"  "}(TIED)
-              </Typography>
-            );
-          }
+          setStateText(
+            <Typography color="warning.light" gutterBottom variant="overline">
+              {"  "}(TIED)
+            </Typography>
+          );
         }
-      });
+      } else {
+        totalLosses2++;
+        setTotalLosses((prev) => prev + 1);
+        if (totalWins2 > totalLosses2) {
+          setStateText(
+            <Typography color="secondary.main" gutterBottom variant="overline">
+              {"  "}(WINNING)
+            </Typography>
+          );
+        } else if (totalWins2 < totalLosses2) {
+          setStateText(
+            <Typography color="error.main" gutterBottom variant="overline">
+              {"  "}(LOSING)
+            </Typography>
+          );
+        } else {
+          setStateText(
+            <Typography color="warning.light" gutterBottom variant="overline">
+              {"  "}(TIED)
+            </Typography>
+          );
+        }
+      }
     });
   };
   useEffect(() => {
-    fetch(`https://skittles-server.herokuapp.com/all-games-against/${gameData.opponent}`)
+    fetch(`https://skittles-server.herokuapp.com/gamesagainst/${gameData.opponent}`)
       .then((res) => res.json())
       .then((data) => {
         setPreviousGames(data, updateHistory(data));

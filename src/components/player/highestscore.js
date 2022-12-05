@@ -15,12 +15,12 @@ function HighestScore({ playerData }) {
     var highestScore = 0;
     var highestScoreSeason = 0;
     var highestScoreGame = 0;
-    Object.keys(playerData).forEach((season) => {
+    Object.keys(playerData.seasons).forEach((season) => {
       for (let i = 1; i < 50; i++) {
-        if (playerData[season][`Game${i}`]) {
-          if (playerData[season][`Game${i}`].didPlay) {
-            if (playerData[season][`Game${i}`].total > highestScore) {
-              highestScore = playerData[season][`Game${i}`].total;
+        if (playerData.seasons[season].games[`Game${i}`]) {
+          if (playerData.seasons[season].games[`Game${i}`].didPlay) {
+            if (playerData.seasons[season].games[`Game${i}`].total > highestScore) {
+              highestScore = playerData.seasons[season].games[`Game${i}`].total;
               highestScoreSeason = season;
               highestScoreGame = i;
             }

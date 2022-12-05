@@ -1,7 +1,7 @@
 import { Avatar, Box, Card, CardContent, Grid, Typography } from "@mui/material";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import MoneyIcon from "@mui/icons-material/Money";
-import ScoreboardIcon from '@mui/icons-material/Scoreboard';
+import ScoreboardIcon from "@mui/icons-material/Scoreboard";
 import { useState, useEffect } from "react";
 
 const LastGame = (props) => {
@@ -11,7 +11,7 @@ const LastGame = (props) => {
   useEffect(() => {
     setLoading(true);
     try {
-      fetch("https://skittles-server.herokuapp.com/latest-game")
+      fetch("https://skittles-server.herokuapp.com/lastgame")
         .then((res) => res.json())
         .then((data) => {
           setData(data);
@@ -19,23 +19,10 @@ const LastGame = (props) => {
         });
     } catch (error) {
       console.log(error);
-      
     }
-    fetch("https://skittles-server.herokuapp.com/jolly-crew")
-      .then((res) => res.json())
-      .then((data) => {
-        setJollyData(data);
-        setLoading(false);
-      });
   }, []);
   if (isLoading) return <p>Loading...</p>;
   if (!data)
-    return (
-      <Card>
-        <p>No data</p>
-      </Card>
-    );
-  if (!jollyData)
     return (
       <Card>
         <p>No data</p>

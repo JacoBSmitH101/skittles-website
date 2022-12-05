@@ -27,7 +27,7 @@ function isNumeric(str) {
     !isNaN(parseFloat(str))
   ); // ...and ensure strings of whitespace fail
 }
-function PlayerList({ newGameInfo, setNewGameInfo, submitGame }) {
+function PlayerList({ newGameInfo, setNewGameInfo, submitGame, game, setGame, season, setSeason }) {
   const [playerList, setPlayerList] = React.useState({ players: {} });
   const [playerInput, setPlayerInput] = React.useState("");
   let fileInput = React.createRef();
@@ -51,20 +51,37 @@ function PlayerList({ newGameInfo, setNewGameInfo, submitGame }) {
     newInfo.players = playerList.players;
     newInfo.opponentTotal = 0;
     for (let player in playerList.players) {
+      // newInfo.ourTotal +=
+      //   parseInt(newInfo.players[player].h1) +
+      //   parseInt(newInfo.players[player].h2) +
+      //   parseInt(newInfo.players[player].h3) +
+      //   parseInt(newInfo.players[player].h4) +
+      //   parseInt(newInfo.players[player].h5) +
+      //   parseInt(newInfo.players[player].h6);
+      newInfo.players[player].total +=
+        parseInt(newInfo.players[player].scores[0]) +
+        parseInt(newInfo.players[player].scores[1]) +
+        parseInt(newInfo.players[player].scores[2]) +
+        parseInt(newInfo.players[player].scores[3]) +
+        parseInt(newInfo.players[player].scores[3]) +
+        parseInt(newInfo.players[player].scores[4]) +
+        parseInt(newInfo.players[player].scores[5]);
       newInfo.ourTotal +=
-        parseInt(newInfo.players[player].h1) +
-        parseInt(newInfo.players[player].h2) +
-        parseInt(newInfo.players[player].h3) +
-        parseInt(newInfo.players[player].h4) +
-        parseInt(newInfo.players[player].h5) +
-        parseInt(newInfo.players[player].h6);
+        parseInt(newInfo.players[player].scores[0]) +
+        parseInt(newInfo.players[player].scores[1]) +
+        parseInt(newInfo.players[player].scores[2]) +
+        parseInt(newInfo.players[player].scores[3]) +
+        parseInt(newInfo.players[player].scores[3]) +
+        parseInt(newInfo.players[player].scores[4]) +
+        parseInt(newInfo.players[player].scores[5]);
       newInfo.players[player].total =
-        parseInt(newInfo.players[player].h1) +
-        parseInt(newInfo.players[player].h2) +
-        parseInt(newInfo.players[player].h3) +
-        parseInt(newInfo.players[player].h4) +
-        parseInt(newInfo.players[player].h5) +
-        parseInt(newInfo.players[player].h6);
+        parseInt(newInfo.players[player].scores[0]) +
+        parseInt(newInfo.players[player].scores[1]) +
+        parseInt(newInfo.players[player].scores[2]) +
+        parseInt(newInfo.players[player].scores[3]) +
+        parseInt(newInfo.players[player].scores[3]) +
+        parseInt(newInfo.players[player].scores[4]) +
+        parseInt(newInfo.players[player].scores[5]);
       newInfo.opponentTotal += parseInt(newInfo.players[player].opponent);
     }
     setNewGameInfo(newInfo);
@@ -72,13 +89,16 @@ function PlayerList({ newGameInfo, setNewGameInfo, submitGame }) {
   const updateScore = (event) => {
     event.preventDefault();
     if (isNumeric(event.target.name.slice(-1))) {
+      let scores = playerList.players[event.target.name.slice(0, -2)].scores;
+      scores[event.target.name.slice(-2) - 1] = event.target.value;
+
       setPlayerList(
         {
           players: {
             ...playerList.players,
             [event.target.name.slice(0, -2)]: {
               ...playerList.players[event.target.name.slice(0, -2)],
-              [event.target.name.slice(-2)]: event.target.value,
+              ["Scores"]: scores,
             },
           },
         },
@@ -100,7 +120,7 @@ function PlayerList({ newGameInfo, setNewGameInfo, submitGame }) {
           ...playerList.players,
           [event.target.name.slice(0, -8)]: {
             ...playerList.players[event.target.name.slice(0, -8)],
-            [event.target.name.slice(-8).toLowerCase()]: event.target.value,
+            ["opponentTotal"]: event.target.value,
           },
         },
       });
@@ -115,14 +135,10 @@ function PlayerList({ newGameInfo, setNewGameInfo, submitGame }) {
           ...playerList.players,
           [playerInput]: {
             name: playerInput,
-            h1: "",
-            h2: "",
-            h3: "",
-            h4: "",
-            h5: "",
-            h6: "",
+            scores: new Array(6),
             total: 0,
-            opponent: "",
+            opponentTotal: "",
+            didPlay: true,
           },
         },
       });
@@ -278,7 +294,15 @@ function PlayerList({ newGameInfo, setNewGameInfo, submitGame }) {
           </Table>
         </TableContainer>
       </CardContent>
-      <ListMenu setNewGameInfo={setNewGameInfo} newGameInfo={newGameInfo} submitGame={submitGame} />
+      <ListMenu
+        setNewGameInfo={setNewGameInfo}
+        newGameInfo={newGameInfo}
+        submitGame={submitGame}
+        game={game}
+        setGame={setGame}
+        season={season}
+        setSeason={setSeason}
+      />
     </Card>
   );
 }

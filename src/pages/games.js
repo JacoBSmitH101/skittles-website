@@ -18,7 +18,7 @@ const Games = () => {
   const [userInfo, setUserInfo] = useState(null);
   useEffect(() => {
     setLoading(true);
-    fetch("https://skittles-server.herokuapp.com/get-last-games/amount/80")
+    fetch("https://skittles-server.herokuapp.com/lastgames/all")
       .then((res) => res.json())
       .then((data) => {
         data.games.reverse();

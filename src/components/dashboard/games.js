@@ -26,21 +26,16 @@ const Games = (props) => {
 
   useEffect(() => {
     setLoading(true);
-    fetch("https://skittles-server.herokuapp.com/get-last-games/amount/5")
+    fetch("https://skittles-server.herokuapp.com/lastgames/5")
       .then((res) => res.json())
       .then((data) => {
         setLastFiveGamesData(data);
       });
-
-    fetch("https://skittles-server.herokuapp.com/all-season-games")
-      .then((res) => res.json())
-      .then((data) => {
-        setLastSeasonData(data);
-      });
-    fetch("https://skittles-server.herokuapp.com/jolly-crew")
+    fetch("https://skittles-server.herokuapp.com/team/Jolly Crew")
       .then((res) => res.json())
       .then((data) => {
         setJollyData(data);
+        setLastSeasonData(data.seasons[Object.keys(data.seasons)[Object.keys(data.seasons).length - 1]]);
         setLoading(false);
       });
   }, []);
@@ -74,10 +69,10 @@ const Games = (props) => {
   let seasonScores = [];
   let seasonOpponentScores = [];
   let seasonLabels = [];
-  lastSeasonData.games.forEach((game) => {
-    seasonScores.push(game.ourScore);
-    seasonOpponentScores.push(game.opponentScore);
-    seasonLabels.push("Game " + game.gameNumber);
+  Object.keys(lastSeasonData.games).forEach((game) => {
+    seasonScores.push(lastSeasonData.games[game].ourScore);
+    seasonOpponentScores.push(lastSeasonData.games[game].opponentScore);
+    seasonLabels.push("Game " + lastSeasonData.games[game].gameNumber);
   });
   const graphSelectionHandler = (event) => {
     setGraphSelected(event.target.value);
@@ -127,7 +122,7 @@ const Games = (props) => {
       {
         backgroundColor: "#3F51B5",
         barPercentage: 0.5,
-        barThickness: 12,
+        barThickness: 8,
         borderRadius: 4,
         categoryPercentage: 0.5,
         data: seasonScores,
@@ -137,7 +132,7 @@ const Games = (props) => {
       {
         backgroundColor: "#BBBBBB",
         barPercentage: 0.5,
-        barThickness: 12,
+        barThickness: 8,
         borderRadius: 4,
         categoryPercentage: 0.5,
         data: seasonOpponentScores,

@@ -24,11 +24,11 @@ const orders = [];
 const BestPerformances = ({ playerData }) => {
   let top5Games = [];
   // get top 5 scoring games
-  Object.keys(playerData).forEach((season) => {
+  Object.keys(playerData.seasons).forEach((season) => {
     for (let i = 1; i < 50; i++) {
-      if (playerData[season][`Game${i}`]) {
-        if (playerData[season][`Game${i}`].didPlay) {
-          top5Games.push(playerData[season][`Game${i}`]);
+      if (playerData.seasons[season].games[`Game${i}`]) {
+        if (playerData.seasons[season].games[`Game${i}`].didPlay) {
+          top5Games.push({...playerData.seasons[season].games[`Game${i}`], season: season, gameNumber: i});
         }
       }
     }
