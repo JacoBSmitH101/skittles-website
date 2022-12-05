@@ -63,7 +63,7 @@ const Games = () => {
         <p>No data</p>
       </Card>
     );
-    console.log(games);
+    //console.log(games);
   }
   if (!isAuthenticated) {
     return <UserNotAuth />;
