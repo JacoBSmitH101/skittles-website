@@ -14,11 +14,22 @@ import SeasonDifference from "../components/dashboard/season-difference";
 import { ScoresByAlley } from "../components/dashboard/scores-by-alley";
 import { DashboardLayout } from "../components/dashboard-layout";
 import GameInfo from "../components/newgame/game-info";
-import PlayerList from "../components/newgame/player-list";
-import ListMenu from "../components/newgame/list-menu";
 import React, { useEffect, useState } from "react";
 import { auth } from "../lib/auth";
 import UserNotAuth from "../components/user-not-auth";
+import PlayerInfo from "../components/newgame/player-info";
+const getCircularReplacer = () => {
+  const seen = new WeakSet();
+  return (key, value) => {
+    if (typeof value === "object" && value !== null) {
+      if (seen.has(value)) {
+        return;
+      }
+      seen.add(value);
+    }
+    return value;
+  };
+};
 const AddNewGame = () => {
   const [season, setSeason] = React.useState("");
   const [game, setGame] = React.useState("");
@@ -34,6 +45,28 @@ const AddNewGame = () => {
   });
   const [isAuthenticated, setAuthenticated] = useState(false);
   const [userInfo, setUserInfo] = useState(null);
+  const submitNewGame = () => {
+    let newGame = { ...newGameInfo };
+    newGame.season = season;
+    newGame.gameNumber = game;
+    newGame.ourTotal = 0;
+    newGame.opponentTotal = 0;
+    newGame.difference = 0;
+    Object.keys(newGame.players).forEach((player) => {
+      newGame.ourTotal += newGame.players[player].total;
+      newGame.opponentTotal += newGame.players[player].opponent
+      newGame.difference += newGame.players[player].total - newGame.players[player].opponent
+    });
+    fetch(`http://localhost:4000/addnewgame/Jolly Crew/${season}/${game}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newGame, getCircularReplacer()),
+    })
+      .then((res) => console.log(res))
+      .catch((err) => alert(err));
+  };
   useEffect(() => {
     auth.getCurrentUser().then((res) => {
       if (!res) {
@@ -58,37 +91,8 @@ const AddNewGame = () => {
           }
         });
     });
-    setNewGameInfo(
-      {
-        ...newGameInfo,
-        difference: newGameInfo.ourTotal - newGameInfo.opponentTotal,
-      },
-      [newGameInfo]
-    );
   }, []);
-  const submitNewGameInfo = () => {
-    //if all of new game info is filled out, submit to database else return error
-    if (
-      newGameInfo.alley != "" &&
-      newGameInfo.opponent != "" &&
-      Object.keys(newGameInfo.players).length > 0 &&
-      newGameInfo.ourTotal != 0 &&
-      newGameInfo.opponentTotal != 0
-    ) {
-      setNewGameInfo({ ...newGameInfo, difference: newGameInfo.ourTotal - newGameInfo.opponentTotal });
-      console.log(newGameInfo);
-      //fetch(`https://skittles-server.herokuapp.com/addnewgame/Jolly Crew/${season}/${game}`, {
-        fetch(`http://localhost:4000/addnewgame/Jolly%20Crew/${season}/${game}`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(newGameInfo),
-      }).then((res) => {});
-    } else {
-      alert("Please fill out all fields");
-    }
-  };
+
   if (!isAuthenticated) {
     return <UserNotAuth />;
   }
@@ -110,14 +114,14 @@ const AddNewGame = () => {
               <GameInfo setNewGameInfo={setNewGameInfo} newGameInfo={newGameInfo} />
             </Grid>
             <Grid item spacing={3} lg={12} sm={12} xl={3} xs={12}>
-              <PlayerList
-                setNewGameInfo={setNewGameInfo}
+              <PlayerInfo
                 newGameInfo={newGameInfo}
-                submitGame={submitNewGameInfo}
-                game={game}
-                setGame={setGame}
+                setNewGameInfo={setNewGameInfo}
                 season={season}
                 setSeason={setSeason}
+                game={game}
+                setGame={setGame}
+                submitNewGame={submitNewGame}
               />
             </Grid>
             {/* <Grid item spacing={3} lg={12} sm={6} xl={3} xs={12}>
