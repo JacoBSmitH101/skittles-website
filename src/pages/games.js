@@ -74,7 +74,11 @@ const Games = () => {
       setVisibleGames(games.games.slice((page - 1) * 6, page * 6));
     } else {
       let filtered = games.games.filter((game) => {
-        return game.name.toLowerCase().includes(event.target.value.toLowerCase());
+        return (game.name.toLowerCase() + game.opponent.toLowerCase()).includes(event.target.value.toLowerCase());
+        //filter by either .name, .opponent, whichever one has better results
+        //return game.opponent.toLowerCase().includes(event.target.value.toLowerCase());
+
+
       });
       setFilteredGames({ games: filtered });
       try {

@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { Avatar, Box, Button, Card, CardContent, Grid, Typography } from "@mui/material";
+import { Avatar, Box, Button, Card, CardContent, Grid, Tooltip, Typography } from "@mui/material";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import MoneyIcon from "@mui/icons-material/Money";
 import ScoreboardIcon from "@mui/icons-material/Scoreboard";
@@ -85,9 +85,16 @@ function HistoryVSOpponent({ gameData }) {
       <CardContent sx={{ pb: "3.5%", "&:last-child": { pd: "0%" } }}>
         <Grid container spacing={3} sx={{ justifyContent: "space-between", paddingBottom: "0" }}>
           <Grid item>
-            <Typography color="textSecondary" gutterBottom variant="overline">
-              HISTORY VS {gameData.opponent}
-            </Typography>
+            <Tooltip title={gameData.opponent} placement="top">
+              <Typography color="textSecondary" gutterBottom variant="overline">
+                HISTORY VS{" "}
+                {
+                  /*character limit of 10 followed by ...*/ gameData.opponent.length > 13
+                    ? gameData.opponent.substring(0, 13) + "..."
+                    : gameData.opponent
+                }
+              </Typography>
+            </Tooltip>
             {stateText}
             <Typography color="textPrimary" variant="h5">
               {totalWins} - {totalLosses}
