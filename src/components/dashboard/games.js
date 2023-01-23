@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-max-props-per-line */
 import { Bar, Line } from "react-chartjs-2";
 import {
   Box,

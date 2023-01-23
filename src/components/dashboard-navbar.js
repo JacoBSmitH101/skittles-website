@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-max-props-per-line */
 import { useRef, useState } from "react";
 import PropTypes from "prop-types";
 import styled from "@emotion/styled";
@@ -8,6 +9,7 @@ import { Bell as BellIcon } from "../icons/bell";
 import { UserCircle as UserCircleIcon } from "../icons/user-circle";
 import { Users as UsersIcon } from "../icons/users";
 import AccountCircleRoundedIcon from "@mui/icons-material/AccountCircleRounded";
+import TextField from "@mui/material/TextField";
 const DashboardNavbarRoot = styled(AppBar)(({ theme }) => ({
   backgroundColor: theme.palette.background.paper,
   boxShadow: theme.shadows[3],
@@ -36,6 +38,7 @@ export const DashboardNavbar = (props) => {
             minHeight: 64,
             left: 0,
             px: 2,
+            backgroundColor: "#141b2d",
           }}
         >
           <IconButton
@@ -50,9 +53,18 @@ export const DashboardNavbar = (props) => {
             <MenuIcon fontSize="small" />
           </IconButton>
           <Tooltip title="Search">
-            <IconButton sx={{ ml: 1 }} disabled>
-              <SearchIcon fontSize="small" />
-            </IconButton>
+            <TextField variant="standard" sx={{
+              backgroundColor: "#1f2a40",
+              borderRadius: "5px",
+              padding: "0.5%",
+              margin: "1% 0",
+              paddingLeft: "1%",
+              marginLeft: "1%",
+              input: {
+                color: "white",
+              }
+              
+            }} placeholder="Search" InputProps={{disableUnderline: true}}></TextField>
           </Tooltip>
           <Box sx={{ flexGrow: 1 }} />
           <Tooltip title="Contacts">
@@ -62,14 +74,14 @@ export const DashboardNavbar = (props) => {
           </Tooltip>
           <Tooltip title="Notifications">
             <IconButton sx={{ ml: 1 }} disabled>
-              <Badge badgeContent={4} color="primary" variant="dot" >
+              <Badge badgeContent={4} color="primary" variant="dot">
                 <BellIcon fontSize="small" />
               </Badge>
             </IconButton>
           </Tooltip>
           <Tooltip title="Account" ref={settingsRef}>
             <IconButton sx={{ ml: 1 }}>
-                <AccountCircleRoundedIcon fontSize="large"/>
+              <AccountCircleRoundedIcon fontSize="large" />
             </IconButton>
           </Tooltip>
         </Toolbar>

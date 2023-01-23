@@ -153,9 +153,9 @@ export const theme = createTheme({
     },
     background: {
       default: '#F9FAFC',
-      paper: '#FFFFFF'
+      paper: '#1f2a40'
     },
-    divider: '#E6E8F0',
+    divider: '#1f2a40',
     primary: {
       main: '#5048E5',
       light: '#828DF8',
@@ -193,7 +193,7 @@ export const theme = createTheme({
       contrastText: '#FFFFFF'
     },
     text: {
-      primary: '#121828',
+      primary: '#EBEBEB',
       secondary: '#65748B',
       disabled: 'rgba(55, 65, 81, 0.48)'
     }
