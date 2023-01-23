@@ -25,6 +25,7 @@
     "@mui/lab": "5.0.0-alpha.99",
     "@mui/material": "^5.10.5",
     "@mui/styled-engine-sc": "^5.10.14",
+    "@mui/styles": "^5.11.2",
     "@mui/system": "5.10.5",
     "@mui/x-data-grid": "^5.17.14",
     "@mui/x-date-pickers": "5.0.1",

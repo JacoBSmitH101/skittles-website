@@ -112,7 +112,7 @@ export const theme = createTheme({
         root: {
           backgroundColor: '#F3F4F6',
           '.MuiTableCell-root': {
-            color: '#374151'
+            color: '#EBEBEB'
           },
           borderBottom: 'none',
           '& .MuiTableCell-root': {
@@ -194,7 +194,7 @@ export const theme = createTheme({
     },
     text: {
       primary: '#EBEBEB',
-      secondary: '#65748B',
+      secondary: '#BABABA',
       disabled: 'rgba(55, 65, 81, 0.48)'
     }
   },

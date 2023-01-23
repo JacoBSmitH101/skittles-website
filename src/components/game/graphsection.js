@@ -92,11 +92,20 @@ const GraphSection = ({ gameData }) => {
     },
     scales: {
       y: {
+        grid: {
+          color: "rgba(255, 255, 255, 0.2)",
+        },
         min: 0,
         max: Math.floor(Math.max(...data.datasets[0].data)) + 3,
       },
-      x: {},
+      x: {
+        grid: {
+          color: "rgba(255, 255, 255, 0.2)",
+        }
+      },
     },
+    
+    
   };
   const graphSelectionHandler = (event) => {
     setGraphSelected(event.target.value);
@@ -104,7 +113,7 @@ const GraphSection = ({ gameData }) => {
   const [graphSelected, setGraphSelected] = useState(0);
   ChartJS.register(RadialLinearScale, ArcElement, Tooltip, Legend);
   return (
-    <Card sx={{ display: { xs: "none", sm: "block" } }}>
+    <Card sx={{ display: { xs: "none", sm: "block" }, paddingBottom: "10%" }}>
       <CardHeader
         title="Average pins per hand"
         action={

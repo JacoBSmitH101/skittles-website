@@ -14,7 +14,7 @@ const Games = () => {
   const [filter, setFilter] = useState("");
   const [page, setPage] = useState(1);
   const [isLoading, setLoading] = useState(true);
-  const [isAuthenticated, setAuthenticated] = useState(false);
+  const [isAuthenticated, setAuthenticated] = useState(true);
   const [userInfo, setUserInfo] = useState(null);
   useEffect(() => {
     setLoading(true);
@@ -31,27 +31,6 @@ const Games = () => {
         setVisibleGames(data.games.slice(0, 6));
         setLoading(false);
       });
-    auth.getCurrentUser().then((res) => {
-      if (!res) {
-        setAuthenticated(false);
-        return;
-      }
-      let id = res.subId.slice(0, -3);
-
-      fetch("https://skittles-server.herokuapp.com/verified-users-list")
-        .then((res) => res.json())
-        .then((data) => {
-          let verified = false;
-          for (let i = 0; i < data.length; i++) {
-            if (data[i].authId === id) {
-              verified = true;
-              setUserInfo(data[i]);
-              setAuthenticated(true);
-              break;
-            }
-          }
-        });
-    });
   }, []);
   const handlePageChange = (event, value) => {
     setPage(value);

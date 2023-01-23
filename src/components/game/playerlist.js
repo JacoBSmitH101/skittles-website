@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-max-props-per-line */
 import {
   Avatar,
   Box,
@@ -28,6 +29,10 @@ const PlayerList = ({ gameData }) => {
       opponentTotalKey = "opponentTotal";
     }
   });
+  let order = Object.entries(gameData.players)
+    .sort((a, b) => b[1].total - a[1].total)
+  let obj = Object.fromEntries(order)
+  console.log(obj)
   return (
     <Card sx={{ height: "100%" }}>
       <CardHeader
@@ -50,13 +55,13 @@ const PlayerList = ({ gameData }) => {
       <Grid item>
         <TableContainer component={Paper}>
           <Table sx={{ minWidth: "100%" }} size="small" aria-label="Scoreboard">
-            <TableHead>
+            <TableHead sx={{backgroundColor: "#1f2a40"}}>
               <TableRow>
                 <Tooltip title="Player Name">
                   <TableCell>Player</TableCell>
                 </Tooltip>
                 <Tooltip title="Total score">
-                  <TableCell align="right" sortDirection={orderBy}>Score</TableCell>
+                  <TableCell align="right">Score</TableCell>
                 </Tooltip>
                 <Tooltip title="+/- to Opponent">
                   <TableCell align="right">+/-</TableCell>
@@ -64,7 +69,7 @@ const PlayerList = ({ gameData }) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {Object.keys(gameData.players).map((player) => (
+              {Object.keys(obj).map((player) => (
                 <TableRow key={player} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
                   <TableCell component="th" scope="row">
                     {player}
