@@ -27,7 +27,8 @@ export const DashboardLayout = (props) => {
             display: 'flex',
             flex: '1 1 auto',
             flexDirection: 'column',
-            width: '100%'
+            width: '100%',
+            backgroundColor: '#141b2d'
           }}
         >
           {children}

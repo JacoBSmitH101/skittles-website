@@ -98,6 +98,7 @@ export const DashboardSidebar = (props) => {
           display: "flex",
           flexDirection: "column",
           height: "100%",
+          backgroundColor: "#1f2a40",
         }}
       >
         <div>
@@ -117,7 +118,7 @@ export const DashboardSidebar = (props) => {
             <Box
               sx={{
                 alignItems: "center",
-                backgroundColor: "rgba(255, 255, 255, 0.04)",
+                backgroundColor: "rgba(255, 255, 255, 0.05)",
                 cursor: "pointer",
                 display: "flex",
                 justifyContent: "space-between",

@@ -56,7 +56,7 @@ const PlayerList = ({ gameData }) => {
                   <TableCell>Player</TableCell>
                 </Tooltip>
                 <Tooltip title="Total score">
-                  <TableCell align="right">Score</TableCell>
+                  <TableCell align="right" sortDirection={orderBy}>Score</TableCell>
                 </Tooltip>
                 <Tooltip title="+/- to Opponent">
                   <TableCell align="right">+/-</TableCell>
