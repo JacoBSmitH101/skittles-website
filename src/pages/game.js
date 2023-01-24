@@ -13,7 +13,8 @@ import HistoryVSOpponent from "../components/game/history";
 import PlayerList from "../components/game/playerlist";
 import TeamAverage from "../components/game/teamaverage";
 import UserNotAuth from "../components/user-not-auth";
-
+import { Provider } from "react-redux";
+import { store } from "../lib/store";
 const Game = () => {
   const Router = useRouter();
   const { gameNumber, seasonNumber } = Router.query;
@@ -39,7 +40,7 @@ const Game = () => {
   }
 
   return (
-    <>
+    <Provider store={store}>
       <Head>
         <title>Game {gameNumber} | Jolly Crew</title>
       </Head>
@@ -79,7 +80,7 @@ const Game = () => {
           </Grid>
         </Container>
       </Box>
-    </>
+    </Provider>
   );
 };
 Game.getLayout = (page) => <DashboardLayout>{page}</DashboardLayout>;

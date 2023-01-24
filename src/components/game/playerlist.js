@@ -22,7 +22,18 @@ import ScoreboardIcon from "@mui/icons-material/Scoreboard";
 import { useState, useEffect } from "react";
 import Paper from "@mui/material";
 import AssignmentIcon from "@mui/icons-material/Assignment";
+import { makeStyles } from "@mui/styles";
+import { useSelector, useDispatch } from 'react-redux';
+const useStyles = makeStyles({
+  root: {
+    '&:hover': {
+      backgroundColor: '#EEEEEE',
+    },
+  },
+});
 const PlayerList = ({ gameData }) => {
+  const selectedPlayer = useSelector(state => state.gamePage.selectedPlayer);
+  const classes = useStyles();
   let opponentTotalKey = "opponent";
   Object.keys(gameData.players).forEach((player) => {
     if (gameData.players[player].opponentTotal) {
@@ -33,6 +44,10 @@ const PlayerList = ({ gameData }) => {
     .sort((a, b) => b[1].total - a[1].total)
   let obj = Object.fromEntries(order)
   console.log(obj)
+  const dispatch = useDispatch();
+  const updateSelectedPlayer = (player) => {
+    dispatch({type: "setSelectedPlayer", payload: player})
+  }
   return (
     <Card sx={{ height: "100%" }}>
       <CardHeader
@@ -70,7 +85,7 @@ const PlayerList = ({ gameData }) => {
             </TableHead>
             <TableBody>
               {Object.keys(obj).map((player) => (
-                <TableRow key={player} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
+                <TableRow hover classes={{hover: classes.hover}} onClick={() => updateSelectedPlayer(player)} key={player} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
                   <TableCell sx={{borderBottomColor: "table.borderBottom"}} component="th" scope="row">
                     {player}
                   </TableCell>

@@ -9,7 +9,8 @@ import SeasonDifference from "../components/dashboard/season-difference";
 import { ScoresByAlley } from "../components/dashboard/scores-by-alley";
 import { DashboardLayout } from "../components/dashboard-layout";
 import { auth } from "../lib/auth";
-
+import { Provider } from "react-redux";
+import { store } from "../lib/store";
 const Page = () => {
   return (
     <>
@@ -22,7 +23,7 @@ const Page = () => {
           flexGrow: 1,
           py: 8,
         }}
-      > 
+      >
         <Container maxWidth={false}>
           <Grid container spacing={3}>
             <Grid item lg={3} sm={6} xl={3} xs={12}>

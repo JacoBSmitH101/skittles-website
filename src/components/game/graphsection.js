@@ -17,9 +17,10 @@ import { auth } from "../../lib/auth";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 import { useState, useEffect } from "react";
-
+import { useSelector }  from "react-redux";
 const GraphSection = ({ gameData }) => {
   const theme = useTheme();
+  const selectedPlayer = useSelector((state) => state.gamePage.selectedPlayer);
   var averagePerTurn = {
     1: { amount: 0, total: 0 },
     2: { amount: 0, total: 0 },
@@ -115,9 +116,9 @@ const GraphSection = ({ gameData }) => {
   return (
     <Card sx={{ display: { xs: "none", sm: "block" }, paddingBottom: "10%" }}>
       <CardHeader
-        title="Average pins per hand"
+        title={selectedPlayer}
         action={
-          <FormControl style={{ minWidth: 120 }} fullWidth disabled>
+          <FormControl style={{ minWidth: 120 }} fullWidth enabled>
             <InputLabel id="demo-simple-select-label">Graph</InputLabel>
             <Select
               labelId="demo-simple-select-label"
@@ -125,10 +126,11 @@ const GraphSection = ({ gameData }) => {
               label="Time Period"
               defaultValue={graphSelected}
               onChange={graphSelectionHandler}
+              sx={{color: "white"}}
             >
               <MenuItem value={0}>Avg Pins/Hand</MenuItem>
-              <MenuItem value={1}>Season</MenuItem>
-              <MenuItem value={2}>Last 5</MenuItem>
+              <MenuItem disabled value={1}>Season</MenuItem>
+              <MenuItem disabled value={2}>Last 5</MenuItem>
             </Select>
           </FormControl>
         }
