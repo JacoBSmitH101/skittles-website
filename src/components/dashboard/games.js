@@ -171,15 +171,29 @@ const Games = (props) => {
     legend: { display: false },
     maintainAspectRatio: false,
     responsive: true,
+    color: "white",
     elements: {
       point: {
         radius: 0,
       },
     },
+    scales: {
+      y: {
+        color: "white",
+        grid: {
+          color: "rgba(255, 255, 255, 0.2)",
+        },
+      },
+      x: {
+        grid: {
+          color: "rgba(255, 255, 255, 0.2)",
+        }
+      },
+    },
     xAxes: [
       {
         ticks: {
-          fontColor: theme.palette.text.secondary,
+          fontColor: "white",
         },
         gridLines: {
           display: false,
@@ -190,14 +204,14 @@ const Games = (props) => {
     yAxes: [
       {
         ticks: {
-          fontColor: theme.palette.text.secondary,
+          color: "white",
           beginAtZero: true,
           min: 0,
         },
         gridLines: {
           borderDash: [2],
           borderDashOffset: [2],
-          color: theme.palette.divider,
+          color: "rgba(255, 255, 255, 0.2)",
           drawBorder: false,
           zeroLineBorderDash: [2],
           zeroLineBorderDashOffset: [2],

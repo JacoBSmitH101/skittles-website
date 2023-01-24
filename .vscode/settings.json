@@ -1,0 +1,54 @@
+{
+    "saveEditorLayout.list": [
+        {
+            "name": "fleet",
+            "orientation": 0,
+            "documents": [
+                {
+                    "fsPath": "c:\\Skittles\\FrontEnd\\skittles-website\\src\\pages\\newgame.js",
+                    "column": 1
+                },
+                {
+                    "fsPath": "c:\\Skittles\\FrontEnd\\skittles-website\\src\\pages\\player.js",
+                    "column": 1
+                },
+                {
+                    "fsPath": "c:\\Skittles\\FrontEnd\\skittles-website\\src\\components\\game\\history.js",
+                    "column": 1
+                },
+                {
+                    "fsPath": "c:\\Skittles\\FrontEnd\\skittles-website\\src\\components\\game\\playerlist.js",
+                    "column": 1
+                },
+                {
+                    "fsPath": "c:\\Skittles\\FrontEnd\\skittles-website\\src\\pages\\upcomingmilestones.js",
+                    "column": 1
+                },
+                {
+                    "fsPath": "c:\\Skittles\\FrontEnd\\skittles-website\\src\\components\\dashboard-navbar.js",
+                    "column": 1
+                },
+                {
+                    "fsPath": "c:\\Skittles\\FrontEnd\\skittles-website\\src\\components\\dashboard-sidebar.js",
+                    "column": 1
+                },
+                {
+                    "fsPath": "c:\\Skittles\\FrontEnd\\skittles-website\\src\\pages\\game.js",
+                    "column": 1
+                },
+                {
+                    "fsPath": "c:\\Skittles\\FrontEnd\\skittles-website\\src\\components\\dashboard-layout.js",
+                    "column": 1
+                },
+                {
+                    "fsPath": "c:\\Skittles\\FrontEnd\\skittles-website\\src\\lib\\auth.js",
+                    "column": 1
+                },
+                {
+                    "fsPath": "c:\\Skittles\\FrontEnd\\skittles-website\\.env",
+                    "column": 1
+                }
+            ]
+        }
+    ]
+}

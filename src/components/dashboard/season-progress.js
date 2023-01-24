@@ -40,7 +40,7 @@ const SeasonProgress = (props) => {
           </Grid>
         </Grid>
         <Box sx={{ pt: 3 }}>
-          <LinearProgress value={Math.floor((7/28*100) * 100) / 100} variant="determinate" />
+          <LinearProgress value={jollyData.gameNumber/28*100} variant="determinate" />
         </Box>
       </CardContent>
     </Card>
