@@ -174,6 +174,9 @@ export const theme = createTheme({
       dark: '#0E8074',
       contrastText: '#FFFFFF'
     },
+    table: {
+      borderBottom: "#141b2d",
+    },
     info: {
       main: '#2196F3',
       light: '#64B6F7',

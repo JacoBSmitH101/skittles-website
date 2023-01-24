@@ -55,7 +55,7 @@ const LatestGames = (props) => {
       <PerfectScrollbar>
         <Box sx={{ minWidth: 800 }}>
           <Table>
-            <TableHead>
+            <TableHead sx={{backgroundColor: "#1f2a40"}}>
               <TableRow>
                 <TableCell>Game Number</TableCell>
                 <TableCell>Home/Away</TableCell>
@@ -67,17 +67,17 @@ const LatestGames = (props) => {
             <TableBody>
               {lastGames.games.map((game) => (
                 <TableRow key={game.ourScore} onClick={() => gameSelectedHandler(game)} hover>
-                  <TableCell>{game.gameNumber}</TableCell>
-                  <TableCell>
+                  <TableCell sx={{borderBottomColor: "table.borderBottom"}}>{game.gameNumber}</TableCell>
+                  <TableCell sx={{borderBottomColor: "table.borderBottom"}}>
                     <SeverityPill color={(game.isHome && "secondary") || "primary"}>
                       {game.isHome ? "Home" : "Away"}
                     </SeverityPill>
                   </TableCell>
-                  <TableCell>{game.opponent}</TableCell>
-                  <TableCell>
+                  <TableCell sx={{borderBottomColor: "table.borderBottom"}}>{game.opponent}</TableCell>
+                  <TableCell sx={{borderBottomColor: "table.borderBottom"}}>
                     {game.ourScore} vs {game.opponentScore}
                   </TableCell>
-                  <TableCell>
+                  <TableCell sx={{borderBottomColor: "table.borderBottom"}}>
                     <SeverityPill
                       color={(game.ourScore > game.opponentScore && "success") || "error"}
                     >

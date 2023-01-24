@@ -71,11 +71,11 @@ const PlayerList = ({ gameData }) => {
             <TableBody>
               {Object.keys(obj).map((player) => (
                 <TableRow key={player} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
-                  <TableCell component="th" scope="row">
+                  <TableCell sx={{borderBottomColor: "table.borderBottom"}} component="th" scope="row">
                     {player}
                   </TableCell>
-                  <TableCell align="right">{gameData.players[player].total}</TableCell>
-                  <TableCell align="right">
+                  <TableCell sx={{borderBottomColor: "table.borderBottom"}} align="right">{gameData.players[player].total}</TableCell>
+                  <TableCell sx={{borderBottomColor: "table.borderBottom"}} align="right">
                     {gameData.players[player].total - gameData.players[player].opponent > 0
                       ? "+"
                       : ""}
@@ -87,22 +87,22 @@ const PlayerList = ({ gameData }) => {
                 </TableRow>
               ))}
               <TableRow>
-                <TableCell component="th" scope="row">
+                <TableCell sx={{borderBottomColor: "table.borderBottom"}} component="th" scope="row" >
                   <Divider />
                 </TableCell>
-                <TableCell align="right">
+                <TableCell sx={{borderBottomColor: "table.borderBottom"}} align="right">
                   <Divider />
                 </TableCell>
-                <TableCell align="right">
+                <TableCell sx={{borderBottomColor: "table.borderBottom"}} align="right">
                   <Divider />
                 </TableCell>
               </TableRow>
               <TableRow sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
-                <TableCell component="th" scope="row">
+                <TableCell sx={{borderBottomColor: "table.borderBottom"}} component="th" scope="row">
                   Total
                 </TableCell>
-                <TableCell align="right">{gameData.ourScore}</TableCell>
-                <TableCell align="right">
+                <TableCell sx={{borderBottomColor: "table.borderBottom"}} align="right">{gameData.ourScore}</TableCell>
+                <TableCell sx={{borderBottomColor: "table.borderBottom"}} align="right">
                   {gameData.ourScore - gameData.opponentScore > 0 ? "+" : ""}
                   {gameData.ourScore - gameData.opponentScore}
                 </TableCell>
