@@ -46,6 +46,9 @@ const PlayerList = ({ gameData }) => {
   console.log(obj)
   const dispatch = useDispatch();
   const updateSelectedPlayer = (player) => {
+    if (selectedPlayer == player) {
+      player = null;
+    }
     dispatch({type: "setSelectedPlayer", payload: player})
   }
   return (

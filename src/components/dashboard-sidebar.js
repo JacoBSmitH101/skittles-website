@@ -135,13 +135,13 @@ export const DashboardSidebar = (props) => {
                   Division 2
                 </Typography>
               </div>
-              <SelectorIcon
+              {/* <SelectorIcon
                 sx={{
                   color: "neutral.500",
                   width: 14,
                   height: 14,
                 }}
-              />
+              /> */}
             </Box>
           </Box>
         </div>

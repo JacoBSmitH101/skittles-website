@@ -116,7 +116,7 @@ const GraphSection = ({ gameData }) => {
   return (
     <Card sx={{ display: { xs: "none", sm: "block" }, paddingBottom: "10%" }}>
       <CardHeader
-        title={selectedPlayer}
+        title={selectedPlayer ? `${selectedPlayer}` : "Average pins per hand"}
         action={
           <FormControl style={{ minWidth: 120 }} fullWidth enabled>
             <InputLabel id="demo-simple-select-label">Graph</InputLabel>
@@ -142,7 +142,7 @@ const GraphSection = ({ gameData }) => {
             height: "405px",
           }}
         >
-          <Line data={data} options={options} />
+          {!selectedPlayer?<Line data={data} options={options} /> : <h1>`${selectedPlayer}`</h1>}
         </Box>
       </CardContent>
     </Card>
