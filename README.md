@@ -2,11 +2,11 @@
 
 ![license](https://img.shields.io/badge/license-MIT-blue.svg)
 
-This website aims to make viewing statistics and in the future having some management role in running the Jolly Crew skittles team. 
+This website aims to make viewing statistics much easier and give much more insight into performance
 
 ## Authentication
 
-Zalter is used for passwordless authentication, anyone can sign up but only specific people are recognised to be part of the team.
+No Authentication
 
 ## File Structure
 
