@@ -37,7 +37,7 @@ const LastGame = (props) => {
             <Typography color="textSecondary" gutterBottom variant="overline">
               LAST GAME
             </Typography>
-            {data.ourScore < data.opponentScore ? (
+            {data.score < data.opponentScore ? (
               <Typography color="error" gutterBottom variant="overline">
                 {"  "}(LOST)
               </Typography>
@@ -47,7 +47,7 @@ const LastGame = (props) => {
               </Typography>
             )}
             <Typography color="textPrimary" variant="h5">
-              {data.ourScore} vs {data.opponentScore}
+              {data.score} vs {data.opponentScore}
             </Typography>
           </Grid>
           <Grid item>
@@ -70,7 +70,7 @@ const LastGame = (props) => {
           }}
         >
           <Typography color="textSecondary" variant="caption">
-            VS {data.opponent}
+            VS {data.opponentName}
           </Typography>
         </Box>
       </CardContent>

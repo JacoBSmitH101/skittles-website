@@ -8,7 +8,7 @@ const HighestScore = (props) => {
   const [jollyData, setJollyData] = useState(null);
   useEffect(() => {
     setLoading(true);
-    fetch("https://skittles-server.herokuapp.com/team/Jolly Crew")
+    fetch("https://skittles-server.herokuapp.com/highestscoreseason")
       .then((res) => res.json())
       .then((data) => {
         setJollyData(data);
@@ -22,18 +22,7 @@ const HighestScore = (props) => {
         <p>No profile data</p>
       </Card>
     );
-  //loop through every game in jollyData.seasons["2223"].games
-  //find the highest score
-  let latestSeason =
-    jollyData.seasons[Object.keys(jollyData.seasons)[Object.keys(jollyData.seasons).length - 1]];
-  let highestScore = 0;
-  let gameNumber = 0;
-  Object.values(latestSeason.games).forEach((game) => {
-    if (game.ourScore > highestScore) {
-      highestScore = game.ourScore;
-      gameNumber = game.gameNumber;
-    }
-  });
+
 
   return (
     <Card {...props}>
@@ -47,7 +36,7 @@ const HighestScore = (props) => {
             </Tooltip>
 
             <Typography color="textPrimary" variant="h4">
-              {highestScore}
+              {jollyData.score}
             </Typography>
           </Grid>
           <Grid item>
@@ -72,10 +61,9 @@ const HighestScore = (props) => {
           <Typography color="textSecondary" variant="caption">
             <Link
               href={`game?seasonNumber=${
-                Object.keys(jollyData.seasons)[Object.keys(jollyData.seasons).length - 1]
-              }&gameNumber=${gameNumber}`}
+                jollyData.matchID.toString().slice(0,4)}&gameNumber=${jollyData.matchID.toString().slice(4, 6)}`}
             >
-              IN GAME {gameNumber}
+              IN GAME {jollyData.matchID.toString().slice(4, 6)}
             </Link>
           </Typography>
         </Box>
@@ -85,3 +73,4 @@ const HighestScore = (props) => {
 };
 
 export default HighestScore;
+//FIXME: only got to here so far

@@ -8,7 +8,7 @@ const SeasonDifference = (props) => {
   const [jollyData, setJollyData] = useState(null);
   useEffect(() => {
     setLoading(true);
-    fetch("https://skittles-server.herokuapp.com/lastgame")
+    fetch("https://skittles-server.herokuapp.com/seasondifference/latest")
       .then((res) => res.json())
       .then((data) => {
         setJollyData(data);
@@ -31,7 +31,7 @@ const SeasonDifference = (props) => {
               SEASON DIFFERENCE
             </Typography>
             <Typography color="textPrimary" variant="h4">
-              {jollyData.seasonDifference}
+              {jollyData.difference}
             </Typography>
           </Grid>
           <Grid item>
@@ -42,7 +42,7 @@ const SeasonDifference = (props) => {
                 width: 56,
               }}
             >
-              {jollyData.seasonDifference > 0 ? <AddRoundedIcon /> : <RemoveRoundedIcon />}
+              {jollyData.difference > 0 ? <AddRoundedIcon /> : <RemoveRoundedIcon />}
             </Avatar>
           </Grid>
         </Grid>
