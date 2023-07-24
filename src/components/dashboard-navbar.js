@@ -10,8 +10,9 @@ import { UserCircle as UserCircleIcon } from "../icons/user-circle";
 import { Users as UsersIcon } from "../icons/users";
 import AccountCircleRoundedIcon from "@mui/icons-material/AccountCircleRounded";
 import TextField from "@mui/material/TextField";
+
 const DashboardNavbarRoot = styled(AppBar)(({ theme }) => ({
-  backgroundColor: theme.palette.background.paper,
+  backgroundColor: "#1A202C",
   boxShadow: theme.shadows[3],
 }));
 
@@ -38,7 +39,7 @@ export const DashboardNavbar = (props) => {
             minHeight: 64,
             left: 0,
             px: 2,
-            backgroundColor: "#141b2d",
+            backgroundColor: "#1A202C",
           }}
         >
           <IconButton
@@ -54,14 +55,14 @@ export const DashboardNavbar = (props) => {
           </IconButton>
           <Tooltip title="Search">
             <TextField variant="standard" sx={{
-              backgroundColor: "#1f2a40",
+              backgroundColor: "#2D3748",
               borderRadius: "5px",
               padding: "0.5%",
               margin: "1% 0",
               paddingLeft: "1%",
               marginLeft: "1%",
               input: {
-                color: "white",
+                color: "#F7FAFC",
               }
               
             }} placeholder="Search" InputProps={{disableUnderline: true}}></TextField>

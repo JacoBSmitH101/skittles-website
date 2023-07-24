@@ -19,6 +19,7 @@ import { NavItem } from "./nav-item";
 import WindowIcon from "@mui/icons-material/Window";
 import QueryStatsIcon from "@mui/icons-material/QueryStats";
 import WorkspacesIcon from '@mui/icons-material/Workspaces';
+
 const items = [
   {
     href: "/",
@@ -98,7 +99,7 @@ export const DashboardSidebar = (props) => {
           display: "flex",
           flexDirection: "column",
           height: "100%",
-          backgroundColor: "#1f2a40",
+          backgroundColor: "#1A202C",
         }}
       >
         <div>
@@ -131,23 +132,16 @@ export const DashboardSidebar = (props) => {
                 <Typography color="inherit" variant="subtitle1">
                   Jolly Crew
                 </Typography>
-                <Typography color="neutral.400" variant="body2">
+                <Typography color="#718096" variant="body2">
                   Division 2
                 </Typography>
               </div>
-              {/* <SelectorIcon
-                sx={{
-                  color: "neutral.500",
-                  width: 14,
-                  height: 14,
-                }}
-              /> */}
             </Box>
           </Box>
         </div>
         <Divider
           sx={{
-            borderColor: "#2D3748",
+            borderColor: "#20232a",
             my: 3,
           }}
         />
@@ -156,7 +150,7 @@ export const DashboardSidebar = (props) => {
             <NavItem key={item.title} icon={item.icon} href={item.href} title={item.title} enabled={item.enabled} />
           ))}
         </Box>
-        <Divider sx={{ borderColor: "#2D3748" }} />
+        <Divider sx={{ borderColor: "#20232a" }} />
       </Box>
     </>
   );
@@ -168,8 +162,8 @@ export const DashboardSidebar = (props) => {
         open
         PaperProps={{
           sx: {
-            backgroundColor: "neutral.900",
-            color: "#FFFFFF",
+            backgroundColor: "#1A202C",
+            color: "#F7FAFC",
             width: 280,
           },
         }}
@@ -187,8 +181,8 @@ export const DashboardSidebar = (props) => {
       open={open}
       PaperProps={{
         sx: {
-          backgroundColor: "neutral.900",
-          color: "#FFFFFF",
+          backgroundColor: "#1A202C",
+          color: "#F7FAFC",
           width: 280,
         },
       }}
