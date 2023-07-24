@@ -1,18 +1,10 @@
 import Head from "next/head";
 import { Box, Container, Grid } from "@mui/material";
 import LastGame from "../components/dashboard/LastGame";
-import LatestGames from "../components/dashboard/latest-games";
-import Games from "../components/dashboard/games";
 import SeasonProgress from "../components/dashboard/season-progress";
 import HighestScore from "../components/dashboard/highest-score";
-import SeasonDifference from "../components/dashboard/season-difference";
-import { ScoresByAlley } from "../components/dashboard/scores-by-alley";
 import { DashboardLayout } from "../components/dashboard-layout";
-import { auth } from "../lib/auth";
-import { Provider } from "react-redux";
-import { store } from "../lib/store";
 import { fetchMatches, fetchMatchesPlayers, fetchPlayers } from "../utils/data";
-import { getLastGameInfo, getLastGamesList } from "../utils/skittlesData";
 import LowestScore from "../components/dashboard/lowest-score";
 import TopPinCounts from "../components/dashboard/top-pincount";
 import TopScores from "../components/dashboard/top-scores";
