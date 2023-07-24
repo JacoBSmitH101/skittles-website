@@ -18,7 +18,7 @@ function TopScores({ matchesPlayers, players, matches }) {
       <CardContent>
         <Grid container spacing={3} sx={{ justifyContent: "space-between" }}>
         <Table>
-            <TableHead sx={{backgroundColor: "#1f2a40"}}>
+            <TableHead sx={{backgroundColor: "neutral.200"}}>
               <TableRow>
                 <TableCell>Name</TableCell>
                 <TableCell>Score</TableCell>

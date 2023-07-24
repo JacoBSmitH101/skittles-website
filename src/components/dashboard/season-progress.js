@@ -28,9 +28,9 @@ const SeasonProgress = ({matches}) => {
             </Avatar>
           </Grid>
         </Grid>
-        <Box sx={{ pt: 3 }}>
+        {/* <Box sx={{ pt: 3 }}>
           <LinearProgress value={(data.average - 350)* 100/(550-350)} variant="determinate" />
-        </Box>
+        </Box> */}
       </CardContent>
     </Card>
   );

@@ -39,8 +39,11 @@ const LastGame = ({matches}) => {
               <ScoreboardIcon />
             </Avatar>
           </Grid>
+          {/* <Typography color="textSecondary" variant="caption" sx={{marginLeft: "20px"}}>
+            VS {data.opponentName}
+          </Typography> */}
         </Grid>
-        <Box
+        {/* <Box
           sx={{
             pt: 2,
             display: "flex",
@@ -50,7 +53,7 @@ const LastGame = ({matches}) => {
           <Typography color="textSecondary" variant="caption">
             VS {data.opponentName}
           </Typography>
-        </Box>
+        </Box> */}
       </CardContent>
     </Card>
   );

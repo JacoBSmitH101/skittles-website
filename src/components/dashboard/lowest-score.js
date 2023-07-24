@@ -18,7 +18,7 @@ const LowestScore = ({ matches }) => {
           <Grid item>
             <Tooltip title="Lowest Score this season">
               <Typography color="textSecondary" gutterBottom variant="overline">
-                LOWEST TEAM SCORE
+                WORST TEAM SCORE
               </Typography>
             </Tooltip>
 
@@ -38,7 +38,7 @@ const LowestScore = ({ matches }) => {
             </Avatar>
           </Grid>
         </Grid>
-        <Box
+        {/* <Box
           sx={{
             alignItems: "center",
             display: "flex",
@@ -53,7 +53,7 @@ const LowestScore = ({ matches }) => {
               IN GAME {data.matchID.toString().slice(4, 6)}
             </Link>
           </Typography>
-        </Box>
+        </Box> */}
       </CardContent>
     </Card>
   );
