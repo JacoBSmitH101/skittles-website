@@ -19,9 +19,9 @@ const HighestScore = ({ matches }) => {
   const data = getHighestTeamScore(matches);
 
   return (
-    <Card>
-      <ButtonBase href="/games">
-        <CardActionArea>
+    <CardActionArea>
+      <Card>
+        <ButtonBase href="/games">
           <CardContent>
             <Grid container spacing={3} sx={{ justifyContent: "space-between" }}>
               <Grid item>
@@ -65,9 +65,9 @@ const HighestScore = ({ matches }) => {
             </Typography>
           </Box> */}
           </CardContent>
-        </CardActionArea>
-      </ButtonBase>
-    </Card>
+        </ButtonBase>
+      </Card>
+    </CardActionArea>
   );
 };
 
