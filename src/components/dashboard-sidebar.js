@@ -100,6 +100,7 @@ export const DashboardSidebar = (props) => {
           flexDirection: "column",
           height: "100%",
           backgroundColor: "#1A202C",
+          boxShadow: "inset   -2px 0px 4px rgba(0, 0, 0, 0.25)",
         }}
       >
         <div>
