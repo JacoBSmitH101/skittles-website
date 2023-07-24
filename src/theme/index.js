@@ -46,9 +46,10 @@ export const theme = createTheme({
     },
     MuiCard: {
       styleOverrides: {
-        // root: {
-        //     border: '1px solid #B0B0B0',
-        // }
+        root: {
+            backgroundColor: '#2D3748',
+            boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
+        }
       }
     },
     MuiCardContent: {

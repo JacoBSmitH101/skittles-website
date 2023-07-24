@@ -1,6 +1,7 @@
 import {
   Avatar,
   Box,
+  ButtonBase,
   Card,
   CardActionArea,
   CardContent,
@@ -19,33 +20,34 @@ const HighestScore = ({ matches }) => {
 
   return (
     <Card>
-      <CardActionArea>
-        <CardContent>
-          <Grid container spacing={3} sx={{ justifyContent: "space-between" }}>
-            <Grid item>
-              <Tooltip title="Highest Score this season">
-                <Typography color="textSecondary" gutterBottom variant="overline">
-                  HIGHEST TEAM SCORE
-                </Typography>
-              </Tooltip>
+      <ButtonBase href="/games">
+        <CardActionArea>
+          <CardContent>
+            <Grid container spacing={3} sx={{ justifyContent: "space-between" }}>
+              <Grid item>
+                <Tooltip title="Highest Score this season">
+                  <Typography color="textSecondary" gutterBottom variant="overline">
+                    BEST TEAM SCORE
+                  </Typography>
+                </Tooltip>
 
-              <Typography color="textPrimary" variant="h4">
-                {data.score}
-              </Typography>
+                <Typography color="textPrimary" variant="h4">
+                  {data.score}
+                </Typography>
+              </Grid>
+              <Grid item>
+                <Avatar
+                  sx={{
+                    backgroundColor: "success.main",
+                    height: 56,
+                    width: 56,
+                  }}
+                >
+                  <GroupsIcon />
+                </Avatar>
+              </Grid>
             </Grid>
-            <Grid item>
-              <Avatar
-                sx={{
-                  backgroundColor: "success.main",
-                  height: 56,
-                  width: 56,
-                }}
-              >
-                <GroupsIcon />
-              </Avatar>
-            </Grid>
-          </Grid>
-          <Box
+            {/* <Box
             sx={{
               alignItems: "center",
               display: "flex",
@@ -61,9 +63,10 @@ const HighestScore = ({ matches }) => {
                 IN GAME {data.matchID.toString().slice(4, 6)}
               </Link>
             </Typography>
-          </Box>
-        </CardContent>
-      </CardActionArea>
+          </Box> */}
+          </CardContent>
+        </CardActionArea>
+      </ButtonBase>
     </Card>
   );
 };
