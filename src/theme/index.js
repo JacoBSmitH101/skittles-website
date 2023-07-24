@@ -44,6 +44,13 @@ export const theme = createTheme({
         disableRipple: true
       }
     },
+    MuiCard: {
+      styleOverrides: {
+        root: {
+            border: '1px solid #B0B0B0',
+        }
+      }
+    },
     MuiCardContent: {
       styleOverrides: {
         root: {

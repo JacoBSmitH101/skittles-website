@@ -4,33 +4,11 @@ import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import MoneyIcon from "@mui/icons-material/Money";
 import ScoreboardIcon from "@mui/icons-material/Scoreboard";
 import { useState, useEffect } from "react";
-
-const LastGame = (props) => {
-  const [data, setData] = useState(null);
-  const [isLoading, setLoading] = useState(true);
-  const [jollyData, setJollyData] = useState(null);
-  useEffect(() => {
-    setLoading(true);
-    try {
-      fetch("https://skittles-server.herokuapp.com/lastgame")
-        .then((res) => res.json())
-        .then((data) => {
-          setData(data);
-          setLoading(false);
-        });
-    } catch (error) {
-      console.log(error);
-    }
-  }, []);
-  if (isLoading) return <p>Loading...</p>;
-  if (!data)
-    return (
-      <Card>
-        <p>No data</p>
-      </Card>
-    );
+import { getLastGameInfo } from "../../utils/skittlesData";
+const LastGame = ({matches}) => {
+  const data = getLastGameInfo(matches);
   return (
-    <Card sx={{ height: "100%" }} {...props}>
+    <Card sx={{ height: "100%" }}>
       <CardContent>
         <Grid container spacing={3} sx={{ justifyContent: "space-between" }}>
           <Grid item>
