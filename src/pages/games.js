@@ -107,8 +107,6 @@ Games.getLayout = (page) => <DashboardLayout>{page}</DashboardLayout>;
 
 export async function getServerSideProps() {
   const matches = await fetchMatches();
-  const players = await fetchPlayers();
-  const matchesPlayers = await fetchMatchesPlayers();
   const teams = await getListOfTeams();
 
   return {
