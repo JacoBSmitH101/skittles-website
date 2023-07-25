@@ -1,5 +1,13 @@
 import Head from "next/head";
 import { Box, Card, Container, Grid, Pagination } from "@mui/material";
+import {
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogContentText,
+  DialogActions,
+  Button,
+} from "@mui/material";
 import { products } from "../__mocks__/products";
 import { GamesListToolbar } from "../components/games/product-list-toolbar";
 import { GameCard } from "../components/games/game-card";
@@ -16,6 +24,10 @@ const Games = ({ matches: initialMatches, teams }) => {
   const gamesPerPage = 6;
   const [sort, setSort] = useState("recent");
   const [teamOptions, setTeamOptions] = useState(teams);
+  const [open, setOpen] = useState(true);
+  const handleClose = () => {
+    setOpen(false);
+  };
   useEffect(() => {
     // Filter matches based on search query
     const filteredMatches = initialMatches.filter((game) => {
@@ -53,6 +65,19 @@ const Games = ({ matches: initialMatches, teams }) => {
 
   return (
     <>
+      <Dialog open={open} onClose={handleClose}>
+        <DialogTitle>{"Development Notice"}</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            The /games page is currently in development. Some features may not work as expected.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} color="primary" autoFocus>
+            Continue
+          </Button>
+        </DialogActions>
+      </Dialog>
       <Head>
         <title>Games | Jolly Crew</title>
       </Head>
