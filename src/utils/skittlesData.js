@@ -35,6 +35,7 @@ export function getLastGameInfo(matches) {
     score: lastGame.score,
     opponentName: lastGame.opponentName,
     opponentScore: lastGame.opponentScore,
+    matchID: lastGame.matchID,
   };
 }
 /**

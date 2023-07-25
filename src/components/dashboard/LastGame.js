@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-max-props-per-line */
-import { Avatar, Box, Card, CardContent, Grid, Typography } from "@mui/material";
+import { Avatar, Box, ButtonBase, Card, CardActionArea, CardContent, Grid, Typography } from "@mui/material";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import MoneyIcon from "@mui/icons-material/Money";
 import ScoreboardIcon from "@mui/icons-material/Scoreboard";
@@ -7,8 +7,11 @@ import { useState, useEffect } from "react";
 import { getLastGameInfo } from "../../utils/skittlesData";
 const LastGame = ({matches}) => {
   const data = getLastGameInfo(matches);
+  console.log(data);
   return (
-    <Card sx={{ height: "100%" }}>
+    <CardActionArea>
+    <Card sx={{ height: "140px" }}>
+      <ButtonBase href={"/game/" + data.matchID}>
       <CardContent>
         <Grid container spacing={3} sx={{ justifyContent: "space-between" }}>
           <Grid item>
@@ -55,7 +58,10 @@ const LastGame = ({matches}) => {
           </Typography>
         </Box> */}
       </CardContent>
+      </ButtonBase>
     </Card>
+
+    </CardActionArea>
   );
 };
 export default LastGame;
