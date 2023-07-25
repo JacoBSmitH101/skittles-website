@@ -9,7 +9,7 @@ import { auth } from "../lib/auth";
 import UserNotAuth from "../components/user-not-auth";
 import { fetchMatches, fetchMatchesPlayers, fetchPlayers, getListOfTeams } from "../utils/data";
 
-const Games = ({ matches: initialMatches, matchesPlayers, players, teams }) => {
+const Games = ({ matches: initialMatches, teams }) => {
   const [matches, setMatches] = useState(initialMatches);
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(1);
@@ -114,8 +114,6 @@ export async function getServerSideProps() {
   return {
     props: {
       matches,
-      players,
-      matchesPlayers,
       teams,
     },
   };
