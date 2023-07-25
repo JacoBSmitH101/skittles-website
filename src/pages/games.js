@@ -16,6 +16,7 @@ import { useEffect, useState } from "react";
 import { auth } from "../lib/auth";
 import UserNotAuth from "../components/user-not-auth";
 import { fetchMatches, fetchMatchesPlayers, fetchPlayers, getListOfTeams } from "../utils/data";
+import DevelopmentDialog from "../components/development-dialog";
 
 const Games = ({ matches: initialMatches, teams }) => {
   const [matches, setMatches] = useState(initialMatches);
@@ -24,10 +25,7 @@ const Games = ({ matches: initialMatches, teams }) => {
   const gamesPerPage = 6;
   const [sort, setSort] = useState("recent");
   const [teamOptions, setTeamOptions] = useState(teams);
-  const [open, setOpen] = useState(true);
-  const handleClose = () => {
-    setOpen(false);
-  };
+  
   useEffect(() => {
     // Filter matches based on search query
     const filteredMatches = initialMatches.filter((game) => {
@@ -65,19 +63,7 @@ const Games = ({ matches: initialMatches, teams }) => {
 
   return (
     <>
-      <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>{"Development Notice"}</DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            The /games page is currently in development. Some features may not work as expected.
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose} color="primary" autoFocus>
-            Continue
-          </Button>
-        </DialogActions>
-      </Dialog>
+      <DevelopmentDialog page="Games" />
       <Head>
         <title>Games | Jolly Crew</title>
       </Head>
