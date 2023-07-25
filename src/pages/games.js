@@ -1,5 +1,13 @@
 import Head from "next/head";
 import { Box, Card, Container, Grid, Pagination } from "@mui/material";
+import {
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogContentText,
+  DialogActions,
+  Button,
+} from "@mui/material";
 import { products } from "../__mocks__/products";
 import { GamesListToolbar } from "../components/games/product-list-toolbar";
 import { GameCard } from "../components/games/game-card";
@@ -8,6 +16,7 @@ import { useEffect, useState } from "react";
 import { auth } from "../lib/auth";
 import UserNotAuth from "../components/user-not-auth";
 import { fetchMatches, fetchMatchesPlayers, fetchPlayers, getListOfTeams } from "../utils/data";
+import DevelopmentDialog from "../components/development-dialog";
 
 const Games = ({ matches: initialMatches, teams }) => {
   const [matches, setMatches] = useState(initialMatches);
@@ -16,6 +25,7 @@ const Games = ({ matches: initialMatches, teams }) => {
   const gamesPerPage = 6;
   const [sort, setSort] = useState("recent");
   const [teamOptions, setTeamOptions] = useState(teams);
+  
   useEffect(() => {
     // Filter matches based on search query
     const filteredMatches = initialMatches.filter((game) => {
@@ -53,6 +63,7 @@ const Games = ({ matches: initialMatches, teams }) => {
 
   return (
     <>
+      <DevelopmentDialog page="Games" />
       <Head>
         <title>Games | Jolly Crew</title>
       </Head>

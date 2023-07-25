@@ -24,6 +24,17 @@ export async function getListOfTeams() {
     
     return teams;
   }
+  export async function fetchMatchById(id) {
+    let { data: game, error } = await supabase
+      .from('matches')
+      .select('*')
+      .eq('matchID', id)
+      .single();
+  
+    if (error) console.error("Error fetching match: ", error);
+    
+    return game;
+  }
 
 export async function fetchPlayers() {
   let { data: players, error } = await supabase.from("players").select("*");
