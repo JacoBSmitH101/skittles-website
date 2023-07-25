@@ -56,7 +56,6 @@ const Games = ({ matches: initialMatches, teams }) => {
           return b.matchID - a.matchID;
       }
     });
-    console.log(teams);
 
     setMatches(sortedMatches);
   }, [search, sort, initialMatches, teamOptions]);
