@@ -44,6 +44,14 @@ export const theme = createTheme({
         disableRipple: true
       }
     },
+    MuiCard: {
+      styleOverrides: {
+        root: {
+            backgroundColor: '#2D3748',
+            boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
+        }
+      }
+    },
     MuiCardContent: {
       styleOverrides: {
         root: {
@@ -112,7 +120,7 @@ export const theme = createTheme({
         root: {
           backgroundColor: '#F3F4F6',
           '.MuiTableCell-root': {
-            color: '#374151'
+            color: '#EBEBEB'
           },
           borderBottom: 'none',
           '& .MuiTableCell-root': {
@@ -133,69 +141,72 @@ export const theme = createTheme({
   },
   palette: {
     neutral: {
-      100: '#F3F4F6',
-      200: '#E5E7EB',
-      300: '#D1D5DB',
-      400: '#9CA3AF',
-      500: '#6B7280',
-      600: '#4B5563',
-      700: '#374151',
-      800: '#1F2937',
-      900: '#111827'
+      100: '#1A202C',
+      200: '#2D3748',
+      300: '#4A5568',
+      400: '#718096',
+      500: '#A0AEC0',
+      600: '#CBD5E0',
+      700: '#E2E8F0',
+      800: '#EDF2F7',
+      900: '#F7FAFC'
     },
     action: {
-      active: '#6B7280',
-      focus: 'rgba(55, 65, 81, 0.12)',
-      hover: 'rgba(55, 65, 81, 0.04)',
-      selected: 'rgba(55, 65, 81, 0.08)',
-      disabledBackground: 'rgba(55, 65, 81, 0.12)',
-      disabled: 'rgba(55, 65, 81, 0.26)'
+      active: '#718096',
+      focus: 'rgba(255, 255, 255, 0.12)',
+      hover: 'rgba(255, 255, 255, 0.04)',
+      selected: 'rgba(255, 255, 255, 0.08)',
+      disabledBackground: 'rgba(255, 255, 255, 0.12)',
+      disabled: 'rgba(255, 255, 255, 0.26)'
     },
     background: {
-      default: '#F9FAFC',
-      paper: '#FFFFFF'
+      default: '#141821',
+      paper: '#20232a'
     },
-    divider: '#E6E8F0',
+    divider: '#20232a',
     primary: {
-      main: '#5048E5',
-      light: '#828DF8',
-      dark: '#3832A0',
-      contrastText: '#FFFFFF'
+      main: '#38A169',
+      light: '#9AE6B4',
+      dark: '#22543D',
+      contrastText: '#F7FAFC'
     },
     secondary: {
-      main: '#10B981',
-      light: '#3FC79A',
-      dark: '#0B815A',
-      contrastText: '#FFFFFF'
+      main: '#319795',
+      light: '#81E6D9',
+      dark: '#234E52',
+      contrastText: '#F7FAFC'
     },
     success: {
-      main: '#14B8A6',
-      light: '#43C6B7',
-      dark: '#0E8074',
-      contrastText: '#FFFFFF'
+      main: '#48BB78',
+      light: '#68D391',
+      dark: '#2F855A',
+      contrastText: '#F7FAFC'
+    },
+    table: {
+      borderBottom: "#2D3748",
     },
     info: {
-      main: '#2196F3',
-      light: '#64B6F7',
-      dark: '#0B79D0',
-      contrastText: '#FFFFFF'
+      main: '#4299E1',
+      light: '#90CDF4',
+      dark: '#2B6CB0',
+      contrastText: '#F7FAFC'
     },
     warning: {
-      main: '#FFB020',
-      light: '#FFBF4C',
-      dark: '#B27B16',
-      contrastText: '#FFFFFF'
+      main: '#ECC94B',
+      light: '#F6E05E',
+      dark: '#B7791F',
+      contrastText: '#F7FAFC'
     },
     error: {
-      main: '#D14343',
-      light: '#DA6868',
-      dark: '#922E2E',
-      contrastText: '#FFFFFF'
+      main: '#F56565',
+      light: '#FC8181',
+      dark: '#C53030',
+      contrastText: '#F7FAFC'
     },
     text: {
-      primary: '#121828',
-      secondary: '#65748B',
-      disabled: 'rgba(55, 65, 81, 0.48)'
+      primary: '#F7FAFC',
+      secondary: '#A0AEC0',
+      disabled: 'rgba(255, 255, 255, 0.48)'
     }
   },
   shape: {

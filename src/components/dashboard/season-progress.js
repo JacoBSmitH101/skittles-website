@@ -1,30 +1,19 @@
 import { Avatar, Box, Card, CardContent, Grid, LinearProgress, Typography } from "@mui/material";
 import InsertChartIcon from "@mui/icons-material/InsertChartOutlined";
 import { useState, useEffect } from "react";
-const SeasonProgress = (props) => {
-  const [isLoading, setLoading] = useState(true);
-  const [jollyData, setJollyData] = useState(null);
-  useEffect(() => {
-    setLoading(true);
-    fetch("https://skittles-server.herokuapp.com/lastgame")
-      .then((res) => res.json())
-      .then((data) => {
-        setJollyData(data);
-        setLoading(false);
-      });
-  }, []);
-  if (isLoading) return <p>Loading...</p>;
-  if (!jollyData) return <Card><p>No profile data</p></Card>;
+import { getLatestSeasonAverage } from "../../utils/skittlesData";
+const SeasonProgress = ({matches}) => {
+  const data = getLatestSeasonAverage(matches);
   return (
-    <Card sx={{ height: "100%" }} {...props}>
+    <Card sx={{ height: "100%" }}>
       <CardContent>
         <Grid container spacing={3} sx={{ justifyContent: "space-between" }}>
           <Grid item>
             <Typography color="textSecondary" gutterBottom variant="overline">
-              SEASON PROGRESS
+              SEASON AVERAGE
             </Typography>
             <Typography color="textPrimary" variant="h4">
-              {Math.floor((jollyData.gameNumber/28*100))}%
+              {Math.floor((data.average))}
             </Typography>
           </Grid>
           <Grid item>
@@ -39,9 +28,9 @@ const SeasonProgress = (props) => {
             </Avatar>
           </Grid>
         </Grid>
-        <Box sx={{ pt: 3 }}>
-          <LinearProgress value={Math.floor((7/28*100) * 100) / 100} variant="determinate" />
-        </Box>
+        {/* <Box sx={{ pt: 3 }}>
+          <LinearProgress value={(data.average - 350)* 100/(550-350)} variant="determinate" />
+        </Box> */}
       </CardContent>
     </Card>
   );

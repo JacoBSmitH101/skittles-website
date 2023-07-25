@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-max-props-per-line */
 import { Grid } from "@mui/material";
 import { Box, Container } from "@mui/system";
 import Head from "next/head";
@@ -12,41 +13,23 @@ import HistoryVSOpponent from "../components/game/history";
 import PlayerList from "../components/game/playerlist";
 import TeamAverage from "../components/game/teamaverage";
 import UserNotAuth from "../components/user-not-auth";
-import { auth } from "../lib/auth";
-
+import { Provider } from "react-redux";
+import { store } from "../lib/store";
 const Game = () => {
   const Router = useRouter();
   const { gameNumber, seasonNumber } = Router.query;
   const [gameData, setGameData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [authenticated, setAuthenticated] = useState(false);
+  const [authenticated, setAuthenticated] = useState(true);
   useEffect(() => {
     fetch(
       `https://skittles-server.herokuapp.com/game/${seasonNumber}/${gameNumber}`
     )
       .then((res) => res.json())
       .then((data) => {
+        //data.players.sort((a, b) => b.score - a.score);
         setGameData(data);
         setIsLoading(false);
-      });
-      auth.getCurrentUser().then((res) => {
-        if (!res) {
-          setAuthenticated(false);
-          return
-        }
-        let id = res.subId.slice(0, -3);
-        fetch("https://skittles-server.herokuapp.com/verified-users-list")
-          .then((res) => res.json())
-          .then((data) => {
-            let verified = false;
-            for (let i = 0; i < data.length; i++) {
-              if (data[i].authId === id) {
-                verified = true;
-                setAuthenticated(true);
-                break;
-              }
-            }
-          });
       });
   }, []);
   if (isLoading || !gameData) {
@@ -57,7 +40,7 @@ const Game = () => {
   }
 
   return (
-    <>
+    <Provider store={store}>
       <Head>
         <title>Game {gameNumber} | Jolly Crew</title>
       </Head>
@@ -97,7 +80,7 @@ const Game = () => {
           </Grid>
         </Container>
       </Box>
-    </>
+    </Provider>
   );
 };
 Game.getLayout = (page) => <DashboardLayout>{page}</DashboardLayout>;

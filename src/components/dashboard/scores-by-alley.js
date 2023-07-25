@@ -44,11 +44,17 @@ export const ScoresByAlley = (props) => {
       {
         data: [homeScores, awayScores],
         backgroundColor: ["#3F51B5", "#e53935"],
-        borderWidth: 8,
-        borderColor: "#FFFFFF",
+        borderWidth: 2,
+        borderColor: "#AAAAAA",
         hoverBorderColor: "#FFFFFF",
       },
     ],
+    legend:
+    {
+      labels: {
+        fontColor: "#FFFFFF",
+      }
+    },
     labels: ["Home", "Away"],
   };
 

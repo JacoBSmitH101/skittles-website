@@ -43,6 +43,7 @@ export const AuthGuard = (props) => {
   );
 
   if (!checked) {
+    
     return null;
   }
 

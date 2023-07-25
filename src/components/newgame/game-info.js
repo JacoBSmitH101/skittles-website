@@ -54,7 +54,7 @@ function GameInfo({ newGameInfo, setNewGameInfo }) {
   };
   return (
     <Card>
-      <CardHeader subheader="The information can be edited" title="Game Info" />
+      <CardHeader subheader="Enter game information" title="Game Info" />
       <Divider />
       <CardContent>
         <Grid container spacing={3}>

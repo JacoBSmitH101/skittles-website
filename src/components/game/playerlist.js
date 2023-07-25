@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-max-props-per-line */
 import {
   Avatar,
   Box,
@@ -21,13 +22,35 @@ import ScoreboardIcon from "@mui/icons-material/Scoreboard";
 import { useState, useEffect } from "react";
 import Paper from "@mui/material";
 import AssignmentIcon from "@mui/icons-material/Assignment";
+import { makeStyles } from "@mui/styles";
+import { useSelector, useDispatch } from 'react-redux';
+const useStyles = makeStyles({
+  root: {
+    '&:hover': {
+      backgroundColor: '#EEEEEE',
+    },
+  },
+});
 const PlayerList = ({ gameData }) => {
+  const selectedPlayer = useSelector(state => state.gamePage.selectedPlayer);
+  const classes = useStyles();
   let opponentTotalKey = "opponent";
   Object.keys(gameData.players).forEach((player) => {
     if (gameData.players[player].opponentTotal) {
       opponentTotalKey = "opponentTotal";
     }
   });
+  let order = Object.entries(gameData.players)
+    .sort((a, b) => b[1].total - a[1].total)
+  let obj = Object.fromEntries(order)
+  console.log(obj)
+  const dispatch = useDispatch();
+  const updateSelectedPlayer = (player) => {
+    if (selectedPlayer == player) {
+      player = null;
+    }
+    dispatch({type: "setSelectedPlayer", payload: player})
+  }
   return (
     <Card sx={{ height: "100%" }}>
       <CardHeader
@@ -50,7 +73,7 @@ const PlayerList = ({ gameData }) => {
       <Grid item>
         <TableContainer component={Paper}>
           <Table sx={{ minWidth: "100%" }} size="small" aria-label="Scoreboard">
-            <TableHead>
+            <TableHead sx={{backgroundColor: "#1f2a40"}}>
               <TableRow>
                 <Tooltip title="Player Name">
                   <TableCell>Player</TableCell>
@@ -64,13 +87,13 @@ const PlayerList = ({ gameData }) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {Object.keys(gameData.players).map((player) => (
-                <TableRow key={player} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
-                  <TableCell component="th" scope="row">
+              {Object.keys(obj).map((player) => (
+                <TableRow hover classes={{hover: classes.hover}} onClick={() => updateSelectedPlayer(player)} key={player} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
+                  <TableCell sx={{borderBottomColor: "table.borderBottom"}} component="th" scope="row">
                     {player}
                   </TableCell>
-                  <TableCell align="right">{gameData.players[player].total}</TableCell>
-                  <TableCell align="right">
+                  <TableCell sx={{borderBottomColor: "table.borderBottom"}} align="right">{gameData.players[player].total}</TableCell>
+                  <TableCell sx={{borderBottomColor: "table.borderBottom"}} align="right">
                     {gameData.players[player].total - gameData.players[player].opponent > 0
                       ? "+"
                       : ""}
@@ -82,22 +105,22 @@ const PlayerList = ({ gameData }) => {
                 </TableRow>
               ))}
               <TableRow>
-                <TableCell component="th" scope="row">
+                <TableCell sx={{borderBottomColor: "table.borderBottom"}} component="th" scope="row" >
                   <Divider />
                 </TableCell>
-                <TableCell align="right">
+                <TableCell sx={{borderBottomColor: "table.borderBottom"}} align="right">
                   <Divider />
                 </TableCell>
-                <TableCell align="right">
+                <TableCell sx={{borderBottomColor: "table.borderBottom"}} align="right">
                   <Divider />
                 </TableCell>
               </TableRow>
               <TableRow sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
-                <TableCell component="th" scope="row">
+                <TableCell sx={{borderBottomColor: "table.borderBottom"}} component="th" scope="row">
                   Total
                 </TableCell>
-                <TableCell align="right">{gameData.ourScore}</TableCell>
-                <TableCell align="right">
+                <TableCell sx={{borderBottomColor: "table.borderBottom"}} align="right">{gameData.ourScore}</TableCell>
+                <TableCell sx={{borderBottomColor: "table.borderBottom"}} align="right">
                   {gameData.ourScore - gameData.opponentScore > 0 ? "+" : ""}
                   {gameData.ourScore - gameData.opponentScore}
                 </TableCell>

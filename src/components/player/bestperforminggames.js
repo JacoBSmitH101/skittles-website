@@ -42,7 +42,7 @@ const BestPerformances = ({ playerData }) => {
       <PerfectScrollbar>
         <Box sx={{ minWidth: 250 }}>
           <Table>
-            <TableHead>
+            <TableHead sx={{backgroundColor: "#1f2a40"}}>
               <TableRow>
                 <TableCell>Score</TableCell>
                 <TableCell>Alley</TableCell>
@@ -51,10 +51,10 @@ const BestPerformances = ({ playerData }) => {
             </TableHead>
             <TableBody>
               {top5Games.map((game) => (
-                <TableRow hover key={uuid()}>
-                  <TableCell>{game.total}</TableCell>
-                  <TableCell>{game.alley}</TableCell>
-                  <TableCell>
+                <TableRow hover onClick={(e) => {e.preventDefault(); window.location = `/game?seasonNumber=${game.season}&gameNumber=${game.gameNumber}`}} key={uuid()}>
+                  <TableCell sx={{borderBottomColor: "table.borderBottom"}}>{game.total}</TableCell>
+                  <TableCell sx={{borderBottomColor: "table.borderBottom"}}>{game.alley}</TableCell>
+                  <TableCell sx={{borderBottomColor: "table.borderBottom"}}>
                     <Link
                       underline="hover"
                       href={`/game?seasonNumber=${game.season}&gameNumber=${game.gameNumber}`}

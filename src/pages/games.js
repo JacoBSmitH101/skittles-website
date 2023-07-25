@@ -2,92 +2,59 @@ import Head from "next/head";
 import { Box, Card, Container, Grid, Pagination } from "@mui/material";
 import { products } from "../__mocks__/products";
 import { GamesListToolbar } from "../components/games/product-list-toolbar";
-import { ProductCard } from "../components/games/product-card";
+import { GameCard } from "../components/games/game-card";
 import { DashboardLayout } from "../components/dashboard-layout";
 import { useEffect, useState } from "react";
 import { auth } from "../lib/auth";
 import UserNotAuth from "../components/user-not-auth";
-const Games = () => {
-  const [games, setGames] = useState([]);
-  const [visibleGames, setVisibleGames] = useState([]);
-  const [filteredGames, setFilteredGames] = useState([]);
-  const [filter, setFilter] = useState("");
+import { fetchMatches, fetchMatchesPlayers, fetchPlayers, getListOfTeams } from "../utils/data";
+
+const Games = ({ matches: initialMatches, teams }) => {
+  const [matches, setMatches] = useState(initialMatches);
+  const [search, setSearch] = useState("");
   const [page, setPage] = useState(1);
-  const [isLoading, setLoading] = useState(true);
-  const [isAuthenticated, setAuthenticated] = useState(false);
-  const [userInfo, setUserInfo] = useState(null);
+  const gamesPerPage = 6;
+  const [sort, setSort] = useState("recent");
+  const [teamOptions, setTeamOptions] = useState(teams);
   useEffect(() => {
-    setLoading(true);
-    fetch("https://skittles-server.herokuapp.com/lastgames/all")
-      .then((res) => res.json())
-      .then((data) => {
-        data.games.reverse();
-        data.games.forEach((game) => {
-          game.name = `${game.season} Game ${game.gameNumber < 10 ? "0" : ""}${game.gameNumber}`;
-        });
-        setGames(data);
-        setFilteredGames(data);
-
-        setVisibleGames(data.games.slice(0, 6));
-        setLoading(false);
-      });
-    auth.getCurrentUser().then((res) => {
-      if (!res) {
-        setAuthenticated(false);
-        return;
-      }
-      let id = res.subId.slice(0, -3);
-
-      fetch("https://skittles-server.herokuapp.com/verified-users-list")
-        .then((res) => res.json())
-        .then((data) => {
-          let verified = false;
-          for (let i = 0; i < data.length; i++) {
-            if (data[i].authId === id) {
-              verified = true;
-              setUserInfo(data[i]);
-              setAuthenticated(true);
-              break;
-            }
-          }
-        });
+    // Filter matches based on search query
+    const filteredMatches = initialMatches.filter((game) => {
+      const opponentNameMatches =
+        game.opponentName &&
+        game.opponentName.includes(search) &&
+        teamOptions.includes(game.opponentName);
+      return opponentNameMatches;
     });
-  }, []);
-  const handlePageChange = (event, value) => {
-    setPage(value);
-    setVisibleGames(filteredGames.games.slice((value - 1) * 6, value * 6));
-  };
-  if (isLoading || games.length < 1) {
-    return (
-      <Card>
-        <p>No data</p>
-      </Card>
+    filteredMatches = filteredMatches.filter(
+      (game) =>
+        (game.opponentName && game.opponentName.includes(search)) ||
+        (game.matchID && String(game.matchID).includes(search)) ||
+        (game.alley && game.alley.includes(search))
     );
-    //console.log(games);
-  }
-  if (!isAuthenticated) {
-    return <UserNotAuth />;
-  }
-  const filterHandler = (event) => {
-    setFilter(event.target.value);
-    if (event.target.value === "") {
-      setVisibleGames(games.games.slice((page - 1) * 6, page * 6));
-    } else {
-      let filtered = games.games.filter((game) => {
-        return game.name.toLowerCase().includes(event.target.value.toLowerCase());
-      });
-      setFilteredGames({ games: filtered });
-      try {
-        setVisibleGames(filtered.slice((page - 1) * 6, page * 6));
-      } catch (e) {
-        setVisibleGames([{ name: "No games found" }]);
+    // Sort filtered matches by matchID in descending order
+    // Sort filtered matches
+    const sortedMatches = filteredMatches.sort((a, b) => {
+      switch (sort) {
+        case "score":
+          return b.score - a.score;
+        case "opponentScore":
+          return b.opponentScore - a.opponentScore;
+        case "alley":
+          return a.alley.localeCompare(b.alley);
+        case "recent":
+        default:
+          return b.matchID - a.matchID;
       }
-    }
-  };
+    });
+    console.log(teams);
+
+    setMatches(sortedMatches);
+  }, [search, sort, initialMatches, teamOptions]);
+
   return (
     <>
       <Head>
-        <title>Games {page} | Jolly Crew</title>
+        <title>Games | Jolly Crew</title>
       </Head>
       <Box
         component="main"
@@ -97,12 +64,20 @@ const Games = () => {
         }}
       >
         <Container maxWidth={false}>
-          <GamesListToolbar filter={filter} filterHandler={filterHandler} />
+          <GamesListToolbar
+            search={search}
+            setSearch={setSearch}
+            sort={sort}
+            setSort={setSort}
+            setTeamOptions={setTeamOptions}
+            teamOptions={teamOptions}
+            teams={teams}
+          />
           <Box sx={{ pt: 3 }}>
             <Grid container spacing={3}>
-              {visibleGames.map((game) => (
+              {matches.slice((page - 1) * gamesPerPage, page * gamesPerPage).map((game) => (
                 <Grid item key={game.opponent} lg={4} md={6} xs={12}>
-                  <ProductCard game={game} />
+                  <GameCard game={game} />
                 </Grid>
               ))}
             </Grid>
@@ -116,10 +91,10 @@ const Games = () => {
           >
             <Pagination
               color="primary"
-              page={page}
-              onChange={handlePageChange}
-              count={Math.ceil(filteredGames.games.length / 6)}
               size="small"
+              count={Math.ceil(matches.length / gamesPerPage)}
+              page={page}
+              onChange={(event, value) => setPage(value)}
             />
           </Box>
         </Container>
@@ -129,5 +104,17 @@ const Games = () => {
 };
 
 Games.getLayout = (page) => <DashboardLayout>{page}</DashboardLayout>;
+
+export async function getServerSideProps() {
+  const matches = await fetchMatches();
+  const teams = await getListOfTeams();
+
+  return {
+    props: {
+      matches,
+      teams,
+    },
+  };
+}
 
 export default Games;

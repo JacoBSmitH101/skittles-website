@@ -19,8 +19,16 @@ import { SeverityPill } from "../severity-pill";
 import { useEffect, useRef, useState } from "react";
 import NotImplementedPopover from "./notimplementedpopover";
 const orders = [];
-
+import { makeStyles } from "@mui/styles";
+const useStyles = makeStyles({
+  root: {
+    '&:hover': {
+      backgroundColor: '#FFFFFF',
+    },
+  },
+});
 const PlayerList = ({ allPlayers }) => {
+  const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
   const [notImplementedPopover, setNotImplementedPopover] = useState(false);
   const popRef = useRef(null);
@@ -30,7 +38,7 @@ const PlayerList = ({ allPlayers }) => {
       <PerfectScrollbar>
         <Box sx={{ minWidth: 800 }}>
           <Table>
-            <TableHead>
+            <TableHead sx={{backgroundColor: "#1f2a40"}}>
               <TableRow>
                 <TableCell sx={{maxWidth: "100px "}}>Name</TableCell>
                 <TableCell sx={{ display: { xs: "none", sm: "revert" } }}>
@@ -41,18 +49,19 @@ const PlayerList = ({ allPlayers }) => {
             </TableHead>
             <TableBody>
               {Object.keys(allPlayers).map((player) => (
-                <TableRow hover key={player}>
-                  <TableCell sx={{maxWidth: "1rem"}} >{player}</TableCell>
-                  <TableCell sx={{ display: { xs: "none", sm: "revert" } }}>
+                <TableRow hover key={player} classes={{hover: classes.hover}}>
+                  <TableCell sx={{maxWidth: "1rem", borderBottom: "none"}} >{player}</TableCell>
+                  <TableCell sx={{ display: { xs: "none", sm: "revert" }, borderBottom: "none" }}>
                     {Object.keys(allPlayers[player].seasons)[0]} - {Object.keys(allPlayers[player].seasons).pop()}
                   </TableCell>
-                  <TableCell>
+                  <TableCell sx={{ borderBottom: "none"}}>
                     <Button
                       color="primary"
                       endIcon={<ArrowRightIcon />}
                       size="small"
                       variant="text"
                       ref={popRef}
+                      
                       href={`/player?name=${player}`}
                     >
                       View

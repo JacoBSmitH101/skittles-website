@@ -2,7 +2,6 @@ import { Card, CardContent, CardHeader, Typography } from "@mui/material";
 import React from "react";
 
 function PlayerHeader({ name, playerData }) {
-  console.log(playerData);
   var gamesPlayed = 0;
   Object.keys(playerData.seasons).forEach((season) => {
     gamesPlayed += playerData.seasons[season].gamesPlayed;

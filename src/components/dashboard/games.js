@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-max-props-per-line */
 import { Bar, Line } from "react-chartjs-2";
 import {
   Box,
@@ -31,13 +32,15 @@ const Games = (props) => {
       .then((data) => {
         setLastFiveGamesData(data);
       });
-    fetch("https://skittles-server.herokuapp.com/team/Jolly Crew")
+    fetch("https://skittles-server.herokuapp.com/lastgames/latestseason")
+      .then((res) => res.json())
+      .then((data) => {
+        setLastSeasonData(data);
+      });
+      fetch("https://skittles-server.herokuapp.com/lastgames/all") 
       .then((res) => res.json())
       .then((data) => {
         setJollyData(data);
-        setLastSeasonData(
-          data.seasons[Object.keys(data.seasons)[Object.keys(data.seasons).length - 1]]
-        );
         setLoading(false);
       });
   }, []);
@@ -58,24 +61,24 @@ const Games = (props) => {
   let lastFiveGameScores = [];
   let lastFiveGameOpponentScores = [];
   let lastFiveGameLabels = [];
-  lastFiveGamesData.games.forEach((game) => {
-    lastFiveGameScores.push(game.ourScore);
+  lastFiveGamesData.forEach((game) => {
+    lastFiveGameScores.push(game.score);
     lastFiveGameOpponentScores.push(game.opponentScore);
     if (game.isHome) {
-      lastFiveGameLabels.push("Game " + game.gameNumber + "  Home");
+      lastFiveGameLabels.push("Game " + game.matchID.toString().split(0, 4) + "  Home");
     } else {
-      lastFiveGameLabels.push("Game " + game.gameNumber + "  Away");
+      lastFiveGameLabels.push("Game " + game.matchID.toString().split(0, 4)  + "  Away");
     }
   });
 
   let seasonScores = [];
   let seasonOpponentScores = [];
   let seasonLabels = [];
-  Object.keys(lastSeasonData.games).forEach((game) => {
-    if (lastSeasonData.games[game].didPlay) {
-      seasonScores.push(lastSeasonData.games[game].ourScore);
-      seasonOpponentScores.push(lastSeasonData.games[game].opponentScore);
-      seasonLabels.push("Game " + lastSeasonData.games[game].gameNumber);
+  Object.keys(lastSeasonData).forEach((game) => {
+    if (lastSeasonData[game]) {
+      seasonScores.push(lastSeasonData[game].score);
+      seasonOpponentScores.push(lastSeasonData[game].opponentScore);
+      seasonLabels.push("Game " + lastSeasonData[game].matchID.toString().split(0, 4) );
     }
   });
   const graphSelectionHandler = (event) => {
@@ -84,16 +87,14 @@ const Games = (props) => {
   let allGamesScores = [];
   let allGamesOpponentScores = [];
   let allGamesLabels = [];
-  Object.keys(jollyData.seasons).forEach((season) => {
-    Object.keys(jollyData.seasons[season].games).forEach((game) => {
-      if (jollyData.seasons[season].games[game].didPlay) {
-        allGamesScores.push(jollyData.seasons[season].games[game].ourScore);
-        allGamesOpponentScores.push(jollyData.seasons[season].games[game].opponentScore);
+  Object.keys(jollyData).forEach((game) => {
+      if (jollyData[game]) {
+        allGamesScores.push(jollyData[game].ourScore);
+        allGamesOpponentScores.push(jollyData[game].opponentScore);
         allGamesLabels.push(
-          "Game " + jollyData.seasons[season].games[game].gameNumber + "  " + season
-        );
+          "Game " + jollyData[game].matchID.toString().split(4, 6)  
+        ); 
       }
-    });
   });
 
   const lastFiveGamesGraphData = {
@@ -170,15 +171,29 @@ const Games = (props) => {
     legend: { display: false },
     maintainAspectRatio: false,
     responsive: true,
+    color: "white",
     elements: {
       point: {
         radius: 0,
       },
     },
+    scales: {
+      y: {
+        color: "white",
+        grid: {
+          color: "rgba(255, 255, 255, 0.2)",
+        },
+      },
+      x: {
+        grid: {
+          color: "rgba(255, 255, 255, 0.2)",
+        }
+      },
+    },
     xAxes: [
       {
         ticks: {
-          fontColor: theme.palette.text.secondary,
+          fontColor: "white",
         },
         gridLines: {
           display: false,
@@ -189,14 +204,14 @@ const Games = (props) => {
     yAxes: [
       {
         ticks: {
-          fontColor: theme.palette.text.secondary,
+          color: "white",
           beginAtZero: true,
           min: 0,
         },
         gridLines: {
           borderDash: [2],
           borderDashOffset: [2],
-          color: theme.palette.divider,
+          color: "rgba(255, 255, 255, 0.2)",
           drawBorder: false,
           zeroLineBorderDash: [2],
           zeroLineBorderDashOffset: [2],

@@ -48,14 +48,13 @@ const LatestGames = (props) => {
         <p>No profile data</p>
       </Card>
     );
-  lastGames.games = lastGames.games.reverse();
   return (
     <Card {...props}>
       <CardHeader title="Latest Games" />
       <PerfectScrollbar>
         <Box sx={{ minWidth: 800 }}>
           <Table>
-            <TableHead>
+            <TableHead sx={{backgroundColor: "#1f2a40"}}>
               <TableRow>
                 <TableCell>Game Number</TableCell>
                 <TableCell>Home/Away</TableCell>
@@ -65,23 +64,23 @@ const LatestGames = (props) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {lastGames.games.map((game) => (
+              {lastGames.map((game) => (
                 <TableRow key={game.ourScore} onClick={() => gameSelectedHandler(game)} hover>
-                  <TableCell>{game.gameNumber}</TableCell>
-                  <TableCell>
+                  <TableCell sx={{borderBottomColor: "table.borderBottom"}}>{game.matchID.toString().split(0, 4) }</TableCell>
+                  <TableCell sx={{borderBottomColor: "table.borderBottom"}}>
                     <SeverityPill color={(game.isHome && "secondary") || "primary"}>
                       {game.isHome ? "Home" : "Away"}
                     </SeverityPill>
                   </TableCell>
-                  <TableCell>{game.opponent}</TableCell>
-                  <TableCell>
-                    {game.ourScore} vs {game.opponentScore}
+                  <TableCell sx={{borderBottomColor: "table.borderBottom"}}>{game.opponent}</TableCell>
+                  <TableCell sx={{borderBottomColor: "table.borderBottom"}}>
+                    {game.score} vs {game.opponentScore}
                   </TableCell>
-                  <TableCell>
+                  <TableCell sx={{borderBottomColor: "table.borderBottom"}}>
                     <SeverityPill
-                      color={(game.ourScore > game.opponentScore && "success") || "error"}
+                      color={(game.score > game.opponentScore && "success") || "error"}
                     >
-                      {game.ourScore > game.opponentScore ? "Win" : "Loss"}
+                      {game.score > game.opponentScore ? "Win" : "Loss"}
                     </SeverityPill>
                   </TableCell>
                 </TableRow>

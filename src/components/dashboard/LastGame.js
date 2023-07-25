@@ -1,42 +1,21 @@
+/* eslint-disable react/jsx-max-props-per-line */
 import { Avatar, Box, Card, CardContent, Grid, Typography } from "@mui/material";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import MoneyIcon from "@mui/icons-material/Money";
 import ScoreboardIcon from "@mui/icons-material/Scoreboard";
 import { useState, useEffect } from "react";
-
-const LastGame = (props) => {
-  const [data, setData] = useState(null);
-  const [isLoading, setLoading] = useState(true);
-  const [jollyData, setJollyData] = useState(null);
-  useEffect(() => {
-    setLoading(true);
-    try {
-      fetch("https://skittles-server.herokuapp.com/lastgame")
-        .then((res) => res.json())
-        .then((data) => {
-          setData(data);
-          setLoading(false);
-        });
-    } catch (error) {
-      console.log(error);
-    }
-  }, []);
-  if (isLoading) return <p>Loading...</p>;
-  if (!data)
-    return (
-      <Card>
-        <p>No data</p>
-      </Card>
-    );
+import { getLastGameInfo } from "../../utils/skittlesData";
+const LastGame = ({matches}) => {
+  const data = getLastGameInfo(matches);
   return (
-    <Card sx={{ height: "100%" }} {...props}>
+    <Card sx={{ height: "100%" }}>
       <CardContent>
         <Grid container spacing={3} sx={{ justifyContent: "space-between" }}>
           <Grid item>
             <Typography color="textSecondary" gutterBottom variant="overline">
               LAST GAME
             </Typography>
-            {data.ourScore < data.opponentScore ? (
+            {data.score < data.opponentScore ? (
               <Typography color="error" gutterBottom variant="overline">
                 {"  "}(LOST)
               </Typography>
@@ -46,7 +25,7 @@ const LastGame = (props) => {
               </Typography>
             )}
             <Typography color="textPrimary" variant="h5">
-              {data.ourScore} vs {data.opponentScore}
+              {data.score} vs {data.opponentScore}
             </Typography>
           </Grid>
           <Grid item>
@@ -60,8 +39,11 @@ const LastGame = (props) => {
               <ScoreboardIcon />
             </Avatar>
           </Grid>
+          {/* <Typography color="textSecondary" variant="caption" sx={{marginLeft: "20px"}}>
+            VS {data.opponentName}
+          </Typography> */}
         </Grid>
-        <Box
+        {/* <Box
           sx={{
             pt: 2,
             display: "flex",
@@ -69,9 +51,9 @@ const LastGame = (props) => {
           }}
         >
           <Typography color="textSecondary" variant="caption">
-            VS {data.opponent}
+            VS {data.opponentName}
           </Typography>
-        </Box>
+        </Box> */}
       </CardContent>
     </Card>
   );
