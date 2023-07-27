@@ -4,12 +4,28 @@ import LastGame from "../components/dashboard/LastGame";
 import SeasonProgress from "../components/dashboard/season-progress";
 import HighestScore from "../components/dashboard/highest-score";
 import { DashboardLayout } from "../components/dashboard-layout";
-import { fetchMatches, fetchMatchesPlayers, fetchPlayers } from "../utils/data";
+import { fetchAndCacheData, fetchMatches, fetchMatchesPlayers, fetchPlayers } from "../utils/data";
 import LowestScore from "../components/dashboard/lowest-score";
 import TopPinCounts from "../components/dashboard/top-pincount";
 import TopScores from "../components/dashboard/top-scores";
 import TopAverages from "../components/dashboard/top-alltime-average";
+import { useEffect, useState } from "react";
+import LoadingDialog from "../components/loading-dialog";
 const Page = ({ matches, matchesPlayers, players }) => {
+  const [data, setData] = useState({ matches: [], players: [], matchesPlayers: [] });
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchAndCacheData().then((newData) => {
+      setData(newData);
+      setLoading(false);
+    });
+  }, []);
+
+  if (loading) {
+    return <LoadingDialog /> 
+  }
+
   return (
     <>
       <Head>
@@ -25,29 +41,34 @@ const Page = ({ matches, matchesPlayers, players }) => {
         <Container maxWidth={false}>
           <Grid container spacing={3}>
             <Grid item lg={3} sm={6} xl={3} xs={12}>
-              <LastGame matches={matches} />
+              <LastGame matches={data.matches} />
             </Grid>
 
             <Grid item xl={3} lg={3} sm={6} xs={12}>
-              <SeasonProgress matches={matches} />
+              <SeasonProgress matches={data.matches} />
             </Grid>
             <Grid item xl={3} lg={3} sm={6} xs={12}>
-              <HighestScore matches={matches} />
+              <HighestScore matches={data.matches} />
             </Grid>
             <Grid item xl={3} lg={3} sm={6} xs={12}>
-              <LowestScore matches={matches} />
+              <LowestScore matches={data.matches} />
             </Grid>
             <Grid item xl={4} lg={4} sm={6} xs={12}>
-              <TopScores matches={matches} matchesPlayers={matchesPlayers} players={players} topN={5} />
+              <TopScores
+                matches={data.matches}
+                matchesPlayers={data.matchesPlayers}
+                players={data.players}
+                topN={5}
+              />
             </Grid>
             {/* <Grid item xl={4} lg={4} sm={6} xs={12}>
               <TopAveragesThisSeason matches={matches} players={players} topN={5} />
             </Grid> */}
             <Grid item xl={4} lg={4} sm={6} xs={12}>
-              <TopPinCounts matchesPlayers={matchesPlayers} players={players} topN={5} />
+              <TopPinCounts matchesPlayers={data.matchesPlayers} players={data.players} topN={5} />
             </Grid>
             <Grid item xl={4} lg={4} sm={6} xs={12}>
-              <TopAverages matchesPlayers={matchesPlayers} players={players} topN={5} />
+              <TopAverages matchesPlayers={data.matchesPlayers} players={data.players} topN={5} />
             </Grid>
             {/* 
             <Grid item xl={3} lg={3} sm={6} xs={12}>
@@ -74,16 +95,14 @@ Page.getLayout = (page) => <DashboardLayout>{page}</DashboardLayout>;
 
 export default Page;
 
-export async function getServerSideProps() {
-  const matches = await fetchMatches();
-  const players = await fetchPlayers();
-  const matchesPlayers = await fetchMatchesPlayers();
+// export async function getServerSideProps() {
+//   const { matches, players, matchesPlayers } = await fetchAndCacheData();
 
-  return {
-    props: {
-      matches,
-      players,
-      matchesPlayers,
-    },
-  };
-}
+//   return {
+//     props: {
+//       matches,
+//       players,
+//       matchesPlayers,
+//     },
+//   };
+// }

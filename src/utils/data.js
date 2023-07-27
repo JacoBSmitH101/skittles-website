@@ -47,3 +47,25 @@ export async function fetchMatchesPlayers() {
   if (error) console.error("Error fetching matches_players: ", error);
   return matchesPlayers;
 }
+export async function fetchAndCacheData() {
+  const now = Date.now();
+  const twelveHours = 12 * 60 * 60 * 1000; // 12 hours in milliseconds
+
+  const lastFetch = localStorage.getItem('lastFetch');
+  if (lastFetch && now - lastFetch < twelveHours) {
+    // Data is fresh, return it
+    return JSON.parse(localStorage.getItem('data'));
+  } else {
+    // Data is stale, fetch new data
+    const matches = await fetchMatches();
+    const players = await fetchPlayers();
+    const matchesPlayers = await fetchMatchesPlayers();
+    const data = { matches, players, matchesPlayers };
+    
+    // Store the new data in localStorage
+    localStorage.setItem('data', JSON.stringify(data));
+    localStorage.setItem('lastFetch', now);
+    
+    return data;
+  }
+}
