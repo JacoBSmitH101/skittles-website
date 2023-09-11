@@ -1,20 +1,20 @@
 import { Card, CardContent, CardHeader, Typography } from "@mui/material";
 import React from "react";
 
-function PlayerHeader({ name, playerData }) {
-  var gamesPlayed = 0;
-  Object.keys(playerData.seasons).forEach((season) => {
-    gamesPlayed += playerData.seasons[season].gamesPlayed;
-  });
-  var isStillOnTeam = false;
-  var firstSeason = Object.keys(playerData.seasons)[0];
-  var latestSeason = null
-  if (Object.keys(playerData.seasons)[Object.keys(playerData.seasons).length - 1] == "2223") {
+function PlayerHeader({ name, data }) {
+  var gamesPlayed = data.matchesPlayers.length;
+  var isStillOnTeam = true;
+
+  //if latest matchid starts with 2223 then they are still on the team
+  var latestSeason = String(data.matchesPlayers[gamesPlayed - 1].matchid).slice(0, 4);
+  var firstSeason = String(data.matchesPlayers[0].matchid).slice(0, 4);
+
+  if (String(data.matchesPlayers[gamesPlayed - 1].matchid).slice(0, 4) == "2223") {
     isStillOnTeam = true;
   } else {
-    //get latest season
-    latestSeason = Object.keys(playerData.seasons).pop();
+    isStillOnTeam = false;
   }
+
   return (
     <Card>
       <CardContent>

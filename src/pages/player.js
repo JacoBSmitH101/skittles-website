@@ -14,27 +14,32 @@ import BestPerformances from "../components/player/bestperforminggames";
 import RestoreIcon from "@mui/icons-material/Restore";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
-const Game = () => {
+import { fetchAndCacheData, fetchMatches, fetchMatchesPlayers, fetchPlayers } from "../utils/data";
+
+const Player = () => {
   const Router = useRouter();
   const { name } = Router.query;
   const [isLoading, setIsLoading] = useState(true);
   const [playerData, setPlayerData] = useState(null);
+  const [data, setData] = useState({ matches: [], players: [], matchesPlayers: [] });
   useEffect(() => {
-    fetch("https://skittles-server.herokuapp.com/player/" + name)
-      .then((res) => res.json())
-      .then((data) => {
-        setPlayerData(data);
-        setIsLoading(false);
-      });
+    fetchAndCacheData().then((newData) => {
+      newData.matchesPlayers = newData.matchesPlayers.filter((match) => match.playerid == name);
+      //order matchesPlayers by matchid in ascending order
+      newData.matchesPlayers.sort((a, b) => a.matchid - b.matchid);
+      setData(newData);
+      setIsLoading(false);
+      setPlayerData(newData.players.find((player) => player.playerid == name));
+    });
   }, []);
-  if (isLoading || !playerData) {
+  if (isLoading) {
     return <h1>NO DATA FOUND</h1>;
   }
 
   return (
     <>
       <Head>
-        <title>{name} | Jolly Crew</title>
+        <title>{playerData.name} | Jolly Crew</title>
       </Head>
       {/* <BottomNavigation showLabels>
         <BottomNavigationAction label="Recents" icon={<RestoreIcon />} />
@@ -52,21 +57,21 @@ const Game = () => {
         <Container maxWidth={false}>
           <Grid container spacing={3}>
             <Grid item lg={5} sm={4} md={4} xl={3} xs={12}>
-              <PlayerHeader name={name} playerData={playerData} />
+              <PlayerHeader name={playerData.name} data={data} />
             </Grid>
             <Grid item xl={4.5} lg={3.5} md={4} sm={4} xs={12}>
-              <HighestAverage playerData={playerData} />
+              <HighestAverage data={data} />
             </Grid>
-            <Grid item xl={4.5} lg={3.5} md={4} sm={4} xs={12}>
+            {/* <Grid item xl={4.5} lg={3.5} md={4} sm={4} xs={12}>
               <HighestScore playerData={playerData} />
-            </Grid>
+            </Grid> */}
             <Grid item xl={6} lg={8} sm={12} xs={12}>
-              <AverageTimeGraph playerData={playerData} />
+              <AverageTimeGraph data={data} />
             </Grid>
 
-            <Grid item xl={6} lg={4} sm={12} xs={12}>
+            {/* <Grid item xl={6} lg={4} sm={12} xs={12}>
               <BestPerformances playerData={playerData} />
-            </Grid>
+            </Grid> */}
 
             <Grid item lg={4} md={6} xl={3} xs={12}></Grid>
             <Grid item lg={8} md={12} xl={9} xs={12}></Grid>
@@ -77,6 +82,16 @@ const Game = () => {
     </>
   );
 };
-Game.getLayout = (page) => <DashboardLayout>{page}</DashboardLayout>;
+Player.getLayout = (page) => <DashboardLayout>{page}</DashboardLayout>;
+// export async function getServerSideProps() {
+//   const { matches, players, matchesPlayers } = await fetchAndCacheData();
 
-export default Game;
+//   return {
+//     props: {
+//       matches,
+//       players,
+//       matchesPlayers,
+//     },
+//   };
+// }
+export default Player;

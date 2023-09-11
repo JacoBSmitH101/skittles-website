@@ -41,31 +41,15 @@ const PlayerList = ({ allPlayers }) => {
             <TableHead sx={{backgroundColor: "#1f2a40"}}>
               <TableRow>
                 <TableCell sx={{maxWidth: "100px "}}>Name</TableCell>
-                <TableCell sx={{ display: { xs: "none", sm: "revert" } }}>
-                  Seasons Played
-                </TableCell>
                 <TableCell align="left"/>
               </TableRow>
             </TableHead>
             <TableBody>
-              {Object.keys(allPlayers).map((player) => (
-                <TableRow hover key={player} classes={{hover: classes.hover}}>
-                  <TableCell sx={{maxWidth: "1rem", borderBottom: "none"}} >{player}</TableCell>
+              {allPlayers.map((player) => (
+                <TableRow onClick={() => window.location.href = "/player?name=" + player.playerid} hover key={player.playerid} classes={{hover: classes.hover}}>
+                  <TableCell sx={{maxWidth: "1rem", borderBottom: "none"}} >{player.name}</TableCell>
                   <TableCell sx={{ display: { xs: "none", sm: "revert" }, borderBottom: "none" }}>
-                    {Object.keys(allPlayers[player].seasons)[0]} - {Object.keys(allPlayers[player].seasons).pop()}
-                  </TableCell>
-                  <TableCell sx={{ borderBottom: "none"}}>
-                    <Button
-                      color="primary"
-                      endIcon={<ArrowRightIcon />}
-                      size="small"
-                      variant="text"
-                      ref={popRef}
-                      
-                      href={`/player?name=${player}`}
-                    >
-                      View
-                    </Button>
+                    {/* {Object.keys(allPlayers[player].seasons)[0]} - {Object.keys(allPlayers[player].seasons).pop()} */}
                   </TableCell>
                 </TableRow>
               ))}

@@ -20,67 +20,72 @@ import { useState, useEffect } from "react";
 const toEvenBelow = (num) => {
   return Math.floor(num / 2) * 2;
 };
-const AverageTimeGraph = ({ playerData }) => {
+const AverageTimeGraph = ({ data }) => {
   const theme = useTheme();
   //foreach season in playerData, get .average from season
-
+  const [averages, setAverages] = useState([]);
   let averageSeasonData = [];
-  let seasonLabels = [];
+  let seasonLabels = [1, 2, 3, 4, 5, 6, 7];
   let highestScoreperSeason = [];
   let wholeAverage = 0;
   let averageCareer = [];
-  Object.keys(playerData.seasons).forEach((season) => {
-    if (playerData.seasons[season].gamesPlayed != 0) {
-      if (playerData.seasons[season].average) {
-        //FIXME:
-        averageSeasonData.push(playerData.seasons[season].average);
+  useEffect(() => {
+    //foreach season, first 4 digits of matchid, add up all scores and divide by number of games
+    //then compare to highest average
+    //if higher, set highest average to that average and set highest average season to that season
+    var Averages = {};
+    data.matchesPlayers.forEach((match) => {
+      var season = String(match.matchid).slice(0, 4);
+      if (Averages[season]) {
+        Averages[season].totalScore += match.score;
+        Averages[season].gamesPlayed += 1;
+        Averages[season].average = Averages[season].totalScore / Averages[season].gamesPlayed;
+      } else {
+        Averages[season] = {
+          totalScore: match.score,
+          gamesPlayed: 1,
+          average: match.score,
+        };
       }
-      seasonLabels.push(season);
-      //get highest score
-      let highestScore = 0;
-      for (let i = 1; i < 50; i++) {
-        if (playerData.seasons[season].games[`Game${i}`]) {
-          if (
-            playerData.seasons[season].games[`Game${i}`].total > highestScore &&
-            playerData.seasons[season].games[`Game${i}`].didPlay
-          ) {
-            highestScore = playerData.seasons[season].games[`Game${i}`].total;
-          }
-        }
-      }
-      highestScoreperSeason.push(highestScore);
-    }
-  });
+    });
+    console.log(Averages)
+    var newaverages = [];
+    Object.values(Averages).forEach((season) => {
+      newaverages.push(season.average);
+    });
+    setAverages(newaverages);
+  }, [data]);
+
   wholeAverage = averageSeasonData.reduce((a, b) => a + b, 0) / averageSeasonData.length;
   for (let i = 0; i < averageSeasonData.length; i++) {
     averageCareer[i] = wholeAverage;
   }
-  const data = {
+  const datatable = {
     labels: seasonLabels,
     datasets: [
       {
         label: "Average per season",
-        data: averageSeasonData,
+        data: averages,
         backgroundColor: "rgba(255, 99, 132, 0.5)",
         borderColor: "rgb(255, 99, 132)",
         borderThickness: 5,
 
         borderWidth: 1,
       },
-      {
-        label: "Highest Score in season",
-        data: highestScoreperSeason,
-        backgroundColor: "rgba(54, 162, 235, 0.5)",
-        borderColor: "rgb(54, 162, 235)",
-        borderThickness: 10,
-      },
-      {
-        label: "Career Average",
-        data: averageCareer,
-        backgroundColor: "rgba(255, 206, 86, 0.5)",
-        borderColor: "rgb(255, 206, 86)",
-        borderThickness: 5,
-      },
+      // {
+      //   label: "Highest Score in season",
+      //   data: highestScoreperSeason,
+      //   backgroundColor: "rgba(54, 162, 235, 0.5)",
+      //   borderColor: "rgb(54, 162, 235)",
+      //   borderThickness: 10,
+      // },
+      // {
+      //   label: "Career Average",
+      //   data: averageCareer,
+      //   backgroundColor: "rgba(255, 206, 86, 0.5)",
+      //   borderColor: "rgb(255, 206, 86)",
+      //   borderThickness: 5,
+      // },
     ],
   };
 
@@ -97,8 +102,8 @@ const AverageTimeGraph = ({ playerData }) => {
     },
     scales: {
       y: {
-        min: toEvenBelow(Math.floor(Math.min(...data.datasets[0].data)) - 4),
-        max: Math.floor(Math.max(...data.datasets[1].data)) + 5,
+        min: 20,
+        max: 60,
       },
       x: {},
     },
@@ -116,7 +121,7 @@ const AverageTimeGraph = ({ playerData }) => {
               height: "405px",
             }}
           >
-            <Line data={data} options={options} />
+            <Line data={datatable} options={options} />
           </Box>
         </CardContent>
       </Card>

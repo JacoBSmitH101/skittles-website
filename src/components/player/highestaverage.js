@@ -6,23 +6,45 @@ import ScoreboardIcon from "@mui/icons-material/Scoreboard";
 import { useState, useEffect } from "react";
 import LeaderboardIcon from "@mui/icons-material/Leaderboard";
 import TimelineIcon from "@mui/icons-material/Timeline";
-function HighestAverage({ playerData }) {
+function HighestAverage({ data }) {
   const [highestAverage, setHighestAverage] = useState(0);
   const [isLoading, setLoading] = useState(true);
   const [highestAverageSeason, setHighestAverageSeason] = useState(0);
   useEffect(() => {
+    var highestaverages = {};
+    //foreach season, first 4 digits of matchid, add up all scores and divide by number of games
+    //then compare to highest average
+    //if higher, set highest average to that average and set highest average season to that season
+    console.log(data.matchesPlayers)
+    data.matchesPlayers.forEach((match) => {
+      var season = String(match.matchid).slice(0, 4);
+      if (highestaverages[season]) {
+        highestaverages[season].totalScore += match.score;
+        highestaverages[season].gamesPlayed += 1;
+        highestaverages[season].average =
+          highestaverages[season].totalScore / highestaverages[season].gamesPlayed;
+      } else {
+        highestaverages[season] = {
+          totalScore: match.score,
+          gamesPlayed: 1,
+          average: match.score,
+        };
+      }
+    });
     var highestAverage = 0;
     var highestAverageSeason = 0;
-    Object.keys(playerData.seasons).forEach((season) => {
-      if (playerData.seasons[season].average > highestAverage) {
-        highestAverage = playerData.seasons[season].average;
+    Object.keys(highestaverages).forEach((season) => {
+      if (highestaverages[season].average > highestAverage) { 
+        highestAverage = highestaverages[season].average;
         highestAverageSeason = season;
       }
     });
+    
+
     setHighestAverage(highestAverage);
     setHighestAverageSeason(highestAverageSeason.toString());
     setLoading(false);
-  }, [playerData]);
+  }, [data]);
 
   if (isLoading) {
     return (

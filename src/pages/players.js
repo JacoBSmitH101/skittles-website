@@ -7,9 +7,12 @@ import { customers } from "../__mocks__/customers";
 import { useEffect, useState } from "react";
 import { auth } from "../lib/auth";
 import UserNotAuth from "../components/user-not-auth";
-const Players = () => {
-  const [allPlayers, setAllPlayers] = useState(null);
-  const [isLoading, setLoading] = useState(true);
+import DevelopmentDialog from "../components/development-dialog";
+import { fetchPlayers } from "../utils/data";
+
+const Players = ({players}) => {
+  const [allPlayers, setAllPlayers] = useState(players);
+  const [isLoading, setLoading] = useState(false);
   const [filteredPlayers, setFilteredPlayers] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -17,16 +20,16 @@ const Players = () => {
     setSearchTerm(event.target.value);
   };
   const [isAuthenticated, setAuthenticated] = useState(true);
-  useEffect(() => {
-    setLoading(true);
-    fetch("https://skittles-server.herokuapp.com/players")
-      .then((res) => res.json())
-      .then((data) => {
-        setAllPlayers(data);
-        setFilteredPlayers(data);
-        setLoading(false);
-      });
-  }, []);
+  // useEffect(() => {
+  //   setLoading(true);
+  //   fetch("https://skittles-server.herokuapp.com/players")
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       setAllPlayers(data);
+  //       setFilteredPlayers(data);
+  //       setLoading(false);
+  //     });
+  // }, []);
   useEffect(() => {
     if (allPlayers && searchTerm != "") {
       let filteredObject = {};
@@ -40,9 +43,6 @@ const Players = () => {
       setFilteredPlayers(allPlayers);
     }
   }, [searchTerm]);
-  if (!isAuthenticated) {
-    return <UserNotAuth />;
-  }
   if (isLoading)
     return (
       <Card>
@@ -55,11 +55,14 @@ const Players = () => {
         <p>No profile data</p>
       </Card>
     );
+    console.log(allPlayers);
   return (
     <>
       <Head>
         <title>Players | Jolly Crew</title>
       </Head>
+      <DevelopmentDialog page="Players" />
+
       <Box
         component="main"
         sx={{
@@ -71,7 +74,7 @@ const Players = () => {
           <PlayerListToolbar textChangeHandler={textChangeHandler} searchTerm={searchTerm} />
 
           <Box sx={{ mt: 3 }}>
-            <PlayerList allPlayers={filteredPlayers} />
+            <PlayerList allPlayers={allPlayers} />
           </Box>
         </Container>
       </Box>
@@ -80,5 +83,15 @@ const Players = () => {
 };
 
 Players.getLayout = (page) => <DashboardLayout>{page}</DashboardLayout>;
+export async function getServerSideProps() {
+  const players = await fetchPlayers();
 
+  return {
+    props: {
+      players,
+    },
+  };
+}
 export default Players;
+
+
