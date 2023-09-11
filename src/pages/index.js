@@ -11,6 +11,7 @@ import TopScores from "../components/dashboard/top-scores";
 import TopAverages from "../components/dashboard/top-alltime-average";
 import { useEffect, useState } from "react";
 import LoadingDialog from "../components/loading-dialog";
+/*eslint max-statements-per-line: ["error", { "max": 20 }]*/
 const Page = ({ matches, matchesPlayers, players }) => {
   const [data, setData] = useState({ matches: [], players: [], matchesPlayers: [] });
   const [loading, setLoading] = useState(true);
